@@ -17,7 +17,7 @@
     "bugs": {
         "url": "https://github.com/fgo-planner/npm-lib-data/issues"
     },
-    "homepage": "https://github.com/fgo-planner/npm-lib-data/tree/master/types#readme",
+    "homepage": "https://github.com/fgo-planner/npm-lib-data/tree/master/data-types#readme",
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
     },

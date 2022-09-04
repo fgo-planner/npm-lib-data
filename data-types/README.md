@@ -1,2 +1,2 @@
 # data-types
-TypeScript type definitions for database entities.
+General purpose type definitions of database entities. For use by services/clients that do not have direct database access.
