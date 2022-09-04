@@ -1,6 +1,6 @@
 {
     "name": "@fgo-planner/data-types",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "scripts": {
         "clean": "rimraf lib",
         "build-ts": "npm run clean && tsc --strict",
@@ -21,7 +21,7 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
     },
-    "main": "",
+    "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "sideEffects": false,
     "dependencies": {},
