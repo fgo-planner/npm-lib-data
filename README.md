@@ -4,6 +4,7 @@ Contains Mongo (Mongoose) schemas and models, and the corresponding type definit
 ## Requirements
 
 ### Target JS Versions
+* data-constants: ES6
 * data-mongo: ES2022
 * data-types: ES6
 
