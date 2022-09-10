@@ -1,7 +1,7 @@
-import { GameServantConstants } from '@fgo-planner/data-constants';
+import { GameServant_1100900, GameServant_2013000, GameServant_504400 } from '@fgo-planner/data-test-resources';
 import { MasterServant } from '@fgo-planner/data-types';
-import * as MasterServantUtils from '../../src/master/master-servant.utils';
-import { Rarity1TestServant, Rarity2TestServant, Rarity5TestServant } from '../resources/game-servant-test-data';
+import { GameServantConstants } from '../../../src/constants';
+import { MasterServantUtils } from '../../../src/utils';
 
 describe('MasterServantUtils.instantiate', () => {
 
@@ -319,7 +319,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 0 and a level greater than 50', () => {
             const level = 51;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -327,7 +327,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 4 and a level greater than 50', () => {
             const level = 51;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -335,7 +335,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 4 and a level of 50', () => {
             const level = 50;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -343,7 +343,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level of 50', () => {
             const level = 50;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -351,7 +351,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 0 and a level between 40 and 50', () => {
             const level = 45;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -359,7 +359,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level between 40 and 50', () => {
             const level = 45;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -367,7 +367,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 4 and a level between 40 and 50', () => {
             const level = 45;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -375,7 +375,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level of 40', () => {
             const level = 40;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -383,7 +383,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level of 40', () => {
             const level = 40;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -391,7 +391,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 0 and a level between 30 and 40', () => {
             const level = 35;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -399,7 +399,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level between 30 and 40', () => {
             const level = 35;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -407,7 +407,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 4 and a level between 30 and 40', () => {
             const level = 35;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -415,7 +415,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level of 30', () => {
             const level = 30;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -423,7 +423,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level of 30', () => {
             const level = 30;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -431,7 +431,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 0 and a level between 20 and 30', () => {
             const level = 25;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -439,7 +439,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level between 20 and 30', () => {
             const level = 25;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -447,7 +447,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 4 and a level between 20 and 30', () => {
             const level = 25;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -455,7 +455,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level of 20', () => {
             const level = 20;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -463,7 +463,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 0 and a level of 20', () => {
             const level = 20;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -471,7 +471,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 0 and a level less than 20', () => {
             const level = 19;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -479,7 +479,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 4 and a level less than 20', () => {
             const level = 19;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -491,7 +491,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 0 and a level greater than 55', () => {
             const level = 56;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -499,7 +499,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 4 and a level greater than 55', () => {
             const level = 56;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -507,7 +507,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 4 and a level of 55', () => {
             const level = 55;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -515,7 +515,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level of 55', () => {
             const level = 55;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -523,7 +523,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 0 and a level between 45 and 55', () => {
             const level = 50;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -531,7 +531,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level between 45 and 55', () => {
             const level = 50;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -539,7 +539,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 4 and a level between 45 and 55', () => {
             const level = 50;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -547,7 +547,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level of 45', () => {
             const level = 45;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -555,7 +555,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level of 45', () => {
             const level = 45;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -563,7 +563,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 0 and a level between 35 and 45', () => {
             const level = 40;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -571,7 +571,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level between 35 and 45', () => {
             const level = 40;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -579,7 +579,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 4 and a level between 35 and 45', () => {
             const level = 40;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -587,7 +587,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level of 35', () => {
             const level = 35;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -595,7 +595,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level of 35', () => {
             const level = 35;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -603,7 +603,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 0 and a level between 25 and 35', () => {
             const level = 30;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -611,7 +611,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level between 25 and 35', () => {
             const level = 30;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -619,7 +619,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 4 and a level between 25 and 35', () => {
             const level = 30;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -627,7 +627,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level of 25', () => {
             const level = 25;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -635,7 +635,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 0 and a level of 25', () => {
             const level = 25;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -643,7 +643,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 0 and a level less than 25', () => {
             const level = 24;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -651,7 +651,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 4 and a level less than 25', () => {
             const level = 24;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -663,7 +663,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 0 and a level greater than 80', () => {
             const level = 81;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -671,7 +671,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 4 and a level greater than 80', () => {
             const level = 81;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -679,7 +679,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 4 for an input value of 4 and a level of 80', () => {
             const level = 80;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(4);
         });
@@ -687,7 +687,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level of 80', () => {
             const level = 80;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -695,7 +695,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 0 and a level between 70 and 80', () => {
             const level = 75;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -703,7 +703,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level between 70 and 80', () => {
             const level = 75;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -711,7 +711,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 4 and a level between 70 and 80', () => {
             const level = 75;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -719,7 +719,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 3 for an input value of 3 and a level of 70', () => {
             const level = 70;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(3);
         });
@@ -727,7 +727,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level of 70', () => {
             const level = 70;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -735,7 +735,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 0 and a level between 60 and 70', () => {
             const level = 69;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -743,7 +743,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level between 60 and 70', () => {
             const level = 69;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -751,7 +751,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 4 and a level between 60 and 70', () => {
             const level = 69;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -759,7 +759,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 2 for an input value of 2 and a level of 60', () => {
             const level = 60;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(2);
         });
@@ -767,7 +767,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level of 60', () => {
             const level = 60;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -775,7 +775,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 0 and a level between 50 and 60', () => {
             const level = 55;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -783,7 +783,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level between 50 and 60', () => {
             const level = 55;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -791,7 +791,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 4 and a level between 50 and 60', () => {
             const level = 55;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -799,7 +799,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 1 for an input value of 1 and a level of 50', () => {
             const level = 50;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -807,7 +807,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 0 and a level of 50', () => {
             const level = 50;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -815,7 +815,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 0 and a level less than 50', () => {
             const level = 49;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -823,7 +823,7 @@ describe('MasterServantUtils.roundToNearestValidAscensionLevel', () => {
         it('should return 0 for an input value of 4 and a level less than 50', () => {
             const level = 49;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidAscensionLevel(level, ascension, testGameServant);
             expect(result).toStrictEqual(0);
         });
@@ -839,7 +839,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 60 for an input value of 60 and ascension 4', () => {
             const level = 60;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(60);
         });
@@ -847,7 +847,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 50 and ascension 4', () => {
             const level = 50;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -855,7 +855,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 1 and ascension 4', () => {
             const level = 1;
             const ascension = 4;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -863,7 +863,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 60 and ascension 3', () => {
             const level = 60;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -871,7 +871,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 50 and ascension 3', () => {
             const level = 50;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -879,7 +879,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 45 for an input value of 45 (between 40 and 50) and ascension 3', () => {
             const level = 45;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(45);
         });
@@ -887,7 +887,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 40 for an input value of 40 and ascension 3', () => {
             const level = 40;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(40);
         });
@@ -895,7 +895,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 40 for an input value of 1 and ascension 3', () => {
             const level = 1;
             const ascension = 3;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(40);
         });
@@ -903,7 +903,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 40 for an input value of 60 and ascension 2', () => {
             const level = 60;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(40);
         });
@@ -911,7 +911,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 40 for an input value of 40 and ascension 2', () => {
             const level = 40;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(40);
         });
@@ -919,7 +919,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 35 for an input value of 35 (between 30 and 40) and ascension 2', () => {
             const level = 35;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(35);
         });
@@ -927,7 +927,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 30 for an input value of 30 and ascension 2', () => {
             const level = 30;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(30);
         });
@@ -935,7 +935,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 30 for an input value of 1 and ascension 2', () => {
             const level = 1;
             const ascension = 2;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(30);
         });
@@ -943,7 +943,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 30 for an input value of 60 and ascension 1', () => {
             const level = 60;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(30);
         });
@@ -951,7 +951,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 30 for an input value of 30 and ascension 1', () => {
             const level = 30;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(30);
         });
@@ -959,7 +959,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 25 for an input value of 25 (between 20 and 30) and ascension 1', () => {
             const level = 25;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(25);
         });
@@ -967,7 +967,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 20 for an input value of 20 and ascension 1', () => {
             const level = 20;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(20);
         });
@@ -975,7 +975,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 20 for an input value of 1 and ascension 1', () => {
             const level = 1;
             const ascension = 1;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(20);
         });
@@ -983,7 +983,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 20 for an input value of 60 and ascension 0', () => {
             const level = 60;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(20);
         });
@@ -991,7 +991,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 20 for an input value of 20 and ascension 0', () => {
             const level = 20;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(20);
         });
@@ -999,7 +999,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 1 for an input value of 1 and ascension 0', () => {
             const level = 1;
             const ascension = 0;
-            const testGameServant = Rarity1TestServant;
+            const testGameServant = GameServant_2013000;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -1011,7 +1011,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 65 for an input value of 65 and ascension 4', () => {
             const level = 65;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(65);
         });
@@ -1019,7 +1019,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 55 for an input value of 55 and ascension 4', () => {
             const level = 55;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(55);
         });
@@ -1027,7 +1027,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 55 for an input value of 1 and ascension 4', () => {
             const level = 1;
             const ascension = 4;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(55);
         });
@@ -1035,7 +1035,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 55 for an input value of 65 and ascension 3', () => {
             const level = 65;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(55);
         });
@@ -1043,7 +1043,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 55 for an input value of 55 and ascension 3', () => {
             const level = 55;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(55);
         });
@@ -1051,7 +1051,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 50 (between 45 and 55) and ascension 3', () => {
             const level = 50;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -1059,7 +1059,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 45 for an input value of 45 and ascension 3', () => {
             const level = 45;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(45);
         });
@@ -1067,7 +1067,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 45 for an input value of 1 and ascension 3', () => {
             const level = 1;
             const ascension = 3;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(45);
         });
@@ -1075,7 +1075,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 45 for an input value of 65 and ascension 2', () => {
             const level = 65;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(45);
         });
@@ -1083,7 +1083,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 45 for an input value of 45 and ascension 2', () => {
             const level = 45;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(45);
         });
@@ -1091,7 +1091,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 40 for an input value of 40 (between 35 and 45) and ascension 2', () => {
             const level = 40;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(40);
         });
@@ -1099,7 +1099,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 35 for an input value of 35 and ascension 2', () => {
             const level = 35;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(35);
         });
@@ -1107,7 +1107,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 35 for an input value of 1 and ascension 2', () => {
             const level = 1;
             const ascension = 2;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(35);
         });
@@ -1115,7 +1115,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 35 for an input value of 65 and ascension 1', () => {
             const level = 65;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(35);
         });
@@ -1123,7 +1123,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 35 for an input value of 35 and ascension 1', () => {
             const level = 35;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(35);
         });
@@ -1131,7 +1131,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 30 for an input value of 30 (between 25 and 35) and ascension 1', () => {
             const level = 30;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(30);
         });
@@ -1139,7 +1139,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 25 for an input value of 25 and ascension 1', () => {
             const level = 25;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(25);
         });
@@ -1147,7 +1147,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 25 for an input value of 1 and ascension 1', () => {
             const level = 1;
             const ascension = 1;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(25);
         });
@@ -1155,7 +1155,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 25 for an input value of 65 and ascension 0', () => {
             const level = 65;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(25);
         });
@@ -1163,7 +1163,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 25 for an input value of 25 and ascension 0', () => {
             const level = 25;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(25);
         });
@@ -1171,7 +1171,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 1 for an input value of 1 and ascension 0', () => {
             const level = 1;
             const ascension = 0;
-            const testGameServant = Rarity2TestServant;
+            const testGameServant = GameServant_504400;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(1);
         });
@@ -1183,7 +1183,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 90 for an input value of 90 and ascension 4', () => {
             const level = 90;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(90);
         });
@@ -1191,7 +1191,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 80 for an input value of 80 and ascension 4', () => {
             const level = 80;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(80);
         });
@@ -1199,7 +1199,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 80 for an input value of 1 and ascension 4', () => {
             const level = 1;
             const ascension = 4;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(80);
         });
@@ -1207,7 +1207,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 80 for an input value of 90 and ascension 3', () => {
             const level = 90;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(80);
         });
@@ -1215,7 +1215,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 80 for an input value of 80 and ascension 3', () => {
             const level = 80;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(80);
         });
@@ -1223,7 +1223,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 75 for an input value of 75 (between 70 and 80) and ascension 3', () => {
             const level = 75;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(75);
         });
@@ -1231,7 +1231,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 70 for an input value of 70 and ascension 3', () => {
             const level = 70;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(70);
         });
@@ -1239,7 +1239,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 70 for an input value of 1 and ascension 3', () => {
             const level = 1;
             const ascension = 3;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(70);
         });
@@ -1247,7 +1247,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 70 for an input value of 90 and ascension 2', () => {
             const level = 90;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(70);
         });
@@ -1255,7 +1255,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 70 for an input value of 70 and ascension 2', () => {
             const level = 70;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(70);
         });
@@ -1263,7 +1263,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 65 for an input value of 65 (between 60 and 70) and ascension 2', () => {
             const level = 65;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(65);
         });
@@ -1271,7 +1271,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 60 for an input value of 60 and ascension 2', () => {
             const level = 60;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(60);
         });
@@ -1279,7 +1279,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 60 for an input value of 1 and ascension 2', () => {
             const level = 1;
             const ascension = 2;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(60);
         });
@@ -1287,7 +1287,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 60 for an input value of 90 and ascension 1', () => {
             const level = 90;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(60);
         });
@@ -1295,7 +1295,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 60 for an input value of 60 and ascension 1', () => {
             const level = 60;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(60);
         });
@@ -1303,7 +1303,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 55 for an input value of 55 (between 50 and 60) and ascension 1', () => {
             const level = 55;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(55);
         });
@@ -1311,7 +1311,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 50 and ascension 1', () => {
             const level = 50;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -1319,7 +1319,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 1 and ascension 1', () => {
             const level = 1;
             const ascension = 1;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -1327,7 +1327,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 90 and ascension 0', () => {
             const level = 90;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -1335,7 +1335,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 50 for an input value of 50 and ascension 0', () => {
             const level = 50;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(50);
         });
@@ -1343,7 +1343,7 @@ describe('MasterServantUtils.roundToNearestValidLevel', () => {
         it('should return 1 for an input value of 1 and ascension 0', () => {
             const level = 1;
             const ascension = 0;
-            const testGameServant = Rarity5TestServant;
+            const testGameServant = GameServant_1100900;
             const result = MasterServantUtils.roundToNearestValidLevel(ascension, level, testGameServant);
             expect(result).toStrictEqual(1);
         });

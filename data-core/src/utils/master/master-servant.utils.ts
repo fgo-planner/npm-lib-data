@@ -1,7 +1,7 @@
 import { Immutable, ImmutableArray } from '@fgo-planner/common-types';
 import { DateTimeUtils } from '@fgo-planner/common-utils';
-import { GameServantConstants } from '@fgo-planner/data-constants';
 import { GameServant, MasterServant, MasterServantAscensionLevel } from '@fgo-planner/data-types';
+import { GameServantConstants } from '../../constants';
 
 /**
  * Instantiates a default `MasterServant` object.
