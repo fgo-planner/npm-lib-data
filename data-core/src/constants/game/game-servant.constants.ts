@@ -1,4 +1,4 @@
-import { ReadonlyRecord } from '@fgo-planner/common-types';
+import { ReadonlyRecord } from '@fgo-planner/common-core';
 import { GameServantClass, GameServantRarity, MasterServantAscensionLevel, MasterServantBondLevel, MasterServantNoblePhantasmLevel, MasterServantSkillLevel } from '@fgo-planner/data-types';
 
 export const ClassDisplayNameMap = {

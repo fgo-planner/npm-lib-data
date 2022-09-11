@@ -32,7 +32,6 @@
         "build": "npm-run-all -l lint -p clean -p build:esm build:cjs declarations",
         "prepublishOnly": "npm i && npm run build"
     },
-    "dependencies": {},
     "devDependencies": {
         "@babel/cli": "^7.18.10",
         "@babel/core": "^7.18.13",
