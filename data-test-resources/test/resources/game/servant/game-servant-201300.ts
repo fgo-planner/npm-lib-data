@@ -4,7 +4,7 @@ import { GameServant, GameServantAttribute, GameServantCardType, GameServantClas
 /**
  * Arash (1* Archer)
  */
-export const GameServant_2013000: Immutable<GameServant> = {
+export const GameServant_201300: Immutable<GameServant> = {
     _id: 201300,
     collectionNo: 16,
     name: 'Arash',
