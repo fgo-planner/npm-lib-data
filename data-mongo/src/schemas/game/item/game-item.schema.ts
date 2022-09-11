@@ -1,5 +1,5 @@
+import { GameItem, GameItemBackground, GameItemUsage } from '@fgo-planner/data-core';
 import { SchemaDefinition } from 'mongoose';
-import { GameItem, GameItemBackground, GameItemUsage } from '../../../types';
 import { ValidationStrings } from '../../../validators';
 
 /**

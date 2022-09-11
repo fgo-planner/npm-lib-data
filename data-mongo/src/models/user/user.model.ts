@@ -1,7 +1,8 @@
+import { UserPreferences } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import mongoose, { Document, Model, Query, Schema } from 'mongoose';
 import { UserSchemaDefinition } from '../../schemas';
-import { BasicUser, User, UserPreferences } from '../../types';
+import { BasicUser, User } from '../../types';
 
 export type UserDocument = User & Document<ObjectId, any, User>;
 export type BasicUserDocument = BasicUser & Document<ObjectId, any, BasicUser>;

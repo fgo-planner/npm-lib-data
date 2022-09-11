@@ -1,6 +1,6 @@
+import { GameSoundtrack } from '@fgo-planner/data-core';
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import { GameSoundtrackSchemaDefinition } from '../../../schemas';
-import { GameSoundtrack } from '../../../types';
 
 export type GameSoundtrackDocument = GameSoundtrack & Document<number, any, GameSoundtrack>;
 

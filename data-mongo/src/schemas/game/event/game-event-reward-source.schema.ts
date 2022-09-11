@@ -1,5 +1,5 @@
+import { GameEventRewardSource, GameEventRewardSourceType } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
-import { GameEventRewardSource, GameEventRewardSourceType } from '../../../types';
 import { CommonValidators, ValidationStrings } from '../../../validators';
 import { GameItemQuantitySchema } from '../item/game-item-quantity.schema';
 

@@ -1,6 +1,6 @@
+import { GameItem, GameItemUsage } from '@fgo-planner/data-core';
 import mongoose, { Document, Model, Query, Schema } from 'mongoose';
 import { GameItemSchemaDefinition } from '../../../schemas';
-import { GameItem, GameItemUsage } from '../../../types';
 
 export type GameItemDocument = GameItem & Document<number, any, GameItem>;
 

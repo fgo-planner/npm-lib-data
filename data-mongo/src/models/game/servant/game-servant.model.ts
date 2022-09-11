@@ -1,6 +1,6 @@
+import { GameServant, GameServantClass } from '@fgo-planner/data-core';
 import mongoose, { Document, Model, Query, Schema } from 'mongoose';
 import { GameServantSchemaDefinition } from '../../../schemas';
-import { GameServant, GameServantClass } from '../../../types';
 
 export type GameServantDocument = GameServant & Document<number, any, GameServant>;
 
