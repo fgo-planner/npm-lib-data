@@ -1,10 +1,9 @@
-import { Immutable } from '@fgo-planner/common-types';
-import { MasterServant } from '@fgo-planner/data-types';
+import { ImmutableMasterServant } from '@fgo-planner/data-types';
 
 /**
  * Arash (1* Archer)
  */
-export const MasterServant_201300: Immutable<MasterServant> = {
+export const MasterServant_201300: ImmutableMasterServant = {
     instanceId: 1,
     gameId: 201300,
     summoned: true,

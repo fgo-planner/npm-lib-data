@@ -1,21 +1,22 @@
-const commonPresets = ['@babel/typescript'];
-const common = {
-    presets: commonPresets
-};
-
 module.exports = {
     env: {
         esmUnbundled: {
-            ...common
+            presets: [
+                '@babel/preset-typescript'
+            ]
         },
         cjs: {
-            ...common,
             presets: [
                 [
-                    '@babel/env',
-                    { modules: 'commonjs' }
+                    '@babel/preset-env',
+                    {
+                        targets: {
+                            node: '16.10'
+                        },
+                        modules: 'commonjs'
+                    }
                 ],
-                ...commonPresets
+                '@babel/preset-typescript'
             ],
         }
     }

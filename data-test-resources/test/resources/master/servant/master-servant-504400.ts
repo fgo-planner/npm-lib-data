@@ -1,10 +1,9 @@
-import { Immutable } from '@fgo-planner/common-types';
-import { MasterServant } from '@fgo-planner/data-types';
+import { ImmutableMasterServant } from '@fgo-planner/data-types';
 
 /**
  * Chen Gong (2* Caster)
  */
-export const MasterServant_504400: Immutable<MasterServant> = {
+export const MasterServant_504400: ImmutableMasterServant = {
     instanceId: 1,
     gameId: 504400,
     summoned: true,

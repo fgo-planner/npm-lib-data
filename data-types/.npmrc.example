@@ -2,3 +2,6 @@
 
 # Replace TOKEN with your personal access token to install/publish GitHub packages.
 //npm.pkg.github.com/:_authToken=TOKEN
+
+# Do not change this line.
+@fgo-planner:registry=https://npm.pkg.github.com
