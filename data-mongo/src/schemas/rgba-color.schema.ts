@@ -1,4 +1,4 @@
-import { RgbaColor } from '@fgo-planner/data-types';
+import { RgbaColor } from '@fgo-planner/data-core';
 import { Schema, SchemaDefinitionProperty } from 'mongoose';
 import { ValidationStrings } from '../validators';
 

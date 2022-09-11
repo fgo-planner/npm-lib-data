@@ -1,4 +1,4 @@
-import { GameServantMetadata } from '@fgo-planner/data-types';
+import { GameServantMetadata } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ExternalLinkSchema } from '../../external-link.schema';
 

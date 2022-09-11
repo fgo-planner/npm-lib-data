@@ -1,4 +1,4 @@
-import { GameSoundtrack } from '@fgo-planner/data-types';
+import { GameSoundtrack } from '@fgo-planner/data-core';
 import { SchemaDefinition } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
 import { GameItemQuantitySchema } from '../item/game-item-quantity.schema';

@@ -1,4 +1,4 @@
-import { GameServantCardType, GameServantNoblePhantasm, GameServantNoblePhantasmTarget } from '@fgo-planner/data-types';
+import { GameServantCardType, GameServantNoblePhantasm, GameServantNoblePhantasmTarget } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 
 /**

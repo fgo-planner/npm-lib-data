@@ -1,4 +1,4 @@
-import { GameEmberQuantities } from '@fgo-planner/data-types';
+import { GameEmberQuantities } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { CommonValidators, ValidationStrings } from '../../../validators';
 

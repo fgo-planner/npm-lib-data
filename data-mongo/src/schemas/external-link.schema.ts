@@ -1,4 +1,4 @@
-import { ExternalLink } from '@fgo-planner/data-types';
+import { ExternalLink } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 
 /**

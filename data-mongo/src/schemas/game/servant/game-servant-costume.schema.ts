@@ -1,4 +1,4 @@
-import { GameServantCostume } from '@fgo-planner/data-types';
+import { GameServantCostume } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
 import { GameServantEnhancementSchema } from './game-servant-enhancement.schema';

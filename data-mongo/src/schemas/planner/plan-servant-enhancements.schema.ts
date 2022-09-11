@@ -1,4 +1,4 @@
-import { PlanServantEnhancements } from '@fgo-planner/data-types';
+import { PlanServantEnhancements } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
 

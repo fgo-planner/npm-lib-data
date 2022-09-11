@@ -1,4 +1,4 @@
-import { GameServantEnhancement } from '@fgo-planner/data-types';
+import { GameServantEnhancement } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
 import { GameItemQuantitySchema } from '../item/game-item-quantity.schema';

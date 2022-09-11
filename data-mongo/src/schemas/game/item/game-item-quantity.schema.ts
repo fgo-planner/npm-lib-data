@@ -1,4 +1,4 @@
-import { GameItemQuantity } from '@fgo-planner/data-types';
+import { GameItemQuantity } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
 

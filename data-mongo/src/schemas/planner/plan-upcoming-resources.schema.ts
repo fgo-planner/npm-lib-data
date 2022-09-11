@@ -1,4 +1,4 @@
-import { PlanUpcomingResources } from '@fgo-planner/data-types';
+import { PlanUpcomingResources } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../validators';
 import { GameEmberQuantitiesSchema } from '../game/ember/game-ember-quantities.schema';

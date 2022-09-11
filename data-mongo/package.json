@@ -1,6 +1,6 @@
 {
     "name": "@fgo-planner/data-mongo",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "scripts": {
         "clean": "rimraf lib",
         "build-ts": "npm run clean && tsc --strict",

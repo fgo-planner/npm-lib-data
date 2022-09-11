@@ -1,4 +1,4 @@
-import { PlanServant } from '@fgo-planner/data-types';
+import { PlanServant } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../validators';
 import { PlanServantEnhancementsSchema } from './plan-servant-enhancements.schema';
