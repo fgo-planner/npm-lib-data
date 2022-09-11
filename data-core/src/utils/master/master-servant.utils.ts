@@ -4,9 +4,9 @@ import { GameServant, MasterServant, MasterServantAscensionLevel } from '@fgo-pl
 import { GameServantConstants } from '../../constants';
 
 /**
- * Instantiates a default `MasterServant` object.
+ * Creates a `MasterServant` instance with default values.
  */
-export function instantiate(instanceId = 0): MasterServant {
+export function create(instanceId = 0): MasterServant {
     return {
         instanceId,
         gameId: GameServantConstants.DefaultServantId,
