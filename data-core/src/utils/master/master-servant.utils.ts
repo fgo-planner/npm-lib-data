@@ -1,6 +1,6 @@
 import { DateTimeUtils } from '@fgo-planner/common-core';
-import { Immutable, ImmutableArray } from '@fgo-planner/common-types';
-import { GameServant, MasterServant, MasterServantAscensionLevel } from '@fgo-planner/data-types';
+import { Immutable } from '@fgo-planner/common-types';
+import { GameServant, ImmutableMasterServant, MasterServant, MasterServantAscensionLevel } from '@fgo-planner/data-types';
 import { MasterServantConstants } from '../../constants';
 
 /**
@@ -24,7 +24,7 @@ export function create(instanceId = 0): MasterServant {
 /**
  * Returns a deep clone of the given `MasterServant` object.
  */
-export function clone(masterServant: Immutable<MasterServant>): MasterServant {
+export function clone(masterServant: ImmutableMasterServant): MasterServant {
     const summonDate = DateTimeUtils.cloneDate(masterServant.summonDate);
     return {
         ...masterServant,
@@ -38,14 +38,14 @@ export function clone(masterServant: Immutable<MasterServant>): MasterServant {
     };
 }
 
-export function getInstanceId(masterServant: Immutable<MasterServant>): number {
+export function getInstanceId(masterServant: ImmutableMasterServant): number {
     return masterServant.instanceId;
 }
 
 /**
  * Finds the largest `instanceId` in the given `MasterServant` array.
  */
-export function getLastInstanceId(masterServants: ImmutableArray<MasterServant>): number {
+export function getLastInstanceId(masterServants: ReadonlyArray<ImmutableMasterServant>): number {
     if (!masterServants.length) {
         return 0;
     }
@@ -155,7 +155,7 @@ export function roundToNearestValidLevel(
  * that their `instanceId` and `gameId` fields are already equal; this method
  * will ignore both fields in the comparison.
  */
-export function isEqual(a: Immutable<MasterServant>, b: Immutable<MasterServant>): boolean {
+export function isEqual(a: ImmutableMasterServant, b: ImmutableMasterServant): boolean {
     return a.summoned === b.summoned &&
         (a.summonDate as Date)?.getTime() === (b.summonDate as Date)?.getTime() &&
         a.np === b.np &&

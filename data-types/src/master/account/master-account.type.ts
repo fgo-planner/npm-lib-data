@@ -27,14 +27,14 @@ export type MasterAccount<ID = string> = EntityWithTimestamps<ID> & {
 
     };
 
-    servants: MasterServant[];
+    servants: Array<MasterServant>;
     
     lastServantInstanceId: number;
 
-    costumes: number[];
+    costumes: Array<number>;
     
     bondLevels: Record<number, MasterServantBondLevel>;
     
-    soundtracks: number[];
+    soundtracks: Array<number>;
 
 };

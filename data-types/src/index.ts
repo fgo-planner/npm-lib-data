@@ -27,6 +27,7 @@ export * from './game/servant/game-servant-rarity.type';
 export * from './game/servant/game-servant-skill-materials';
 export * from './game/servant/game-servant.type';
 export * from './game/soundtrack/game-soundtrack.type';
+export * from './immutable/immutable-basic-master-account.type';
 export * from './immutable/immutable-basic-plan-group.type';
 export * from './immutable/immutable-basic-plan.type';
 export * from './immutable/immutable-entity-with-timestamps.type';
