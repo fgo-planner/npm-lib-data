@@ -1,43 +1,48 @@
 /* eslint-disable max-len */
-/**
- * Mongoose validation message strings.
- */
-export class ValidationStrings {
 
-    ///#region Generic validation messages
+import { MasterAccountConstants } from '@fgo-planner/data-core';
 
-    static readonly GenericInvalid = 'Path `{PATH}` ({VALUE}) is invalid.';
+///#region Generic validation messages
 
-    static readonly GenericInvalidFormat = 'Path `{PATH}` ({VALUE}) is in an incorrect format.';
+export const GenericInvalid = 'Path `{PATH}` ({VALUE}) is invalid.';
 
-    static readonly GenericInvalidValue = 'Path `{PATH}` ({VALUE}) contains an invalid value.';
+export const GenericInvalidFormat = 'Path `{PATH}` ({VALUE}) is in an incorrect format.';
 
-    static readonly GenericInvalidValuePathOnly = 'Path `{PATH}` contains an invalid value.';
-    
-    //#endregion
+export const GenericInvalidValue = 'Path `{PATH}` ({VALUE}) contains an invalid value.';
+
+export const GenericInvalidValuePathOnly = 'Path `{PATH}` contains an invalid value.';
+
+//#endregion
 
 
-    //#region Number validation messages
+//#region Number validation messages
 
-    static readonly NumberInteger = 'Path `{PATH}` ({VALUE}) is not an integer.';
+export const NumberInteger = 'Path `{PATH}` ({VALUE}) is not an integer.';
 
-    static readonly NumberMin = ''; // TODO Implement this
+export const NumberMin = ''; // TODO Implement this
 
-    static readonly NumberMax = ''; // TODO Implement this
+export const NumberMax = ''; // TODO Implement this
 
-    static readonly RgbColorValue = `${ValidationStrings.GenericInvalidFormat} Value must be an integer from 0-255.`;
+export const RgbColorValue = `${GenericInvalidFormat} Value must be an integer from 0-255.`;
 
-    //#endregion
-    
+//#endregion
 
-    //#region Master account validation messages
 
-    static readonly MasterFriendIdFormat = `${ValidationStrings.GenericInvalidFormat} It must be exactly 9 characters long and can only contain numerical digits.`;
+//#region Master account validation messages
 
-    static readonly MasterServantFirstSkillUnlocked = `${ValidationStrings.GenericInvalidValue} The first skill must always be unlocked.`;
-    
-    static readonly MasterServantUniqueInstanceId = `${ValidationStrings.GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
-    
-    //#endregion
+export const MasterFriendIdFormat = `${GenericInvalidFormat} It must be exactly 9 characters long and can only contain numerical digits.`;
 
-}
+export const MasterServantFirstSkillUnlocked = `${GenericInvalidValue} The first skill must always be unlocked.`;
+
+export const MasterServantsSizeLimitExceeded = `${GenericInvalidValuePathOnly} Servant count cannot exceed ${MasterAccountConstants.MaxServantsSize}.`;
+
+export const MasterServantsUniqueInstanceId = `${GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
+
+//#endregion
+
+
+//#region Plan validation messages
+
+export const PlanServantsUniqueInstanceId = `${GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
+
+//#endregion

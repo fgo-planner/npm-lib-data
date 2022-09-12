@@ -1,3 +1,4 @@
+import { MasterAccountConstants, MasterServantConstants } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
 import { CommonTransformers } from '../../../transformers';
@@ -24,13 +25,13 @@ export const MasterAccountResourcesSchema = new Schema<MasterAccount['resources'
     qp: {
         type: Number,
         required: true,
-        min: 0,
-        max: 2000000000, // TODO Define this as a constant
+        min: MasterAccountConstants.MinQp,
+        max: MasterAccountConstants.MaxQp,
         validate: {
             validator: Number.isInteger,
             message: ValidationStrings.NumberInteger
         },
-        default: 0
+        default: MasterAccountConstants.MinQp
     }
 }, {
     _id: false,
@@ -62,8 +63,8 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
     },
     exp: {
         type: Number,
-        min: 0,
-        max: 367421977, // TODO Define this as a constant
+        min: MasterAccountConstants.MinExp,
+        max: MasterAccountConstants.MaxExp,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -78,11 +79,33 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
     servants: {
         type: [MasterServantSchema],
         required: true,
-        validate: {
-            validator: MasterAccountValidators.servantInstanceIdsUnique,
-            message: ValidationStrings.MasterServantUniqueInstanceId
-        },
+        validate: [
+            {
+                validator: MasterAccountValidators.servantsSizeLimit,
+                message: ValidationStrings.MasterServantsSizeLimitExceeded
+            },
+            {
+                validator: MasterAccountValidators.servantsInstanceIdsUnique,
+                message: ValidationStrings.MasterServantsUniqueInstanceId
+            }
+        ],
         default: []
+    },
+    lastServantInstanceId: {
+        type: Number,
+        min: 0,
+        required: true,
+        validate: [
+            {
+                validator: CommonValidators.isNullOrInteger,
+                message: ValidationStrings.NumberInteger
+            },
+            {
+                validator: MasterAccountValidators.lastServantInstanceIdValid,
+                message: ValidationStrings.NumberInteger
+            }
+        ],
+        default: MasterAccountValidators.getDefaultLastServantInstanceId
     },
     costumes: {
         type: [Number],
@@ -93,8 +116,8 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
         type: Map,
         of: {
             type: Number,
-            min: 0,
-            max: 15,
+            min: MasterServantConstants.MinBondLevel,
+            max: MasterServantConstants.MaxBondLevel,
             validate: {
                 validator: CommonValidators.isNullOrInteger,
                 message: ValidationStrings.NumberInteger

@@ -1,4 +1,4 @@
-import { GameServant, GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantGachaType, GameServantGender, GameServantSkillMaterials } from '@fgo-planner/data-core';
+import { GameServant, GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials } from '@fgo-planner/data-core';
 import { Schema, SchemaDefinition } from 'mongoose';
 import { CommonTransformers } from '../../../transformers';
 import { ValidationStrings } from '../../../validators';
@@ -133,26 +133,26 @@ export const GameServantSchemaDefinition: SchemaDefinition<GameServant> = {
     rarity: {
         type: Number,
         required: true,
-        min: 0,
-        max: 5,
+        min: GameServantConstants.MinRarity,
+        max: GameServantConstants.MaxRarity,
         validate: {
             validator: Number.isInteger,
             message: ValidationStrings.NumberInteger
         },
-        default: 5,
+        default: GameServantConstants.MaxRarity,
         index: true
     },
     cost: {
         type: Number,
         required: true,
-        min: 0,
-        max: 16,
+        min: GameServantConstants.MinCost,
+        max: GameServantConstants.MaxCost,
         // TODO Validate specific values
         validate: {
             validator: Number.isInteger,
             message: ValidationStrings.NumberInteger
         },
-        default: 16,
+        default: GameServantConstants.MaxCost,
         index: true
     },
     maxLevel: {

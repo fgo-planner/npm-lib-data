@@ -1,4 +1,4 @@
-import { MasterServant } from '@fgo-planner/data-core';
+import { MasterServant, MasterServantConstants } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../../validators';
 
@@ -9,18 +9,18 @@ const MasterServantSkillLevelsSchema = new Schema<MasterServant['skills']>({
     1: {
         type: Number,
         required: true,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
         },
-        default: 1
+        default: MasterServantConstants.MinSkillLevel
     },
     2: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -28,8 +28,8 @@ const MasterServantSkillLevelsSchema = new Schema<MasterServant['skills']>({
     },
     3: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -46,8 +46,8 @@ const MasterServantSkillLevelsSchema = new Schema<MasterServant['skills']>({
 const MasterServantAppendSkillLevelsSchema = new Schema<MasterServant['appendSkills']>({
     1: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -55,8 +55,8 @@ const MasterServantAppendSkillLevelsSchema = new Schema<MasterServant['appendSki
     },
     2: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -64,8 +64,8 @@ const MasterServantAppendSkillLevelsSchema = new Schema<MasterServant['appendSki
     },
     3: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -109,40 +109,40 @@ export const MasterServantSchema = new Schema<MasterServant>({
     np: {
         type: Number,
         required: true,
-        min: 1,
-        max: 5,
+        min: MasterServantConstants.MinNoblePhantasmLevel,
+        max: MasterServantConstants.MaxNoblePhantasmLevel,
         validate: {
             validator: Number.isInteger,
             message: ValidationStrings.NumberInteger
         },
-        default: 1
+        default: MasterServantConstants.MinNoblePhantasmLevel
     },
     level: {
         type: Number,
         required: true,
-        min: 1,
-        max: 120,
+        min: MasterServantConstants.MinLevel,
+        max: MasterServantConstants.MaxLevel,
         validate: {
             validator: Number.isInteger,
             message: ValidationStrings.NumberInteger
         },
-        default: 1
+        default: MasterServantConstants.MinLevel
     },
     ascension: {
         type: Number,
         required: true,
-        min: 0,
-        max: 4,
+        min: MasterServantConstants.MinAscensionLevel,
+        max: MasterServantConstants.MaxAscensionLevel,
         validate: {
             validator: Number.isInteger,
             message: ValidationStrings.NumberInteger
         },
-        default: 0
+        default: MasterServantConstants.MinAscensionLevel
     },
     fouAtk: {
         type: Number,
-        min: 0,
-        max: 2000,
+        min: MasterServantConstants.MinFou,
+        max: MasterServantConstants.MaxFou,
         validate: {
             validator: MasterAccountValidators.isFouValueValid,
             message: ValidationStrings.GenericInvalidValue
@@ -150,8 +150,8 @@ export const MasterServantSchema = new Schema<MasterServant>({
     },
     fouHp: {
         type: Number,
-        min: 0,
-        max: 2000,
+        min: MasterServantConstants.MinFou,
+        max: MasterServantConstants.MaxFou,
         validate: {
             validator: MasterAccountValidators.isFouValueValid,
             message: ValidationStrings.GenericInvalidValue

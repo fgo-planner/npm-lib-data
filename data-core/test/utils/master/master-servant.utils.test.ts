@@ -1,6 +1,6 @@
 import { GameServant_1100900, GameServant_201300, GameServant_504400 } from '@fgo-planner/data-test-resources';
 import { MasterServant } from '@fgo-planner/data-types';
-import { GameServantConstants } from '../../../src/constants';
+import { MasterServantConstants } from '../../../src/constants';
 import { MasterServantUtils } from '../../../src/utils';
 
 describe('MasterServantUtils.create', () => {
@@ -10,15 +10,15 @@ describe('MasterServantUtils.create', () => {
         const result = MasterServantUtils.create();
 
         expect(result.instanceId).toStrictEqual(0);
-        expect(result.gameId).toStrictEqual(GameServantConstants.DefaultServantId);
+        expect(result.gameId).toStrictEqual(MasterServantConstants.DefaultServantId);
         expect(result.summoned).toStrictEqual(true);
         expect(result.summonDate).toBeUndefined();
-        expect(result.np).toStrictEqual(GameServantConstants.MinNoblePhantasmLevel);
-        expect(result.level).toStrictEqual(GameServantConstants.MinLevel);
-        expect(result.ascension).toStrictEqual(GameServantConstants.MinAscensionLevel);
+        expect(result.np).toStrictEqual(MasterServantConstants.MinNoblePhantasmLevel);
+        expect(result.level).toStrictEqual(MasterServantConstants.MinLevel);
+        expect(result.ascension).toStrictEqual(MasterServantConstants.MinAscensionLevel);
         expect(result.fouHp).toBeUndefined();
         expect(result.fouAtk).toBeUndefined();
-        expect(result.skills[1]).toStrictEqual(GameServantConstants.MinSkillLevel);
+        expect(result.skills[1]).toStrictEqual(MasterServantConstants.MinSkillLevel);
         expect(result.skills[2]).toBeUndefined();
         expect(result.skills[3]).toBeUndefined();
         expect(result.appendSkills[1]).toBeUndefined();
@@ -32,15 +32,15 @@ describe('MasterServantUtils.create', () => {
         const result = MasterServantUtils.create(testInstanceId);
 
         expect(result.instanceId).toStrictEqual(testInstanceId);
-        expect(result.gameId).toStrictEqual(GameServantConstants.DefaultServantId);
+        expect(result.gameId).toStrictEqual(MasterServantConstants.DefaultServantId);
         expect(result.summoned).toStrictEqual(true);
         expect(result.summonDate).toBeUndefined();
-        expect(result.np).toStrictEqual(GameServantConstants.MinNoblePhantasmLevel);
-        expect(result.level).toStrictEqual(GameServantConstants.MinLevel);
-        expect(result.ascension).toStrictEqual(GameServantConstants.MinAscensionLevel);
+        expect(result.np).toStrictEqual(MasterServantConstants.MinNoblePhantasmLevel);
+        expect(result.level).toStrictEqual(MasterServantConstants.MinLevel);
+        expect(result.ascension).toStrictEqual(MasterServantConstants.MinAscensionLevel);
         expect(result.fouHp).toBeUndefined();
         expect(result.fouAtk).toBeUndefined();
-        expect(result.skills[1]).toStrictEqual(GameServantConstants.MinSkillLevel);
+        expect(result.skills[1]).toStrictEqual(MasterServantConstants.MinSkillLevel);
         expect(result.skills[2]).toBeUndefined();
         expect(result.skills[3]).toBeUndefined();
         expect(result.appendSkills[1]).toBeUndefined();
@@ -244,14 +244,14 @@ describe('MasterServantUtils.getArtStage', () => {
 
 describe('MasterServantUtils.roundToNearestValidFouValue', () => {
 
-    it(`should return ${GameServantConstants.MinFou} for a negative value`, () => {
+    it(`should return ${MasterServantConstants.MinFou} for a negative value`, () => {
         const result = MasterServantUtils.roundToNearestValidFouValue(-1);
-        expect(result).toStrictEqual(GameServantConstants.MinFou);
+        expect(result).toStrictEqual(MasterServantConstants.MinFou);
     });
 
-    it(`should return ${GameServantConstants.MinFou} for an input value of ${GameServantConstants.MinFou}`, () => {
-        const result = MasterServantUtils.roundToNearestValidFouValue(GameServantConstants.MinFou);
-        expect(result).toStrictEqual(GameServantConstants.MinFou);
+    it(`should return ${MasterServantConstants.MinFou} for an input value of ${MasterServantConstants.MinFou}`, () => {
+        const result = MasterServantUtils.roundToNearestValidFouValue(MasterServantConstants.MinFou);
+        expect(result).toStrictEqual(MasterServantConstants.MinFou);
     });
 
     it('should return 200 for an input value of 200', () => {
@@ -299,14 +299,14 @@ describe('MasterServantUtils.roundToNearestValidFouValue', () => {
         expect(result).toStrictEqual(1220);
     });
 
-    it(`should return ${GameServantConstants.MaxFou} for an input value of ${GameServantConstants.MaxFou}`, () => {
-        const result = MasterServantUtils.roundToNearestValidFouValue(GameServantConstants.MaxFou);
-        expect(result).toStrictEqual(GameServantConstants.MaxFou);
+    it(`should return ${MasterServantConstants.MaxFou} for an input value of ${MasterServantConstants.MaxFou}`, () => {
+        const result = MasterServantUtils.roundToNearestValidFouValue(MasterServantConstants.MaxFou);
+        expect(result).toStrictEqual(MasterServantConstants.MaxFou);
     });
 
-    it(`should return ${GameServantConstants.MaxFou} for an input value that is greater than ${GameServantConstants.MaxFou}`, () => {
-        const result = MasterServantUtils.roundToNearestValidFouValue(GameServantConstants.MaxFou + 500);
-        expect(result).toStrictEqual(GameServantConstants.MaxFou);
+    it(`should return ${MasterServantConstants.MaxFou} for an input value that is greater than ${MasterServantConstants.MaxFou}`, () => {
+        const result = MasterServantUtils.roundToNearestValidFouValue(MasterServantConstants.MaxFou + 500);
+        expect(result).toStrictEqual(MasterServantConstants.MaxFou);
     });
 
 });

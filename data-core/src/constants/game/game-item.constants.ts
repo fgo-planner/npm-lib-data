@@ -123,6 +123,4 @@ export const OtherEnhancementMaterials = [
     7999   // Grail
 ] as ReadonlyArray<number>;
 
-export const MaxItemQuantity = 2000000000;
-
 export const QpItemId = 5;

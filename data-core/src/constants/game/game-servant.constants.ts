@@ -1,5 +1,5 @@
 import { ReadonlyRecord } from '@fgo-planner/common-core';
-import { GameServantClass, GameServantRarity, MasterServantAscensionLevel, MasterServantBondLevel, MasterServantNoblePhantasmLevel, MasterServantSkillLevel } from '@fgo-planner/data-types';
+import { GameServantClass, GameServantRarity } from '@fgo-planner/data-types';
 
 export const ClassDisplayNameMap = {
     [GameServantClass.Saber]: GameServantClass.Saber,
@@ -24,45 +24,21 @@ export const ClassDisplayNameMap = {
     [GameServantClass.Unknown]: GameServantClass.Unknown
 } as ReadonlyRecord<GameServantClass, string>;
 
-export const MinLevel = 1;
-
-export const MaxLevel = 120;
-
-export const MinFou = 0;
-
-export const MaxFou = 2000;
-
-export const MinAscensionLevel = 0;
-
-export const MaxAscensionLevel = 4;
-
-export const AscensionLevels = Array.from(Array(5).keys()) as ReadonlyArray<MasterServantAscensionLevel>;
-
-export const MinSkillLevel = 1;
-
-export const MaxSkillLevel = 10;
-
-export const SkillLevels = Array.from(Array(10).keys()).map(i => i + 1) as ReadonlyArray<MasterServantSkillLevel>;
-
-export const MinNoblePhantasmLevel = 1;
-
-export const MaxNoblePhantasmLevel = 5;
-
-export const NoblePhantasmLevels = Array.from(Array(5).keys()).map(i => i + 1) as ReadonlyArray<MasterServantNoblePhantasmLevel>;
-
-export const MinBondLevel = 0;
-
-export const MaxBondLevel = 15;
-
-export const BondLevels = Array.from(Array(16).keys()) as ReadonlyArray<MasterServantBondLevel>;
-
 export const MinRarity = 0;
 
 export const MaxRarity = 5;
 
+export const MinCost = 0;
+
+export const MaxCost = 16;
+
 export const RarityValues = Array.from(Array(6).keys()) as ReadonlyArray<GameServantRarity>;
 
-/**
- * OG Artoria. For use when instantiating new servant data.
- */
-export const DefaultServantId = 100100;
+export const LevelCapByRarityMap = {
+    0: 65,
+    1: 60,
+    2: 65,
+    3: 70,
+    4: 80,
+    5: 90
+} as ReadonlyRecord<GameServantRarity, number>; 

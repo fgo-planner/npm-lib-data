@@ -1,7 +1,7 @@
 import { DateTimeUtils } from '@fgo-planner/common-core';
 import { Immutable, ImmutableArray } from '@fgo-planner/common-types';
 import { GameServant, MasterServant, MasterServantAscensionLevel } from '@fgo-planner/data-types';
-import { GameServantConstants } from '../../constants';
+import { MasterServantConstants } from '../../constants';
 
 /**
  * Creates a `MasterServant` instance with default values.
@@ -9,13 +9,13 @@ import { GameServantConstants } from '../../constants';
 export function create(instanceId = 0): MasterServant {
     return {
         instanceId,
-        gameId: GameServantConstants.DefaultServantId,
+        gameId: MasterServantConstants.DefaultServantId,
         summoned: true, // Assume servant has been summoned by player by default
-        np: GameServantConstants.MinNoblePhantasmLevel,
-        level: GameServantConstants.MinLevel,
-        ascension: GameServantConstants.MinAscensionLevel,
+        np: MasterServantConstants.MinNoblePhantasmLevel,
+        level: MasterServantConstants.MinLevel,
+        ascension: MasterServantConstants.MinAscensionLevel,
         skills: {
-            1: GameServantConstants.MinSkillLevel
+            1: MasterServantConstants.MinSkillLevel
         },
         appendSkills: {}
     };
@@ -42,11 +42,14 @@ export function getInstanceId(masterServant: Immutable<MasterServant>): number {
     return masterServant.instanceId;
 }
 
+/**
+ * Finds the largest `instanceId` in the given `MasterServant` array.
+ */
 export function getLastInstanceId(masterServants: ImmutableArray<MasterServant>): number {
     if (!masterServants.length) {
         return 0;
     }
-    return Math.max(...masterServants.map(servant => servant.instanceId));
+    return Math.max(...masterServants.map(getInstanceId));
 }
 
 /**
@@ -73,12 +76,12 @@ export function getArtStage(ascension: MasterServantAscensionLevel): 1 | 2 | 3 |
  * 1000, and integers in multiples of 20 for values between 1000 and 2000.
  */
 export function roundToNearestValidFouValue(value: number): number {
-    if (value < GameServantConstants.MinFou) {
-        return GameServantConstants.MinFou;
-    } else if (value > GameServantConstants.MaxFou) {
-        return GameServantConstants.MaxFou;
+    if (value < MasterServantConstants.MinFou) {
+        return MasterServantConstants.MinFou;
+    } else if (value > MasterServantConstants.MaxFou) {
+        return MasterServantConstants.MaxFou;
     }
-    if (value < GameServantConstants.MaxFou / 2) {
+    if (value < MasterServantConstants.MaxFou / 2) {
         return Math.round(value / 10) * 10;
     } else {
         return Math.round(value / 20) * 20;
@@ -144,7 +147,7 @@ export function roundToNearestValidLevel(
         case 0:
             return Math.min(maxLevel - 40, level);
     }
-    return GameServantConstants.MinLevel;
+    return MasterServantConstants.MinLevel;
 }
 
 /**

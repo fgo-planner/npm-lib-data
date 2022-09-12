@@ -1,6 +1,6 @@
 import { ReadonlyIterable, ReadonlyRecord } from '@fgo-planner/common-core';
 import { ImmutableMasterServant, MasterServant, MasterServantBondLevel } from '@fgo-planner/data-types';
-import { GameServantConstants } from '../../constants';
+import { MasterServantConstants } from '../../constants';
 import { ExistingMasterServantUpdate, MasterServantUpdate, MasterServantUpdateIndeterminate as Indeterminate, MasterServantUpdateIndeterminateValue as IndeterminateValue, NewMasterServantUpdate } from '../../types';
 import * as MasterServantUtils from './master-servant.utils';
 
@@ -23,17 +23,17 @@ export function createNew(
     unlockedCostumes?: UnlockedCostumes
 ): NewMasterServantUpdate {
 
-    const gameId = GameServantConstants.DefaultServantId;
+    const gameId = MasterServantConstants.DefaultServantId;
 
     return {
         isNewServant: true,
         gameId,
         summoned: true, // Assume servant has been summoned by player by default
-        np: GameServantConstants.MinNoblePhantasmLevel,
-        level: GameServantConstants.MinLevel,
-        ascension: GameServantConstants.MinAscensionLevel,
+        np: MasterServantConstants.MinNoblePhantasmLevel,
+        level: MasterServantConstants.MinLevel,
+        ascension: MasterServantConstants.MinAscensionLevel,
         skills: {
-            1: GameServantConstants.MinSkillLevel,
+            1: MasterServantConstants.MinSkillLevel,
         },
         appendSkills: {},
         bondLevel: bondLevels?.[gameId],

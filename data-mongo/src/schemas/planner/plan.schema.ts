@@ -1,7 +1,7 @@
 import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
 import { Plan } from '../../types';
-import { MasterAccountValidators, ValidationStrings } from '../../validators';
+import { PlanValidators, ValidationStrings } from '../../validators';
 import { PlanServantSchema } from './plan-servant.schema';
 import { PlanUpcomingResourcesSchema } from './plan-upcoming-resources.schema';
 
@@ -74,8 +74,8 @@ export const PlanSchemaDefinition: SchemaDefinition<Plan> = {
         type: [PlanServantSchema],
         required: true,
         validate: {
-            validator: MasterAccountValidators.servantInstanceIdsUnique,
-            message: ValidationStrings.MasterServantUniqueInstanceId
+            validator: PlanValidators.servantsInstanceIdsUnique,
+            message: ValidationStrings.PlanServantsUniqueInstanceId
         },
         default: []
     },
