@@ -75,7 +75,7 @@ export const PlanSchemaDefinition: SchemaDefinition<Plan> = {
         required: true,
         validate: {
             validator: PlanValidators.servantsInstanceIdsUnique,
-            message: ValidationStrings.PlanServantsUniqueInstanceId
+            message: ValidationStrings.PlanServantsUniqueInstanceIdNotUnique
         },
         default: []
     },

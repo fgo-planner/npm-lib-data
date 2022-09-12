@@ -82,11 +82,11 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
         validate: [
             {
                 validator: MasterAccountValidators.servantsSizeLimit,
-                message: ValidationStrings.MasterServantsSizeLimitExceeded
+                message: ValidationStrings.MasterAccountServantsSizeLimitExceeded
             },
             {
                 validator: MasterAccountValidators.servantsInstanceIdsUnique,
-                message: ValidationStrings.MasterServantsUniqueInstanceId
+                message: ValidationStrings.MasterAccountServantsInstanceIdNotUnique
             }
         ],
         default: []
@@ -102,7 +102,7 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
             },
             {
                 validator: MasterAccountValidators.lastServantInstanceIdValid,
-                message: ValidationStrings.NumberInteger
+                message: ValidationStrings.MasterAccountLastServantInstanceIdInvalid
             }
         ],
         default: MasterAccountValidators.getDefaultLastServantInstanceId

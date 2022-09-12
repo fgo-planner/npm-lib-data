@@ -28,21 +28,23 @@ export const RgbColorValue = `${GenericInvalidFormat} Value must be an integer f
 //#endregion
 
 
-//#region Master account validation messages
+//#region Master data validation messages
+
+export const MasterAccountLastServantInstanceIdInvalid = `${GenericInvalidValue} Value must be >= the largest servant instanceId`;
+
+export const MasterAccountServantsSizeLimitExceeded = `${GenericInvalidValuePathOnly} Servant count cannot exceed ${MasterAccountConstants.MaxServantsSize}.`;
+
+export const MasterAccountServantsInstanceIdNotUnique = `${GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
 
 export const MasterFriendIdFormat = `${GenericInvalidFormat} It must be exactly 9 characters long and can only contain numerical digits.`;
 
 export const MasterServantFirstSkillUnlocked = `${GenericInvalidValue} The first skill must always be unlocked.`;
-
-export const MasterServantsSizeLimitExceeded = `${GenericInvalidValuePathOnly} Servant count cannot exceed ${MasterAccountConstants.MaxServantsSize}.`;
-
-export const MasterServantsUniqueInstanceId = `${GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
 
 //#endregion
 
 
 //#region Plan validation messages
 
-export const PlanServantsUniqueInstanceId = `${GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
+export const PlanServantsUniqueInstanceIdNotUnique = `${GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
 
 //#endregion
