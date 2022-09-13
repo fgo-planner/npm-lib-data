@@ -1,3 +1,4 @@
+import { MasterServantUtils } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import mongoose, { Document, Model, Query, Schema } from 'mongoose';
 import { MasterAccountSchemaDefinition } from '../../schemas';
@@ -23,13 +24,20 @@ type MasterAccountModel = Model<MasterAccount> & {
      * Checks if the given friend ID string is in a valid format. Friend IDs must
      * be exactly 9 characters long and can only contain numerical digits.
      */
-    isFriendIdFormatValid: (id: string) => boolean;
+    isFriendIdFormatValid: (friendId: string) => boolean;
 
     /**
      * Creates a query for retrieving the master accounts associated with the given
      * `userId`. Result will contain simplified version of the master account data.
      */
     findByUserId: (userId: ObjectId) => Query<Array<BasicMasterAccountDocument>, BasicMasterAccountDocument>;
+
+    /**
+     * Performs a partial update of the master account. Calls the `findOneAndUpdate`
+     * method internally, with some custom validations. All updates to existing
+     * documents in the collection should be done through this method if possible.
+     */
+    partialUpdate: (id: ObjectId, update: Partial<MasterAccount>) => Query<BasicMasterAccountDocument, BasicMasterAccountDocument>;
 
 };
 
@@ -42,6 +50,48 @@ const findByUserId = function (
     return this.find({ userId }, BasicMasterAccountProjection);
 };
 
+const partialUpdate = async function (
+    this: MasterAccountModel,
+    id: ObjectId,
+    update: Partial<MasterAccount>
+): Promise<Query<BasicMasterAccountDocument | null, BasicMasterAccountDocument>> {
+    /**
+     * Do not allow `_id` or `userId` to be updated.
+     */
+    delete update._id;
+    delete update.userId;
+
+    let lastServantInstanceId = update.lastServantInstanceId || 0;
+    if (update.servants) {
+        /**
+         * The updated value should not be less than the largest value in the servants
+         * array.
+         */
+        lastServantInstanceId = Math.max(
+            MasterServantUtils.getLastInstanceId(update.servants),
+            lastServantInstanceId
+        );
+    }
+    const existing = await this.findById(id, { lastServantInstanceId: 1 });
+    if (existing) {
+        const previousLastServantInstanceId = existing.lastServantInstanceId || 0;
+        /**
+         * The updated value should never be less than the previous value.
+         */
+        lastServantInstanceId = Math.max(
+            previousLastServantInstanceId,
+            lastServantInstanceId
+        );
+    }
+    update.lastServantInstanceId = lastServantInstanceId;
+
+    return this.findOneAndUpdate(
+        { _id: id },
+        { $set: update },
+        { runValidators: true, new: true }
+    );
+};
+
 //#endregion
 
 /**
@@ -49,7 +99,8 @@ const findByUserId = function (
  */
 const Statics = {
     isFriendIdFormatValid: MasterAccountValidators.isFriendIdFormatValid,
-    findByUserId
+    findByUserId,
+    partialUpdate
 };
 
 /**

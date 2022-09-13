@@ -58,8 +58,7 @@ export function servantsInstanceIdsUnique(servants: Array<MasterServant>): boole
     return true;
 }
 
-export function lastServantInstanceIdValid(this: MasterAccount, lastInstanceId: number): boolean {
-    const servants = this.servants;
+export function lastServantInstanceIdValid(servants: Array<MasterServant>, lastInstanceId: number): boolean {
     if (!servants.length) {
         return true;
     }

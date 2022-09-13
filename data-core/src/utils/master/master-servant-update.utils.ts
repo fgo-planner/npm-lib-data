@@ -379,47 +379,46 @@ export function applyToMasterServant(
  *
  * @param targetMasterServants The `MasterServant` instances that will be
  * updated.
+ * 
+ * @param startInstanceId The `instanceId` to start at for servant(s) that are
+ * added as part of the operation. 
  *
  * @param targetBondLevels (optional) The bond levels map that will also be
  * updated from the update data.
  *
  * @param targetUnlockedCostumes (optional) The unlocked costumes ID that will
  * be also updated from the update data.
+ *
+ * @return The `instanceId` of the last servant to be added as part of the
+ * operation. If no servants were added, then it will return the given value.
  */
 export function batchApplyToMasterServants(
     masterServantUpdates: Array<NewMasterServantUpdate>,
     targetMasterServants: Array<MasterServant>,
+    startInstanceId: number,
     targetBondLevels?: Record<number, MasterServantBondLevel>,
     targetUnlockedCostumes?: Array<number> | Set<number>
-): void {
+): number {
     /**
      * Nothing to do, return.
      */
     if (!masterServantUpdates.length) {
-        return;
+        return startInstanceId;
     }
+
+    let instanceId = startInstanceId;
 
     /**
      * If there are no targets, then no need to do any individual merges, just copy
      * the entire list.
      */
     if (!targetMasterServants.length) {
-        /**
-         * FIXME This may have issues if the user removes all servants from their roster
-         * and re-imports them, since the first `instanceId` will reset to 0.
-         */
-        let instanceId = 0;
         for (const update of masterServantUpdates) {
             const masterServant = toMasterServant(instanceId++, update, targetBondLevels, targetUnlockedCostumes);
             targetMasterServants.push(masterServant);
         }
-        return;
+        return instanceId;
     }
-
-    /**
-     * The last `instanceId` of the target list.
-     */
-    let lastInstanceId = MasterServantUtils.getLastInstanceId(targetMasterServants);
 
     /**
      * A map of the target list where the key is the servant `gameId` and the
@@ -460,14 +459,15 @@ export function batchApplyToMasterServants(
          * update the merge count.
          */
         if (!mergeTarget) {
-            const servant = toMasterServant(++lastInstanceId, update, targetBondLevels, targetUnlockedCostumes);
+            const servant = toMasterServant(instanceId++, update, targetBondLevels, targetUnlockedCostumes);
             targetMasterServants.push(servant);
         } else {
             applyToMasterServant(update, mergeTarget, targetBondLevels, targetUnlockedCostumes);
             mergeCountByGameId[gameId] = mergeCount + 1;
         }
-
     }
+
+    return instanceId;
 }
 
 function _updateUnlockedCostumes(source: ReadonlyMap<number, boolean | Indeterminate>, target: Array<number> | Set<number>): void {

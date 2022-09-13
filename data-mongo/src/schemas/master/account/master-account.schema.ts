@@ -100,10 +100,16 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
                 validator: CommonValidators.isNullOrInteger,
                 message: ValidationStrings.NumberInteger
             },
-            {
-                validator: MasterAccountValidators.lastServantInstanceIdValid,
-                message: ValidationStrings.MasterAccountLastServantInstanceIdInvalid
-            }
+            /**
+             * The validation below is not possible here because there is no way to access
+             * the servants, due to `this` being of type `Query` (even when using
+             * `updateOne` instead of `findOneAndUpdate`). Instead, we handle the validation
+             * in the `partialUpdate` static method.
+             */
+            // {
+            //     validator: MasterAccountValidators.lastServantInstanceIdValid,
+            //     message: ValidationStrings.MasterAccountLastServantInstanceIdInvalid
+            // }
         ],
         default: MasterAccountValidators.getDefaultLastServantInstanceId
     },
