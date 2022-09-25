@@ -225,7 +225,7 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
 
 describe('MasterServantUpdateUtils.applyToMasterServant', () => {
 
-    it('should not change the gameId value for existing servant update', () => {
+    it('should not update the gameId value for existing servant update', () => {
 
         const masterServant = MasterServantUtils.clone(MasterServant_1100900);
 
@@ -258,7 +258,7 @@ describe('MasterServantUpdateUtils.applyToMasterServant', () => {
         expect(masterServant.gameId).toStrictEqual(1100900);
     });
 
-    it('should not change the gameId value for imported servant update', () => {
+    it('should update the gameId value for new servant update', () => {
 
         const masterServant = MasterServantUtils.clone(MasterServant_1100900);
 
@@ -288,7 +288,7 @@ describe('MasterServantUpdateUtils.applyToMasterServant', () => {
 
         MasterServantUpdateUtils.applyToMasterServant(update, masterServant);
 
-        expect(masterServant.gameId).toStrictEqual(1100900);
+        expect(masterServant.gameId).toStrictEqual(12345);
     });
 
     it('should update the gameId value for new servant update', () => {

@@ -314,9 +314,9 @@ export function applyToMasterServant(
     } = masterServantUpdate;
 
     /**
-     * Only update the `gameId` for new servants.
+     * Do not update the `gameId` for existing servants.
      */
-    if (type === NewMasterServantUpdateType) {
+    if (type !== ExistingMasterServantUpdateType) {
         targetMasterServant.gameId = masterServantUpdate.gameId;
     }
     if (summoned !== IndeterminateValue) {
