@@ -1,5 +1,7 @@
 import { MasterServantAscensionLevel, MasterServantBondLevel, MasterServantNoblePhantasmLevel, MasterServantSkillLevel } from '@fgo-planner/data-types';
 
+export type MasterServantUpdateType = 'New' | 'Existing' | 'Imported';
+
 type Indeterminate = 'indeterminate';
 
 export type MasterServantUpdateIndeterminate = Indeterminate;
@@ -9,9 +11,9 @@ export const MasterServantUpdateIndeterminateValue: Indeterminate = 'indetermina
 type BaseMasterServantUpdate = {
 
     /**
-     * Whether this data represents a new servant that is being added.
+     * Qualifier for identifying the update type.
      */
-    readonly isNewServant: boolean;
+    readonly type: MasterServantUpdateType;
 
     /**
      * Whether the servant has already been summoned by the master, or is just
@@ -94,7 +96,7 @@ type BaseMasterServantUpdate = {
 };
 
 export type NewMasterServantUpdate = BaseMasterServantUpdate & {
-    readonly isNewServant: true;
+    readonly type: 'New';
     /**
      * The ID of the servant that is being added.
      */
@@ -102,12 +104,26 @@ export type NewMasterServantUpdate = BaseMasterServantUpdate & {
 };
 
 export type ExistingMasterServantUpdate = BaseMasterServantUpdate & {
-    readonly isNewServant: false;
+    readonly type: 'Existing';
     /**
-     * The ID of the servant that is being added. Supports indeterminate value when
-     * updating existing servants.
+     * The ID of the servant that is being editing. Supports indeterminate values.
      */
     gameId: number | Indeterminate;
+};
+
+export type ImportedMasterServantUpdate = BaseMasterServantUpdate & {
+    readonly type: 'Imported';
+    /**
+     * The ID of the servant that is being imported.
+     */
+    gameId: number;
+    /**
+     * If present, the batch update process will try to target the existing servant
+     * with the matching `instanceId` and `gameId`. If the `instanceId` matches but
+     * the `gameId` does not, then it will be ignored. Has no effect during single
+     * servant updates.
+     */
+    instanceId?: number;
 };
 
 /**
@@ -119,4 +135,4 @@ export type ExistingMasterServantUpdate = BaseMasterServantUpdate & {
  * Data conversion between the update payload and master servant (and related
  * data) is handled by the `MasterServantUpdateUtils` class. 
  */
-export type MasterServantUpdate = NewMasterServantUpdate | ExistingMasterServantUpdate;
+export type MasterServantUpdate = NewMasterServantUpdate | ExistingMasterServantUpdate | ImportedMasterServantUpdate;

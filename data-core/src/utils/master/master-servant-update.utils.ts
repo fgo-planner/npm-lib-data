@@ -1,7 +1,7 @@
 import { ReadonlyIterable, ReadonlyRecord } from '@fgo-planner/common-core';
 import { ImmutableMasterServant, MasterServant, MasterServantBondLevel } from '@fgo-planner/data-types';
 import { MasterServantConstants } from '../../constants';
-import { ExistingMasterServantUpdate, MasterServantUpdate, MasterServantUpdateIndeterminate as Indeterminate, MasterServantUpdateIndeterminateValue as IndeterminateValue, NewMasterServantUpdate } from '../../types';
+import { ExistingMasterServantUpdate, ImportedMasterServantUpdate, MasterServantUpdate, MasterServantUpdateIndeterminate as Indeterminate, MasterServantUpdateIndeterminateValue as IndeterminateValue, NewMasterServantUpdate } from '../../types';
 import * as MasterServantUtils from './master-servant.utils';
 
 //#region Local type definitions
@@ -9,6 +9,15 @@ import * as MasterServantUtils from './master-servant.utils';
 type BondLevels = ReadonlyRecord<number, MasterServantBondLevel>;
 
 type UnlockedCostumes = ReadonlyIterable<number>;
+
+//#endregion
+
+
+//#region Constants
+
+const NewMasterServantUpdateType = 'New';
+
+const ExistingMasterServantUpdateType = 'Existing';
 
 //#endregion
 
@@ -26,7 +35,7 @@ export function createNew(
     const gameId = MasterServantConstants.DefaultServantId;
 
     return {
-        isNewServant: true,
+        type: NewMasterServantUpdateType,
         gameId,
         summoned: true, // Assume servant has been summoned by player by default
         np: MasterServantConstants.MinNoblePhantasmLevel,
@@ -105,7 +114,7 @@ function _createFromExistingSingle(
     } = masterServant;
 
     return {
-        isNewServant: false,
+        type: ExistingMasterServantUpdateType,
         gameId,
         summoned,
         summonDate: summonDate?.getTime(),
@@ -206,7 +215,7 @@ function _createFromExistingMultiple(
     }
 
     return {
-        isNewServant: false,
+        type: ExistingMasterServantUpdateType,
         gameId: IndeterminateValue,
         summoned,
         summonDate,
@@ -245,7 +254,7 @@ function _generateUnlockedCostumesMap(unlockedCostumes: UnlockedCostumes | undef
 //#endregion
 
 
-//#region Master servant update functions
+//#region Servant update functions
 
 /**
  * Converts an update object to a new instance of `MasterServant`. This can be
@@ -299,7 +308,7 @@ export function applyToMasterServant(
 ): void {
 
     const {
-        isNewServant,
+        type,
         summoned,
         summonDate,
         np,
@@ -313,11 +322,11 @@ export function applyToMasterServant(
         unlockedCostumes
     } = masterServantUpdate;
 
-    /*
-     * gameId is only present for new servants.
+    /**
+     * Only update the `gameId` for new servants.
      */
-    if (isNewServant) {
-        targetMasterServant.gameId = (masterServantUpdate as NewMasterServantUpdate).gameId;
+    if (type === NewMasterServantUpdateType) {
+        targetMasterServant.gameId = masterServantUpdate.gameId;
     }
     if (summoned !== IndeterminateValue) {
         targetMasterServant.summoned = summoned;
@@ -370,106 +379,6 @@ export function applyToMasterServant(
     }
 }
 
-/**
- * Batch applies updates to a `MasterServant` array. Also updates the bond
- * levels map and unlocked costume IDs if provided. Currently used for data
- * import.
- *
- * @param masterServantUpdates The updates that will be applied.
- *
- * @param targetMasterServants The `MasterServant` instances that will be
- * updated.
- * 
- * @param startInstanceId The `instanceId` to start at for servant(s) that are
- * added as part of the operation. 
- *
- * @param targetBondLevels (optional) The bond levels map that will also be
- * updated from the update data.
- *
- * @param targetUnlockedCostumes (optional) The unlocked costumes ID that will
- * be also updated from the update data.
- *
- * @return The `instanceId` of the last servant to be added as part of the
- * operation. If no servants were added, then it will return the given value.
- */
-export function batchApplyToMasterServants(
-    masterServantUpdates: Array<NewMasterServantUpdate>,
-    targetMasterServants: Array<MasterServant>,
-    startInstanceId: number,
-    targetBondLevels?: Record<number, MasterServantBondLevel>,
-    targetUnlockedCostumes?: Array<number> | Set<number>
-): number {
-    /**
-     * Nothing to do, return.
-     */
-    if (!masterServantUpdates.length) {
-        return startInstanceId;
-    }
-
-    let instanceId = startInstanceId;
-
-    /**
-     * If there are no targets, then no need to do any individual merges, just copy
-     * the entire list.
-     */
-    if (!targetMasterServants.length) {
-        for (const update of masterServantUpdates) {
-            const masterServant = toMasterServant(instanceId++, update, targetBondLevels, targetUnlockedCostumes);
-            targetMasterServants.push(masterServant);
-        }
-        return instanceId;
-    }
-
-    /**
-     * A map of the target list where the key is the servant `gameId` and the
-     * values are buckets containing the servants with the `gameId`.
-     */
-    const targetMapByGameId = new Map<number, Array<MasterServant>>();
-    for (const targetMasterServant of targetMasterServants) {
-        const { gameId } = targetMasterServant;
-        let bucket = targetMapByGameId.get(gameId);
-        if (!bucket) {
-            targetMapByGameId.set(gameId, bucket = []);
-        }
-        bucket.push(targetMasterServant);
-    }
-
-    /**
-     * Keeps track of the number of servants by `gameId` have that have been merged
-     * into the target list.
-     */
-    const mergeCountByGameId: Record<number, number> = {};
-
-    /**
-     * Iterate through the masterServantUpdates array.
-     */
-    for (const update of masterServantUpdates) {
-        const { gameId } = update;
-        const mergeCount = mergeCountByGameId[gameId] || 0;
-        const bucket = targetMapByGameId.get(gameId);
-
-        /**
-         * The target servant to merge into.
-         */
-        const mergeTarget = bucket?.[mergeCount];
-
-        /**
-         * If a suitable merge target could not be found, then just add the servant to
-         * the target list. Otherwise, merge the source servant into the target and
-         * update the merge count.
-         */
-        if (!mergeTarget) {
-            const servant = toMasterServant(instanceId++, update, targetBondLevels, targetUnlockedCostumes);
-            targetMasterServants.push(servant);
-        } else {
-            applyToMasterServant(update, mergeTarget, targetBondLevels, targetUnlockedCostumes);
-            mergeCountByGameId[gameId] = mergeCount + 1;
-        }
-    }
-
-    return instanceId;
-}
-
 function _updateUnlockedCostumes(source: ReadonlyMap<number, boolean | Indeterminate>, target: Array<number> | Set<number>): void {
     if (!source.size) {
         return;
@@ -497,6 +406,162 @@ function _updateUnlockedCostumes(source: ReadonlyMap<number, boolean | Indetermi
         (target as Array<number>).length = 0;
         (target as Array<number>).push(...targetSet);
     }
+}
+
+//#endregion
+
+
+//#region Batch/import update functions
+
+/**
+ * Batch applies updates from data import to an existing `MasterServant` array.
+ * Also updates the bond levels map and unlocked costume IDs if provided.
+ *
+ * @param masterServantUpdates The updates that will be applied.
+ *
+ * @param targetMasterServants The `MasterServant` instances that will be
+ * updated.
+ * 
+ * @param startInstanceId The `instanceId` to start at for servant(s) that are
+ * added as part of the operation. 
+ *
+ * @param targetBondLevels (optional) The bond levels map that will also be
+ * updated from the update data.
+ *
+ * @param targetUnlockedCostumes (optional) The unlocked costumes ID that will
+ * be also updated from the update data.
+ *
+ * @return The `instanceId` of the last servant to be added as part of the
+ * operation. If no servants were added, then it will return the given value.
+ */
+export function batchApplyToMasterServants(
+    masterServantUpdates: Array<ImportedMasterServantUpdate>,
+    targetMasterServants: Array<MasterServant>,
+    startInstanceId: number,
+    targetBondLevels?: Record<number, MasterServantBondLevel>,
+    targetUnlockedCostumes?: Array<number> | Set<number>
+): number {
+    /**
+     * Nothing to do, return.
+     */
+    if (!masterServantUpdates.length) {
+        return startInstanceId;
+    }
+
+    let instanceId = startInstanceId;
+
+    /**
+     * If there are no targets, then no need to do any individual merges, just copy
+     * the entire list.
+     */
+    if (!targetMasterServants.length) {
+        for (const update of masterServantUpdates) {
+            const masterServant = toMasterServant(instanceId++, update, targetBondLevels, targetUnlockedCostumes);
+            targetMasterServants.push(masterServant);
+        }
+        return instanceId;
+    }
+
+    /**
+     * Contains the corresponding target for each update. Some updates may not have
+     * targets.
+     */
+    const updateTargets = _findMergeTargets(masterServantUpdates, targetMasterServants);
+
+    /**
+     * Iterate through the masterServantUpdates array.
+     */
+    for (const update of masterServantUpdates) {
+        /**
+         * The target servant to update.
+         */
+        const updateTarget = updateTargets.get(update);
+
+        /**
+         * If a the update does not have an existing target, then just add it to the
+         * target array as a new servant.
+         */
+        if (!updateTarget) {
+            const servant = toMasterServant(instanceId++, update, targetBondLevels, targetUnlockedCostumes);
+            targetMasterServants.push(servant);
+        } else {
+            applyToMasterServant(update, updateTarget, targetBondLevels, targetUnlockedCostumes);
+        }
+    }
+
+    return instanceId;
+}
+
+/**
+ * Attempts to find a target for each update. Prioritizes the updates that have
+ * `instanceId`. Some updates may end up without a target.
+ */
+function _findMergeTargets(
+    masterServantUpdates: Array<ImportedMasterServantUpdate>,
+    targetMasterServants: Array<MasterServant>
+): Map<ImportedMasterServantUpdate, MasterServant> {
+
+    const result = new Map<ImportedMasterServantUpdate, MasterServant>();
+
+    /**
+     * Contains all the target servants that have been already assigned.
+     */
+    const assignedTargets = new Set<MasterServant>();
+
+    /**
+     * First process all the updates that have `instanceId`. We do not want to
+     * mis-assign a servant that is specifically being targeted by an update (via
+     * the `instanceId`) to the wrong update.
+     */
+    for (const update of masterServantUpdates) {
+        const { gameId, instanceId } = update;
+        if (instanceId == null) {
+            continue;
+        }
+        for (const target of targetMasterServants) {
+            if (target.instanceId === instanceId) {
+                /**
+                 * If the `instanceId` is a match, but the `gameId` is not, then it will be
+                 * ignored and processed later as if it did not have an `instanceId`. Otherwise,
+                 * add it to the result map and assigned targets set.
+                 */
+                if (target.gameId === gameId) {
+                    result.set(update, target);
+                    assignedTargets.add(target);
+                }
+                break;
+            }
+        }
+        /**
+         * If there is no target with a matching `instanceId` at all, then the update
+         * will also be processed later as if it did not have an `instanceId.
+         */
+    }
+
+    /**
+     * Then process the rest of the updates. Updates that had an `instanceId` that
+     * did not match will also be processed here. These updates will be assigned
+     * targets with matching `gameId` in sequential order.
+     */
+    for (const update of masterServantUpdates) {
+        if (result.has(update)) {
+            continue;
+        }
+        const gameId = update.gameId;
+        for (const target of targetMasterServants) {
+            if (target.gameId === gameId && !assignedTargets.has(target)) {
+                result.set(update, target);
+                assignedTargets.add(target);
+                break;
+            }
+        }
+        /**
+         * If target was not found for the update, then just do nothing... it just wont
+         * have an entry in the map.
+         */
+    }
+
+    return result;
 }
 
 //#endregion
