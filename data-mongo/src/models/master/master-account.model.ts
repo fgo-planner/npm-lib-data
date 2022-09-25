@@ -2,7 +2,7 @@ import { MasterServantUtils } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import mongoose, { Document, Model, Query, Schema } from 'mongoose';
 import { MasterAccountSchemaDefinition } from '../../schemas';
-import { BasicMasterAccount, MasterAccount } from '../../types';
+import { BasicMasterAccount, MasterAccount, MasterAccountUpdate } from '../../types';
 import { MasterAccountValidators } from '../../validators';
 
 export type MasterAccountDocument = MasterAccount & Document<ObjectId, any, MasterAccount>;
@@ -37,7 +37,7 @@ type MasterAccountModel = Model<MasterAccount> & {
      * method internally, with some custom validations. All updates to existing
      * documents in the collection should be done through this method if possible.
      */
-    partialUpdate: (id: ObjectId, update: Partial<MasterAccount>) => Query<BasicMasterAccountDocument, BasicMasterAccountDocument>;
+    partialUpdate: (update: MasterAccountUpdate) => Query<BasicMasterAccountDocument, BasicMasterAccountDocument>;
 
 };
 
@@ -52,14 +52,10 @@ const findByUserId = function (
 
 const partialUpdate = async function (
     this: MasterAccountModel,
-    id: ObjectId,
-    update: Partial<MasterAccount>
+    update: MasterAccountUpdate
 ): Promise<Query<BasicMasterAccountDocument | null, BasicMasterAccountDocument>> {
-    /**
-     * Do not allow `_id` or `userId` to be updated.
-     */
-    delete update._id;
-    delete update.userId;
+
+    const id = update._id;
 
     let lastServantInstanceId = update.lastServantInstanceId || 0;
     if (update.servants) {

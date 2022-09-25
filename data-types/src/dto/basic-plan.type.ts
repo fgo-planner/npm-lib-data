@@ -1,4 +1,4 @@
-import { Plan } from './plan.type';
+import { Plan } from '../planner/plan.type';
 
 export type BasicPlan<ID = string> = Pick<Plan<ID>, 
     '_id' |

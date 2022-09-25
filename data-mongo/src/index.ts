@@ -18,6 +18,7 @@ export {
     BasicUser,
     GameEvent,
     MasterAccount,
+    MasterAccountUpdate,
     Plan,
     PlanGroup,
     User

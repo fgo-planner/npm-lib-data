@@ -1,4 +1,4 @@
-import { BasicPlanGroup } from '../planner/basic-plan-group.type';
+import { BasicPlanGroup } from '../dto/basic-plan-group.type';
 import { ImmutableEntityWithTimestamps } from './immutable-entity-with-timestamps.type';
 
 /**

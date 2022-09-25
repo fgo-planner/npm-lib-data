@@ -1,4 +1,4 @@
-import { BasicMasterAccount } from '../master/account/basic-master-account.type';
+import { BasicMasterAccount } from '../dto/basic-master-account.type';
 import { ImmutableEntityWithTimestamps } from './immutable-entity-with-timestamps.type';
 
 /**

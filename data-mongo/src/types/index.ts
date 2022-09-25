@@ -3,6 +3,7 @@ export * from './basic-plan-group.type';
 export * from './basic-plan.type';
 export * from './basic-user.type';
 export * from './game-event.type';
+export * from './master-account-update.type';
 export * from './master-account.type';
 export * from './plan-group.type';
 export * from './plan.type';
