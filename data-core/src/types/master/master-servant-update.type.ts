@@ -2,6 +2,12 @@ import { MasterServantAscensionLevel, MasterServantBondLevel, MasterServantNoble
 
 export type MasterServantUpdateType = 'New' | 'Existing' | 'Imported';
 
+export const NewMasterServantUpdateType = 'New';
+
+export const ExistingMasterServantUpdateType = 'Existing';
+
+export const ImportedMasterServantUpdateType = 'Imported';
+
 type Indeterminate = 'indeterminate';
 
 export type MasterServantUpdateIndeterminate = Indeterminate;

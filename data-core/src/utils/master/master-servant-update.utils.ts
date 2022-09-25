@@ -1,7 +1,7 @@
 import { ReadonlyIterable, ReadonlyRecord } from '@fgo-planner/common-core';
 import { ImmutableMasterServant, MasterServant, MasterServantBondLevel } from '@fgo-planner/data-types';
 import { MasterServantConstants } from '../../constants';
-import { ExistingMasterServantUpdate, ImportedMasterServantUpdate, MasterServantUpdate, MasterServantUpdateIndeterminate as Indeterminate, MasterServantUpdateIndeterminateValue as IndeterminateValue, NewMasterServantUpdate } from '../../types';
+import { ExistingMasterServantUpdate, ExistingMasterServantUpdateType, ImportedMasterServantUpdate, MasterServantUpdate, MasterServantUpdateIndeterminate as Indeterminate, MasterServantUpdateIndeterminateValue as IndeterminateValue, NewMasterServantUpdate, NewMasterServantUpdateType } from '../../types';
 import * as MasterServantUtils from './master-servant.utils';
 
 //#region Local type definitions
@@ -9,15 +9,6 @@ import * as MasterServantUtils from './master-servant.utils';
 type BondLevels = ReadonlyRecord<number, MasterServantBondLevel>;
 
 type UnlockedCostumes = ReadonlyIterable<number>;
-
-//#endregion
-
-
-//#region Constants
-
-const NewMasterServantUpdateType = 'New';
-
-const ExistingMasterServantUpdateType = 'Existing';
 
 //#endregion
 
