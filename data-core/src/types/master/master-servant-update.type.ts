@@ -1,18 +1,26 @@
 import { MasterServantAscensionLevel, MasterServantBondLevel, MasterServantNoblePhantasmLevel, MasterServantSkillLevel } from '@fgo-planner/data-types';
+import { MasterServantUpdateBoolean } from './master-servant-update-boolean.type';
+import { MasterServantUpdateNumber } from './master-servant-update-number.type';
 
+/**
+ * Qualifier for identifying the update type.
+ */
 export type MasterServantUpdateType = 'New' | 'Existing' | 'Imported';
 
+/**
+ * Qualifier value for the `NewMasterServantUpdate` type.
+ */
 export const NewMasterServantUpdateType = 'New';
 
+/**
+ * Qualifier value for the `ExistingMasterServantUpdate` type.
+ */
 export const ExistingMasterServantUpdateType = 'Existing';
 
+/**
+ * Qualifier value for the `ImportedMasterServantUpdate` type.
+ */
 export const ImportedMasterServantUpdateType = 'Imported';
-
-type Indeterminate = 'indeterminate';
-
-export type MasterServantUpdateIndeterminate = Indeterminate;
-
-export const MasterServantUpdateIndeterminateValue: Indeterminate = 'indeterminate';
 
 type BaseMasterServantUpdate = {
 
@@ -25,18 +33,18 @@ type BaseMasterServantUpdate = {
      * Whether the servant has already been summoned by the master, or is just
      * tentative. Supports indeterminate value.
      */
-    summoned: boolean | Indeterminate;
+    summoned: MasterServantUpdateBoolean;
 
     /**
      * The servant's summoning date in number of milliseconds since the
      * ECMAScript epoch. Supports indeterminate value.
      */
-    summonDate?: number | Indeterminate;
+    summonDate: MasterServantUpdateNumber | null;
 
     /**
      * The servant's noble phantasm level. Supports indeterminate value.
      */
-    np: MasterServantNoblePhantasmLevel | Indeterminate;
+    np: MasterServantUpdateNumber<MasterServantNoblePhantasmLevel>;
 
     /**
      * The servant's level. Supports indeterminate value.
@@ -47,7 +55,7 @@ type BaseMasterServantUpdate = {
      *
      * TODO Find a way to handle this when multiple servants are being edited.
      */
-    level: number | Indeterminate;
+    level: MasterServantUpdateNumber;
 
     /**
      * The servant's ascension level. Supports indeterminate value.
@@ -58,46 +66,46 @@ type BaseMasterServantUpdate = {
      * 
      * TODO Find a way to handle this when multiple servants are being edited.
      */
-    ascension: MasterServantAscensionLevel | Indeterminate;
+    ascension: MasterServantUpdateNumber<MasterServantAscensionLevel>;
 
     /**
      * The servant's attack fou enhancement. Supports indeterminate value.
      */
-    fouAtk?: number | Indeterminate;
+    fouAtk: MasterServantUpdateNumber | null;
 
     /**
      * The servant's HP fou enhancement. Supports indeterminate value.
      */
-    fouHp?: number | Indeterminate;
+    fouHp: MasterServantUpdateNumber | null;
 
     /**
      * The servant's skill levels. Supports indeterminate values.
      */
     skills: {
-        1: MasterServantSkillLevel | Indeterminate;
-        2?: MasterServantSkillLevel | Indeterminate;
-        3?: MasterServantSkillLevel | Indeterminate;
+        1: MasterServantUpdateNumber<MasterServantSkillLevel>;
+        2: MasterServantUpdateNumber<MasterServantSkillLevel> | null;
+        3: MasterServantUpdateNumber<MasterServantSkillLevel> | null;
     };
 
     /**
      * The servant's append skill levels. Supports indeterminate values.
      */
     appendSkills: {
-        1?: MasterServantSkillLevel | Indeterminate;
-        2?: MasterServantSkillLevel | Indeterminate;
-        3?: MasterServantSkillLevel | Indeterminate;
+        1: MasterServantUpdateNumber<MasterServantSkillLevel> | null;
+        2: MasterServantUpdateNumber<MasterServantSkillLevel> | null;
+        3: MasterServantUpdateNumber<MasterServantSkillLevel> | null;
     };
 
     /**
      * The servant's bond level. Supports indeterminate value.
      */
-    bondLevel?: MasterServantBondLevel | Indeterminate;
+    bondLevel: MasterServantUpdateNumber<MasterServantBondLevel> | null;
 
     /**
      * Contains all of the IDs of the costumes that are to be added or removed as
      * a result of the update. Supports indeterminate values.
      */
-    unlockedCostumes: Map<number, boolean | Indeterminate>;
+    unlockedCostumes: Map<number, MasterServantUpdateBoolean>;
 
 };
 
@@ -114,7 +122,7 @@ export type ExistingMasterServantUpdate = BaseMasterServantUpdate & {
     /**
      * The ID of the servant that is being editing. Supports indeterminate values.
      */
-    gameId: number | Indeterminate;
+    gameId: MasterServantUpdateNumber;
 };
 
 export type ImportedMasterServantUpdate = BaseMasterServantUpdate & {
@@ -124,10 +132,8 @@ export type ImportedMasterServantUpdate = BaseMasterServantUpdate & {
      */
     gameId: number;
     /**
-     * If present, the batch update process will try to target the existing servant
-     * with the matching `instanceId` and `gameId`. If the `instanceId` matches but
-     * the `gameId` does not, then it will be ignored. Has no effect during single
-     * servant updates.
+     * Can be used during batch update process to match the update with a specific
+     * target. Has no effect during single servant updates.
      */
     instanceId?: number;
 };
