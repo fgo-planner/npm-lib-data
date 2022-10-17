@@ -1,5 +1,5 @@
-import { GameItemQuantity } from '../item/game-item-quantity.type';
 import { Entity } from '../../entity.type';
+import { GameItemQuantities } from '../item/game-item-quantities.type';
 
 export type GameSoundtrack = Entity<number> & {
 
@@ -14,7 +14,7 @@ export type GameSoundtrack = Entity<number> & {
      * Material required to unlock the soundtrack. This should be `undefined` for
      * tracks that are already unlocked by default.
      */
-    material?: GameItemQuantity
+    material?: GameItemQuantities
 
     audioUrl?: string;
 

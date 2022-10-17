@@ -22,265 +22,154 @@ export const GameServant_504400: Immutable<GameServant> = {
     skillMaterials: {
         1: {
             qp: 20000,
-            materials: [
-                {
-                    itemId: 6005,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6005: 3
+            }
         },
         2: {
             qp: 40000,
-            materials: [
-                {
-                    itemId: 6005,
-                    quantity: 6
-                }
-            ]
+            materials: {
+                6005: 6
+            }
         },
         3: {
             qp: 120000,
-            materials: [
-                {
-                    itemId: 6105,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6105: 3
+            }
         },
         4: {
             qp: 160000,
-            materials: [
-                {
-                    itemId: 6105,
-                    quantity: 6
-                },
-                {
-                    itemId: 6510,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6105: 6,
+                6510: 3
+            }
         },
         5: {
             qp: 400000,
-            materials: [
-                {
-                    itemId: 6205,
-                    quantity: 3
-                },
-                {
-                    itemId: 6510,
-                    quantity: 5
-                }
-            ]
+            materials: {
+                6205: 3,
+                6510: 5
+            }
         },
         6: {
             qp: 500000,
-            materials: [
-                {
-                    itemId: 6205,
-                    quantity: 6
-                },
-                {
-                    itemId: 6511,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6205: 6,
+                6511: 3
+            }
         },
         7: {
             qp: 1000000,
-            materials: [
-                {
-                    itemId: 6511,
-                    quantity: 5
-                },
-                {
-                    itemId: 6532,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6511: 5,
+                6532: 3
+            }
         },
         8: {
             qp: 1200000,
-            materials: [
-                {
-                    itemId: 6532,
-                    quantity: 9
-                },
-                {
-                    itemId: 6538,
-                    quantity: 12
-                }
-            ]
+            materials: {
+                6532: 9,
+                6538: 12
+            }
         },
         9: {
             qp: 2000000,
-            materials: [
-                {
-                    itemId: 6999,
-                    quantity: 1
-                }
-            ]
+            materials: {
+                6999: 1
+            }
         }
     },
     appendSkillMaterials: {
         1: {
             qp: 20000,
-            materials: [
-                {
-                    itemId: 6005,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6005: 3
+            }
         },
         2: {
             qp: 40000,
-            materials: [
-                {
-                    itemId: 6005,
-                    quantity: 6
-                }
-            ]
+            materials: {
+                6005: 6
+            }
         },
         3: {
             qp: 120000,
-            materials: [
-                {
-                    itemId: 6105,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6105: 3
+            }
         },
         4: {
             qp: 160000,
-            materials: [
-                {
-                    itemId: 6105,
-                    quantity: 6
-                },
-                {
-                    itemId: 6515,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6105: 6,
+                6515: 3
+            }
         },
         5: {
             qp: 400000,
-            materials: [
-                {
-                    itemId: 6205,
-                    quantity: 3
-                },
-                {
-                    itemId: 6515,
-                    quantity: 5
-                }
-            ]
+            materials: {
+                6205: 3,
+                6515: 5
+            }
         },
         6: {
             qp: 500000,
-            materials: [
-                {
-                    itemId: 6205,
-                    quantity: 6
-                },
-                {
-                    itemId: 6525,
-                    quantity: 1
-                }
-            ]
+            materials: {
+                6205: 6,
+                6525: 1
+            }
         },
         7: {
             qp: 1000000,
-            materials: [
-                {
-                    itemId: 6525,
-                    quantity: 2
-                },
-                {
-                    itemId: 6534,
-                    quantity: 9
-                }
-            ]
+            materials: {
+                6525: 2,
+                6534: 9
+            }
         },
         8: {
             qp: 1200000,
-            materials: [
-                {
-                    itemId: 6534,
-                    quantity: 27
-                },
-                {
-                    itemId: 6539,
-                    quantity: 8
-                }
-            ]
+            materials: {
+                6534: 27,
+                6539: 8
+            }
         },
         9: {
             qp: 2000000,
-            materials: [
-                {
-                    itemId: 6999,
-                    quantity: 1
-                }
-            ]
+            materials: {
+                6999: 1
+            }
         }
     },
     ascensionMaterials: {
         1: {
             qp: 15000,
-            materials: [
-                {
-                    itemId: 7005,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                7005: 3
+            }
         },
         2: {
             qp: 45000,
-            materials: [
-                {
-                    itemId: 7005,
-                    quantity: 6
-                },
-                {
-                    itemId: 6511,
-                    quantity: 4
-                }
-            ]
+            materials: {
+                6511: 4,
+                7005: 6
+            }
         },
         3: {
             qp: 150000,
-            materials: [
-                {
-                    itemId: 7105,
-                    quantity: 3
-                },
-                {
-                    itemId: 6510,
-                    quantity: 5
-                },
-                {
-                    itemId: 6515,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6510: 5,
+                6515: 3,
+                7105: 3
+            }
         },
         4: {
             qp: 450000,
-            materials: [
-                {
-                    itemId: 7105,
-                    quantity: 6
-                },
-                {
-                    itemId: 6515,
-                    quantity: 5
-                },
-                {
-                    itemId: 6525,
-                    quantity: 3
-                }
-            ]
+            materials: {
+                6515: 5,
+                6525: 3,
+                7105: 6
+            }
         }
     },
     costumes: {},

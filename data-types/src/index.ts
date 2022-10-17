@@ -13,6 +13,7 @@ export * from './game/event/game-event-reward-source-type.enum';
 export * from './game/event/game-event-reward-source.type';
 export * from './game/event/game-event.type';
 export * from './game/item/game-item-background.enum';
+export * from './game/item/game-item-quantities.type';
 export * from './game/item/game-item-quantity.type';
 export * from './game/item/game-item-usage.enum';
 export * from './game/item/game-item.type';
@@ -60,4 +61,3 @@ export * from './user/user-preferences.type';
 export * from './user/user-web-client-preferences.type';
 export * from './user/user-web-client-theme.type';
 export * from './user/user.type';
-

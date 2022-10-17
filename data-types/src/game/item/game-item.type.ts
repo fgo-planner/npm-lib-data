@@ -16,8 +16,13 @@ export type GameItem = Entity<number> & {
 
     description?: string;
 
+    /**
+     * The sort order of the item when displayed in a list.
+     */
+    priority: number;
+
     background: GameItemBackground;
 
-    uses: GameItemUsage[];
+    uses: Array<GameItemUsage>;
 
 };

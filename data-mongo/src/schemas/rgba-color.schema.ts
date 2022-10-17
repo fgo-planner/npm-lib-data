@@ -1,5 +1,5 @@
 import { RgbaColor } from '@fgo-planner/data-core';
-import { Schema, SchemaDefinitionProperty } from 'mongoose';
+import { Schema, SchemaTypeOptions } from 'mongoose';
 import { ValidationStrings } from '../validators';
 
 const isValidRgbValue = function(value: number): boolean {
@@ -7,9 +7,9 @@ const isValidRgbValue = function(value: number): boolean {
 };
 
 /**
- * Mongoose schema definition property for a RGB value.
+ * Mongoose schema type options for a RGB value.
  */
-const ColorSchemaDefinitionProperty: SchemaDefinitionProperty = {
+const ColorSchemaTypeOptions: SchemaTypeOptions<number> = {
     type: Number,
     required: true,
     validate: {
@@ -23,9 +23,9 @@ const ColorSchemaDefinitionProperty: SchemaDefinitionProperty = {
  * Mongoose schema for the `RgbaColor` type.
  */
 export const RgbaColorSchema = new Schema<RgbaColor>({
-    r: ColorSchemaDefinitionProperty,
-    g: ColorSchemaDefinitionProperty,
-    b: ColorSchemaDefinitionProperty,
+    r: ColorSchemaTypeOptions,
+    g: ColorSchemaTypeOptions,
+    b: ColorSchemaTypeOptions,
     a: {
         type: Number,
         required: true,

@@ -1,5 +1,7 @@
 /**
  * Skill gem item IDs.
+ * 
+ * @deprecated Use the `priority` and `background` properties instead.
  */
 export const SkillGems = [
     6001,
@@ -27,6 +29,8 @@ export const SkillGems = [
 
 /**
  * Statue gem item IDs.
+ * 
+ * @deprecated Use the `priority` and `background` properties instead.
  */
 export const AscensionStatues = [
     7001,
@@ -48,6 +52,8 @@ export const AscensionStatues = [
 /**
  * Bronze enhancement material item IDs. Order of the items are as they appear
  * in the Item List in-game menu.
+ * 
+ * @deprecated Use the `priority` and `background` properties instead.
  */
 export const BronzeEnhancementMaterials = [
     6503,  // Proof
@@ -68,6 +74,8 @@ export const BronzeEnhancementMaterials = [
 /**
  * Silver enhancement material item IDs. Order of the items are as they appear
  * in the Item List in-game menu.
+ * 
+ * @deprecated Use the `priority` and `background` properties instead.
  */
 export const SilverEnhancementMaterials = [
     6502,  // Seed
@@ -96,6 +104,8 @@ export const SilverEnhancementMaterials = [
 /**
  * Gold enhancement material item IDs. Order of the items are as they appear in
  * the Item List in-game menu.
+ * 
+ * @deprecated Use the `priority` and `background` properties instead.
  */
 export const GoldEnhancementMaterials = [
     6507,  // Claw
@@ -118,9 +128,28 @@ export const GoldEnhancementMaterials = [
     6548   // Demonic Flame
 ] as ReadonlyArray<number>;
 
+/**
+ * @deprecated Use the `priority` and `background` properties instead.
+ */
 export const OtherEnhancementMaterials = [
     6999,  // Lore
     7999   // Grail
 ] as ReadonlyArray<number>;
 
+export const SkillGemItemIdMin = 6000;
+
+export const SkillGemItemIdMax = 6300;
+
+export const AscensionStatueItemIdMin = 7000;
+
+export const AscensionStatueItemIdMax = 7200;
+
+export const EnhancementMaterialItemIdMin = 6500;
+
+export const EnhancementMaterialItemIdMax = 6600;
+
 export const QpItemId = 5;
+
+export const LoreItemId = 6999;
+
+export const GrailItemId = 7999;

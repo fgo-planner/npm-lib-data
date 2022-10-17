@@ -22,6 +22,16 @@ export const GameItemSchemaDefinition: SchemaDefinition<GameItem> = {
     description: {
         type: String
     },
+    priority: {
+        type: Number,
+        required: true,
+        min: 0,
+        validate: {
+            validator: Number.isInteger,
+            message: ValidationStrings.NumberInteger
+        },
+        default: 0
+    },
     background: {
         type: String,
         enum: Object.keys(GameItemBackground),

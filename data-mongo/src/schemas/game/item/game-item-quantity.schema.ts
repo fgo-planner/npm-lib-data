@@ -3,7 +3,9 @@ import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
 
 /**
- * Mongoose schema for the `GameItemQuantity` type.
+ * Mongoose schema for the `GameItemQuantities` type.
+ * 
+ * @deprecated
  */
 export const GameItemQuantitySchema = new Schema<GameItemQuantity>({
     itemId: {

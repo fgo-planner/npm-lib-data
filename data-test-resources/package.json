@@ -1,6 +1,6 @@
 {
     "name": "@fgo-planner/data-test-resources",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/fgo-planner/npm-lib-data.git"
@@ -32,9 +32,9 @@
         "build": "npm-run-all -l lint -p clean -p build:esm build:cjs declarations",
         "prepublishOnly": "npm i && npm run build"
     },
-    "dependencies": {
-        "@fgo-planner/common-types": "^0.0.2",
-        "@fgo-planner/data-types": "^0.1.1"
+    "peerDependencies": {
+        "@fgo-planner/common-types": ">= 0.0.2 < 0.1.0",
+        "@fgo-planner/data-types": ">= 0.2.0 < 0.3.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.18.10",

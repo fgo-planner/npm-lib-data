@@ -5,7 +5,7 @@ import { CommonTransformers } from '../../../transformers';
 import { MasterAccount } from '../../../types';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../../validators';
 import { GameEmberQuantitiesSchema } from '../../game/ember/game-ember-quantities.schema';
-import { GameItemQuantitySchema } from '../../game/item/game-item-quantity.schema';
+import { GameItemQuantitiesSchemaTypeOptions } from '../../game/item/game-item-quantities.schema';
 import { MasterServantSchema } from '../servant/master-servant.schema';
 
 /**
@@ -13,9 +13,9 @@ import { MasterServantSchema } from '../servant/master-servant.schema';
  */
 export const MasterAccountResourcesSchema = new Schema<MasterAccount['resources']>({
     items: {
-        type: [GameItemQuantitySchema],
+        ...GameItemQuantitiesSchemaTypeOptions,
         required: true,
-        default: []
+        default: {}
     },
     embers: {
         type: GameEmberQuantitiesSchema,
