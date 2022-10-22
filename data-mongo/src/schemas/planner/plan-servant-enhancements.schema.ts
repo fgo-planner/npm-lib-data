@@ -1,4 +1,4 @@
-import { PlanServantEnhancements } from '@fgo-planner/data-core';
+import { MasterServantConstants, PlanServantEnhancements } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
 
@@ -6,11 +6,11 @@ import { CommonValidators, MasterAccountValidators, ValidationStrings } from '..
  * Mongoose schema for the `PlanServantEnhancements.skills` and
  * `PlanServantEnhancements.appendSkills` properties.
  */
-const PlanServantEnhancementsSkillsSchema = new Schema<PlanServantEnhancements['skills']>({
+const PlanServantEnhancementsSkillLevelsSchema = new Schema<PlanServantEnhancements['skills']>({
     1: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -18,8 +18,8 @@ const PlanServantEnhancementsSkillsSchema = new Schema<PlanServantEnhancements['
     },
     2: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -27,8 +27,8 @@ const PlanServantEnhancementsSkillsSchema = new Schema<PlanServantEnhancements['
     },
     3: {
         type: Number,
-        min: 1,
-        max: 10,
+        min: MasterServantConstants.MinSkillLevel,
+        max: MasterServantConstants.MaxSkillLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -45,8 +45,8 @@ const PlanServantEnhancementsSkillsSchema = new Schema<PlanServantEnhancements['
 export const PlanServantEnhancementsSchema = new Schema<PlanServantEnhancements>({
     level: {
         type: Number,
-        min: 1,
-        max: 100,
+        min: MasterServantConstants.MinLevel,
+        max: MasterServantConstants.MaxLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -54,8 +54,8 @@ export const PlanServantEnhancementsSchema = new Schema<PlanServantEnhancements>
     },
     ascension: {
         type: Number,
-        min: 0,
-        max: 4,
+        min: MasterServantConstants.MinLevel,
+        max: MasterServantConstants.MaxLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
@@ -63,8 +63,8 @@ export const PlanServantEnhancementsSchema = new Schema<PlanServantEnhancements>
     },
     fouAtk: {
         type: Number,
-        min: 0,
-        max: 2000,
+        min: MasterServantConstants.MinFou,
+        max: MasterServantConstants.MaxFou,
         validate: {
             validator: MasterAccountValidators.isFouValueValid,
             message: ValidationStrings.GenericInvalidValue
@@ -72,20 +72,20 @@ export const PlanServantEnhancementsSchema = new Schema<PlanServantEnhancements>
     },
     fouHp: {
         type: Number,
-        min: 0,
-        max: 2000,
+        min: MasterServantConstants.MinFou,
+        max: MasterServantConstants.MaxFou,
         validate: {
             validator: MasterAccountValidators.isFouValueValid,
             message: ValidationStrings.GenericInvalidValue
         }
     },
     skills: {
-        type: PlanServantEnhancementsSkillsSchema,
+        type: PlanServantEnhancementsSkillLevelsSchema,
         required: true,
         default: {}
     },
     appendSkills: {
-        type: PlanServantEnhancementsSkillsSchema,
+        type: PlanServantEnhancementsSkillLevelsSchema,
         required: true,
         default: {}
     },
