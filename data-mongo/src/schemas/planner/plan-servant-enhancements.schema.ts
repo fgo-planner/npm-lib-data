@@ -54,8 +54,8 @@ export const PlanServantEnhancementsSchema = new Schema<PlanServantEnhancements>
     },
     ascension: {
         type: Number,
-        min: MasterServantConstants.MinLevel,
-        max: MasterServantConstants.MaxLevel,
+        min: MasterServantConstants.MinAscensionLevel,
+        max: MasterServantConstants.MaxAscensionLevel,
         validate: {
             validator: CommonValidators.isNullOrInteger,
             message: ValidationStrings.NumberInteger
