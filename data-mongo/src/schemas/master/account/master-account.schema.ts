@@ -121,14 +121,21 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
     bondLevels: {
         type: Map,
         of: {
-            type: Number,
-            min: MasterServantConstants.MinBondLevel,
-            max: MasterServantConstants.MaxBondLevel,
-            validate: {
-                validator: CommonValidators.isNullOrInteger,
-                message: ValidationStrings.NumberInteger
-            }
+            type: Number
         },
+        validate: [
+            {
+                validator: CommonValidators.mapIntegerKeysValidator(0),
+                message: ValidationStrings.GenericInvalidKeyPathOnly
+            },
+            {
+                validator: CommonValidators.mapIntegerValuesValidator(
+                    MasterServantConstants.MinBondLevel,
+                    MasterServantConstants.MaxBondLevel
+                ),
+                message: ValidationStrings.GenericInvalidValuePathOnly
+            },
+        ],
         required: true,
         default: {},
         transform: CommonTransformers.mapToObject as any

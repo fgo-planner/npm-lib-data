@@ -8,6 +8,8 @@ export const GenericInvalid = 'Path `{PATH}` ({VALUE}) is invalid.';
 
 export const GenericInvalidFormat = 'Path `{PATH}` ({VALUE}) is in an incorrect format.';
 
+export const GenericInvalidKeyPathOnly = 'Path `{PATH}` contains an invalid key.';
+
 export const GenericInvalidValue = 'Path `{PATH}` ({VALUE}) contains an invalid value.';
 
 export const GenericInvalidValuePathOnly = 'Path `{PATH}` contains an invalid value.';
