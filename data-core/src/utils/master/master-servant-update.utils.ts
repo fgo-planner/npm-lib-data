@@ -1,26 +1,25 @@
-import { ReadonlyIterable, ReadonlyRecord } from '@fgo-planner/common-core';
-import { ImmutableMasterServant, MasterServant, MasterServantBondLevel } from '@fgo-planner/data-types';
-import { MasterServantConstants } from '../../constants';
-import { ExistingMasterServantUpdate, ExistingMasterServantUpdateType, ImportedMasterServantUpdate, MasterServantUpdate, MasterServantUpdateBoolean, MasterServantUpdateIndeterminateValue as IndeterminateValue, NewMasterServantUpdate, NewMasterServantUpdateType } from '../../types';
+import { ReadonlyRecord } from '@fgo-planner/common-core';
+import { ImmutableMasterServant, InstantiatedServantBondLevel, MasterServant } from '@fgo-planner/data-types';
+import { InstantiatedServantConstants, MasterServantConstants } from '../../constants';
+import { ExistingMasterServantUpdate, ExistingMasterServantUpdateType, ImportedMasterServantUpdate, InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, MasterServantUpdate, NewMasterServantUpdate, NewMasterServantUpdateType } from '../../types';
+import * as ServantUpdateUtils from '../common/instantiated-servant-update.utils';
 import * as MasterServantUtils from './master-servant.utils';
 
 //#region Local type definitions
 
-type BondLevels = ReadonlyRecord<number, MasterServantBondLevel>;
-
-type UnlockedCostumes = ReadonlyIterable<number>;
+type BondLevels = ReadonlyRecord<number, InstantiatedServantBondLevel>;
 
 //#endregion
 
 
-//#region MasterServantUpdate instantiation functions
+//#region Instantiation functions
 
 /**
- * Creates a `NewMasterServantUpdate` instance for a new servant.
+ * Instantiates a default `NewMasterServantUpdate` object for adding a servant.
  */
 export function createNew(
     bondLevels?: BondLevels,
-    unlockedCostumes?: UnlockedCostumes
+    unlockedCostumes?: Iterable<number>
 ): NewMasterServantUpdate {
 
     const gameId = MasterServantConstants.DefaultServantId;
@@ -28,15 +27,15 @@ export function createNew(
     return {
         type: NewMasterServantUpdateType,
         gameId,
-        summoned: MasterServantUpdateBoolean.True, // Assume servant has been summoned by player by default
+        summoned: InstantiatedServantUpdateBoolean.True, // Assume servant has been summoned by player by default
         summonDate: null,
-        np: MasterServantConstants.MinNoblePhantasmLevel,
-        level: MasterServantConstants.MinLevel,
-        ascension: MasterServantConstants.MinAscensionLevel,
+        np: InstantiatedServantConstants.MinNoblePhantasmLevel,
+        level: InstantiatedServantConstants.MinLevel,
+        ascension: InstantiatedServantConstants.MinAscensionLevel,
         fouAtk: null,
         fouHp: null,
         skills: {
-            1: MasterServantConstants.MinSkillLevel,
+            1: InstantiatedServantConstants.MinSkillLevel,
             2: null,
             3: null
         },
@@ -46,7 +45,7 @@ export function createNew(
             3: null
         },
         bondLevel: bondLevels?.[gameId] || null,
-        unlockedCostumes: _generateUnlockedCostumesMap(unlockedCostumes)
+        unlockedCostumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
     };
 
 }
@@ -57,16 +56,17 @@ export function createNew(
 export function createFromExisting(
     masterServant: ImmutableMasterServant,
     bondLevels?: BondLevels,
-    unlockedCostumes?: UnlockedCostumes
+    unlockedCostumes?: Iterable<number>
 ): ExistingMasterServantUpdate;
 
 /**
- * Creates a `ExistingMasterServantUpdate` object from existing servants.
+ * Creates a `ExistingMasterServantUpdate` object from multiple existing
+ * servants.
  */
 export function createFromExisting(
     masterServants: ReadonlyArray<ImmutableMasterServant>,
     bondLevels?: BondLevels,
-    unlockedCostumes?: UnlockedCostumes
+    unlockedCostumes?: Iterable<number>
 ): ExistingMasterServantUpdate;
 
 /**
@@ -75,12 +75,12 @@ export function createFromExisting(
 export function createFromExisting(
     source: ReadonlyArray<ImmutableMasterServant> | ImmutableMasterServant,
     bondLevels?: BondLevels,
-    unlockedCostumes?: UnlockedCostumes
+    unlockedCostumes?: Iterable<number>
 ): MasterServantUpdate {
 
     if (Array.isArray(source)) {
         return _createFromExistingMultiple(
-            source as ReadonlyArray<ImmutableMasterServant>,
+            source,
             bondLevels,
             unlockedCostumes
         );
@@ -97,7 +97,7 @@ export function createFromExisting(
 function _createFromExistingSingle(
     masterServant: ImmutableMasterServant,
     bondLevels?: BondLevels,
-    unlockedCostumes?: UnlockedCostumes
+    unlockedCostumes?: Iterable<number>
 ): ExistingMasterServantUpdate {
 
     const {
@@ -124,7 +124,7 @@ function _createFromExistingSingle(
     return {
         type: ExistingMasterServantUpdateType,
         gameId,
-        summoned: convertBoolean(summoned),
+        summoned: ServantUpdateUtils.fromBoolean(summoned),
         summonDate: summonDate?.getTime() || null,
         np,
         level,
@@ -142,7 +142,7 @@ function _createFromExistingSingle(
             3: appendSkill3
         },
         bondLevel: bondLevels?.[masterServant.gameId] || null,
-        unlockedCostumes: _generateUnlockedCostumesMap(unlockedCostumes)
+        unlockedCostumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
     };
 
 }
@@ -150,7 +150,7 @@ function _createFromExistingSingle(
 function _createFromExistingMultiple(
     masterServants: ReadonlyArray<ImmutableMasterServant>,
     bondLevels?: BondLevels,
-    unlockedCostumes?: UnlockedCostumes
+    unlockedCostumes?: Iterable<number>
 ): ExistingMasterServantUpdate {
 
     /**
@@ -192,40 +192,40 @@ function _createFromExistingMultiple(
      */
     for (let i = 1; i < masterServants.length; i++) {
         const masterServant = masterServants[i];
-        if (summonDate !== IndeterminateValue && summonDate !== masterServant.summonDate?.getTime()) {
+        if (summonDate !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(summonDate, masterServant.summonDate?.getTime())) {
             summonDate = IndeterminateValue;
         }
-        if (summoned !== MasterServantUpdateBoolean.Indeterminate && !_equalsBoolean(summoned, masterServant.summoned)) {
+        if (!ServantUpdateUtils.equalsBoolean(summoned, masterServant.summoned)) {
             summoned = IndeterminateValue;
         }
         if (np !== IndeterminateValue && np !== masterServant.np) {
             np = IndeterminateValue;
         }
-        if (fouAtk !== IndeterminateValue && fouAtk !== masterServant.fouAtk) {
+        if (fouAtk !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(fouAtk, masterServant.fouAtk)) {
             fouAtk = IndeterminateValue;
         }
-        if (fouHp !== IndeterminateValue && fouHp !== masterServant.fouHp) {
+        if (fouHp !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(fouHp, masterServant.fouHp)) {
             fouHp = IndeterminateValue;
         }
         if (skill1 !== IndeterminateValue && skill1 !== masterServant.skills[1]) {
             skill1 = IndeterminateValue;
         }
-        if (skill2 !== IndeterminateValue && skill2 !== masterServant.skills[2]) {
+        if (skill2 !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(skill2, masterServant.skills[2])) {
             skill2 = IndeterminateValue;
         }
-        if (skill3 !== IndeterminateValue && skill3 !== masterServant.skills[3]) {
+        if (skill3 !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(skill3, masterServant.skills[3])) {
             skill3 = IndeterminateValue;
         }
-        if (appendSkill1 !== IndeterminateValue && appendSkill1 !== masterServant.appendSkills[1]) {
+        if (appendSkill1 !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(appendSkill1, masterServant.appendSkills[1])) {
             appendSkill1 = IndeterminateValue;
         }
-        if (appendSkill2 !== IndeterminateValue && appendSkill2 !== masterServant.appendSkills[2]) {
+        if (appendSkill2 !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(appendSkill2, masterServant.appendSkills[2])) {
             appendSkill2 = IndeterminateValue;
         }
-        if (appendSkill3 !== IndeterminateValue && appendSkill3 !== masterServant.appendSkills[3]) {
+        if (appendSkill3 !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(appendSkill3, masterServant.appendSkills[3])) {
             appendSkill3 = IndeterminateValue;
         }
-        if (bondLevel !== IndeterminateValue && bondLevel !== bondLevels?.[masterServant.gameId]) {
+        if (bondLevel !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(bondLevel, bondLevels?.[masterServant.gameId])) {
             bondLevel = IndeterminateValue;
         }
     }
@@ -251,32 +251,19 @@ function _createFromExistingMultiple(
             3: appendSkill3
         },
         bondLevel,
-        unlockedCostumes: _generateUnlockedCostumesMap(unlockedCostumes)
+        unlockedCostumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
     };
 
-}
-
-function _generateUnlockedCostumesMap(unlockedCostumes: UnlockedCostumes | undefined): Map<number, MasterServantUpdateBoolean> {
-    const result = new Map<number, MasterServantUpdateBoolean>();
-    if (!unlockedCostumes) {
-        return result;
-    }
-    for (const costumeId of unlockedCostumes) {
-        result.set(costumeId, MasterServantUpdateBoolean.Indeterminate);
-    }
-    return result;
 }
 
 //#endregion
 
 
-//#region Servant update functions
+//#region Update functions
 
 /**
- * Converts an update object to a new instance of `MasterServant`. This can be
- * used even if the `isNewServant` property is `false`. Any update fields that
- * contain an indeterminate value will use the default values generated by the
- * `MasterServantUtils.instantiate` method.
+ * Convenience function that instantiates a new `MasterServant` and applies the
+ * update to it.
  *
  * @param instanceId The `instanceId` of the returned `MasterServant` instance.
  *
@@ -286,20 +273,26 @@ function _generateUnlockedCostumesMap(unlockedCostumes: UnlockedCostumes | undef
  * @param targetBondLevels (optional) The bond levels map that will also be
  * updated from the update data.
  *
- * @param targetUnlockedCostumes (optional) The unlocked costumes ID that will
- * be also updated from the update data.
+ * @param targetUnlockedCostumes (optional) The unlocked costumes ID set that
+ * will be also updated from the update data.
  * 
  * @return New instance of `MasterServant`.
  */
 export function toMasterServant(
     instanceId: number,
     masterServantUpdate: MasterServantUpdate,
-    targetBondLevels?: Record<number, MasterServantBondLevel>,
-    targetUnlockedCostumes?: Array<number> | Set<number>
+    targetBondLevels?: Record<number, InstantiatedServantBondLevel>,
+    targetUnlockedCostumes?: Set<number>
 ): MasterServant {
-    const masterServant = MasterServantUtils.create(instanceId);
-    applyToMasterServant(masterServantUpdate, masterServant, targetBondLevels, targetUnlockedCostumes);
-    return masterServant;
+
+    const masterServant = MasterServantUtils.instantiate(instanceId);
+
+    return applyToMasterServant(
+        masterServantUpdate,
+        masterServant,
+        targetBondLevels,
+        targetUnlockedCostumes
+    );
 }
 
 /**
@@ -313,15 +306,17 @@ export function toMasterServant(
  * @param targetBondLevels (optional) The bond levels map that will also be
  * updated from the update data.
  *
- * @param targetUnlockedCostumes (optional) The unlocked costumes ID that will
- * be also updated from the update data.
+ * @param targetUnlockedCostumes (optional) The unlocked costumes ID set that
+ * will be also updated from the update data.
+ * 
+ * @return The supplied `MasterServant` instance with the updates applied.
  */
 export function applyToMasterServant(
     masterServantUpdate: MasterServantUpdate,
     targetMasterServant: MasterServant,
-    targetBondLevels?: Record<number, MasterServantBondLevel>,
-    targetUnlockedCostumes?: Array<number> | Set<number>
-): void {
+    targetBondLevels?: Record<number, InstantiatedServantBondLevel>,
+    targetUnlockedCostumes?: Set<number>
+): MasterServant {
 
     const {
         type,
@@ -352,8 +347,8 @@ export function applyToMasterServant(
     if (type !== ExistingMasterServantUpdateType) {
         targetMasterServant.gameId = masterServantUpdate.gameId;
     }
-    if (summoned !== MasterServantUpdateBoolean.Indeterminate) {
-        targetMasterServant.summoned = summoned === MasterServantUpdateBoolean.True;
+    if (summoned !== InstantiatedServantUpdateBoolean.Indeterminate) {
+        targetMasterServant.summoned = ServantUpdateUtils.toBoolean(summoned);
     }
     if (summonDate !== IndeterminateValue) {
         targetMasterServant.summonDate = summonDate == null ? undefined : new Date(summonDate);
@@ -399,43 +394,17 @@ export function applyToMasterServant(
         }
     }
     if (targetUnlockedCostumes) {
-        _updateUnlockedCostumes(unlockedCostumes, targetUnlockedCostumes);
+        ServantUpdateUtils.updateCostumesFromMap(unlockedCostumes, targetUnlockedCostumes);
     }
+
+    return targetMasterServant;
 }
 
-function _updateUnlockedCostumes(source: ReadonlyMap<number, MasterServantUpdateBoolean>, target: Array<number> | Set<number>): void {
-    if (!source.size) {
-        return;
-    }
-    let hasChanges = false;
-    for (const value of source.values()) {
-        if (value !== IndeterminateValue) {
-            hasChanges = true;
-            break;
-        }
-    }
-    if (!hasChanges) {
-        return;
-    }
-    const isTargetSet = target instanceof Set;
-    const targetSet = isTargetSet ? target : new Set(target);
-    for (const [key, value] of source.entries()) {
-        if (_equalsBoolean(value, true)) {
-            targetSet.add(key);
-        } else if (_equalsBoolean(value, false)) {
-            targetSet.delete(key);
-        }
-    }
-    if (!isTargetSet) {
-        (target as Array<number>).length = 0;
-        (target as Array<number>).push(...targetSet);
-    }
-}
 
 //#endregion
 
 
-//#region Batch/import update functions
+//#region Batch update functions
 
 export type BatchApplyOptions = {
     /**
@@ -498,8 +467,8 @@ export function batchApplyToMasterServants(
     targetMasterServants: Array<MasterServant>,
     startInstanceId: number,
     options: BatchApplyOptions = {},
-    targetBondLevels?: Record<number, MasterServantBondLevel>,
-    targetUnlockedCostumes?: Array<number> | Set<number>
+    targetBondLevels?: Record<number, InstantiatedServantBondLevel>,
+    targetUnlockedCostumes?: Set<number>
 ): number {
     /**
      * Nothing to do, return.
@@ -601,8 +570,8 @@ export function batchAppendToMasterServants(
     masterServantUpdates: Array<ImportedMasterServantUpdate>,
     targetMasterServants: Array<MasterServant>,
     startInstanceId: number,
-    targetBondLevels?: Record<number, MasterServantBondLevel>,
-    targetUnlockedCostumes?: Array<number> | Set<number>
+    targetBondLevels?: Record<number, InstantiatedServantBondLevel>,
+    targetUnlockedCostumes?: Set<number>
 ): number {
     let instanceId = startInstanceId;
     for (const update of masterServantUpdates) {
@@ -645,8 +614,8 @@ export function batchOverwriteMasterServants(
     targetMasterServants: Array<MasterServant>,
     startInstanceId: number,
     keepInstanceIds = true,
-    targetBondLevels?: Record<number, MasterServantBondLevel>,
-    targetUnlockedCostumes?: Array<number> | Set<number>
+    targetBondLevels?: Record<number, InstantiatedServantBondLevel>,
+    targetUnlockedCostumes?: Set<number>
 ): number {
 
     /**
@@ -757,22 +726,6 @@ function _findMergeTargets(
     }
 
     return result;
-}
-
-//#endregion
-
-
-//#region Common helper function
-
-export function convertBoolean(value: boolean): MasterServantUpdateBoolean {
-    return value ? MasterServantUpdateBoolean.True : MasterServantUpdateBoolean.False;
-}
-
-function _equalsBoolean(a: MasterServantUpdateBoolean, b: boolean): boolean {
-    return (
-        b === true && a === MasterServantUpdateBoolean.True ||
-        b === false && a === MasterServantUpdateBoolean.False
-    );
 }
 
 //#endregion
