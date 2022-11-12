@@ -79,6 +79,11 @@ export const PlanSchemaDefinition: SchemaDefinition<Plan> = {
         },
         default: []
     },
+    costumes: {
+        type: [Number],
+        required: true,
+        default: []
+    },
     upcomingResources: {
         type: [PlanUpcomingResourcesSchema],
         required: true,

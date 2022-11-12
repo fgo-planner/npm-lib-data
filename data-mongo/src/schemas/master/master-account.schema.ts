@@ -1,12 +1,12 @@
-import { MasterAccountConstants, MasterServantConstants } from '@fgo-planner/data-core';
+import { MasterAccountConstants, InstantiatedServantConstants } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
-import { CommonTransformers } from '../../../transformers';
-import { MasterAccount } from '../../../types';
-import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../../validators';
-import { GameEmberQuantitiesSchema } from '../../game/ember/game-ember-quantities.schema';
-import { GameItemQuantitiesSchemaTypeOptions } from '../../game/item/game-item-quantities.schema';
-import { MasterServantSchema } from '../servant/master-servant.schema';
+import { CommonTransformers } from '../../transformers';
+import { MasterAccount } from '../../types';
+import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
+import { GameEmberQuantitiesSchema } from '../game/ember/game-ember-quantities.schema';
+import { GameItemQuantitiesSchemaTypeOptions } from '../game/item/game-item-quantities.schema';
+import { MasterServantSchema } from './master-servant.schema';
 
 /**
  * Mongoose schema for the `MasterAccount.resources` property.
@@ -130,8 +130,8 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
             },
             {
                 validator: CommonValidators.mapIntegerValuesValidator(
-                    MasterServantConstants.MinBondLevel,
-                    MasterServantConstants.MaxBondLevel
+                    InstantiatedServantConstants.MinBondLevel,
+                    InstantiatedServantConstants.MaxBondLevel
                 ),
                 message: ValidationStrings.GenericInvalidValuePathOnly
             },

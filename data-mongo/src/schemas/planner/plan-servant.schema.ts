@@ -1,7 +1,6 @@
 import { PlanServant } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
-import { ValidationStrings } from '../../validators';
-import { PlanServantEnhancementsSchema } from './plan-servant-enhancements.schema';
+import { InstantiatedServantAscensionLevelSchemaTypeOptions, InstantiatedServantFouSchemaTypeOptions, InstantiatedServantIdSchemaTypeOptions, InstantiatedServantLevelSchemaTypeOptions, InstantiatedServantSkillLevelSchemaTypeOptions } from '../common/servant/instantiated-servant.schema';
 
 /**
  * Mongoose schema for the `PlanServant.enabled` property.
@@ -38,28 +37,50 @@ export const PlanServantEnabledSchema = new Schema<PlanServant['enabled']>({
 });
 
 /**
+ * Mongoose schema for the `PlanServant.skills` property.
+ */
+const PlanServantSkillsSchema = new Schema<PlanServant['skills']>({
+    1: InstantiatedServantSkillLevelSchemaTypeOptions,
+    2: InstantiatedServantSkillLevelSchemaTypeOptions,
+    3: InstantiatedServantSkillLevelSchemaTypeOptions
+}, {
+    _id: false,
+    storeSubdocValidationError: false
+});
+
+/**
+ * Mongoose schema for the `PlanServant.appendSkills` property.
+ */
+const PlanServantAppendSkillsSchema = new Schema<PlanServant['appendSkills']>({
+    1: InstantiatedServantSkillLevelSchemaTypeOptions,
+    2: InstantiatedServantSkillLevelSchemaTypeOptions,
+    3: InstantiatedServantSkillLevelSchemaTypeOptions
+}, {
+    _id: false,
+    storeSubdocValidationError: false
+});
+
+/**
  * Mongoose schema for the `PlanServant` type.
  */
 export const PlanServantSchema = new Schema<PlanServant>({
-    instanceId: {
-        type: Number,
-        validate: {
-            validator: Number.isInteger,
-            message: ValidationStrings.NumberInteger
-        }
-    },
+    instanceId: InstantiatedServantIdSchemaTypeOptions,
     enabled: {
         type: PlanServantEnabledSchema,
         required: true,
         default: {}
     },
-    current: {
-        type: PlanServantEnhancementsSchema,
+    level: InstantiatedServantLevelSchemaTypeOptions,
+    ascension: InstantiatedServantAscensionLevelSchemaTypeOptions,
+    fouAtk: InstantiatedServantFouSchemaTypeOptions,
+    fouHp: InstantiatedServantFouSchemaTypeOptions,
+    skills: {
+        type: PlanServantSkillsSchema,
         required: true,
         default: {}
     },
-    target: {
-        type: PlanServantEnhancementsSchema,
+    appendSkills: {
+        type: PlanServantAppendSkillsSchema,
         required: true,
         default: {}
     }
