@@ -1,15 +1,10 @@
-import { PlanServantEnhancements } from './plan-servant-enhancements.type';
+import { InstantiatedServantEnhancements } from '../common/servant/instantiated-servant-enhancements.type';
+import { InstantiatedServant } from '../common/servant/instantiated-servant.type';
 
 /**
- * An instance of a servant that is associated with a `Plan`. References a
- * `MasterServant` from the same `MasterAccount`.
+ * An instance of a servant that is associated with a `Plan`.
  */
-export type PlanServant = {
-
-    /**
-     * The `instanceId` of the `MasterServant` that this servant references.
-     */
-    instanceId: number;
+export type PlanServant = InstantiatedServant & InstantiatedServantEnhancements & {
 
     /**
      * Enhancement categories that are enabled/disabled for plan requirement
@@ -44,15 +39,5 @@ export type PlanServant = {
         costumes: boolean;
 
     };
-
-    /**
-     * The servant's enhancement levels before the plan is executed.
-     */
-    current: PlanServantEnhancements;
-
-    /**
-     * The servant's target enhancement levels for the plan.
-     */
-    target: PlanServantEnhancements;
 
 };

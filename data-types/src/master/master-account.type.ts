@@ -1,8 +1,8 @@
-import { EntityWithTimestamps } from '../../entity-with-timestamps.type';
-import { GameEmberQuantities } from '../../game/ember/game-ember-quantities.type';
-import { GameItemQuantities } from '../../game/item/game-item-quantities.type';
-import { MasterServantBondLevel } from '../servant/master-servant-bond-level.type';
-import { MasterServant } from '../servant/master-servant.type';
+import { InstantiatedServantBondLevel } from '../common/servant/instantiated-servant-bond-level.type';
+import { EntityWithTimestamps } from '../entity-with-timestamps.type';
+import { GameEmberQuantities } from '../game/ember/game-ember-quantities.type';
+import { GameItemQuantities } from '../game/item/game-item-quantities.type';
+import { MasterServant } from './master-servant.type';
 
 export type MasterAccount<ID = string> = EntityWithTimestamps<ID> & {
 
@@ -33,7 +33,7 @@ export type MasterAccount<ID = string> = EntityWithTimestamps<ID> & {
 
     costumes: Array<number>;
     
-    bondLevels: Record<number, MasterServantBondLevel>;
+    bondLevels: Record<number, InstantiatedServantBondLevel>;
     
     soundtracks: Array<number>;
 

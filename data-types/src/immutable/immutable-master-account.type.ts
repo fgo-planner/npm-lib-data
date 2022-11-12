@@ -1,4 +1,4 @@
-import { MasterAccount } from '../master/account/master-account.type';
+import { MasterAccount } from '../master/master-account.type';
 import { ImmutableEntityWithTimestamps } from './immutable-entity-with-timestamps.type';
 import { ImmutableMasterServant } from './immutable-master-servant.type';
 

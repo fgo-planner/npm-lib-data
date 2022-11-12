@@ -1,5 +1,5 @@
 import { Immutable, ReadonlyDate } from '@fgo-planner/common-types';
-import { MasterServant } from '../master/servant/master-servant.type';
+import { MasterServant } from '../master/master-servant.type';
 
 /**
  * Immutable version of `MasterServant`.

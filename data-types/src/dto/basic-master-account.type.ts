@@ -1,4 +1,4 @@
-import { MasterAccount } from '../master/account/master-account.type';
+import { MasterAccount } from '../master/master-account.type';
 
 export type BasicMasterAccount<ID = string> = Pick<MasterAccount<ID>,
     '_id' |

@@ -24,6 +24,8 @@ export type Plan<ID = string> = PlanCommon<ID> & {
     
     servants: Array<PlanServant>;
 
+    costumes: Array<number>;
+
     upcomingResources: Array<PlanUpcomingResources>;
 
 };
