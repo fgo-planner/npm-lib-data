@@ -45,7 +45,7 @@ export function createNew(
             3: null
         },
         bondLevel: bondLevels?.[gameId] || null,
-        unlockedCostumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
+        unlockedCostumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 
 }
@@ -142,7 +142,7 @@ function _createFromExistingSingle(
             3: appendSkill3
         },
         bondLevel: bondLevels?.[masterServant.gameId] || null,
-        unlockedCostumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
+        unlockedCostumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 
 }
@@ -251,7 +251,7 @@ function _createFromExistingMultiple(
             3: appendSkill3
         },
         bondLevel,
-        unlockedCostumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
+        unlockedCostumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 
 }
@@ -394,7 +394,7 @@ export function applyToMasterServant(
         }
     }
     if (targetUnlockedCostumes) {
-        ServantUpdateUtils.updateCostumesFromMap(unlockedCostumes, targetUnlockedCostumes);
+        ServantUpdateUtils.updateFromCostumesMap(unlockedCostumes, targetUnlockedCostumes);
     }
 
     return targetMasterServant;

@@ -1,17 +1,27 @@
 import { InstantiatedServantUpdateBoolean } from '../../types/common/instantiated-servant-update-boolean.type';
 
-export function generateCostumesMap(unlockedCostumes: Iterable<number> | undefined): Map<number, boolean> {
+export function convertToCostumesMap(source: Iterable<number> | undefined): Map<number, boolean> {
     const result = new Map<number, boolean>();
-    if (!unlockedCostumes) {
+    if (!source) {
         return result;
     }
-    for (const costumeId of unlockedCostumes) {
+    for (const costumeId of source) {
         result.set(costumeId, true);
     }
     return result;
 }
 
-export function updateCostumesFromMap(source: ReadonlyMap<number, boolean>, target: Set<number>): void {
+export function convertFromCostumesMap(source: ReadonlyMap<number, boolean>): Set<number> {
+    const result = new Set<number>();
+    for (const [key, value] of source.entries()) {
+        if (value) {
+            result.add(key);
+        }
+    }
+    return result;
+}
+
+export function updateFromCostumesMap(source: ReadonlyMap<number, boolean>, target: Set<number>): void {
     if (!source.size) {
         return;
     }

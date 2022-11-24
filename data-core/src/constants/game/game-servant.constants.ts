@@ -1,7 +1,7 @@
 import { ReadonlyRecord } from '@fgo-planner/common-core';
 import { GameServantClass, GameServantRarity } from '@fgo-planner/data-types';
 
-export const ClassDisplayNameMap = {
+export const ClassDisplayNameMap: ReadonlyRecord<keyof typeof GameServantClass, string> = {
     [GameServantClass.Saber]: GameServantClass.Saber,
     [GameServantClass.Archer]: GameServantClass.Archer,
     [GameServantClass.Lancer]: GameServantClass.Lancer,
@@ -22,7 +22,7 @@ export const ClassDisplayNameMap = {
     [GameServantClass.BeastFalse]: 'Beast (False)',
     [GameServantClass.Pretender]: GameServantClass.Pretender,
     [GameServantClass.Unknown]: GameServantClass.Unknown
-} as ReadonlyRecord<GameServantClass, string>;
+};
 
 export const MinRarity = 0;
 
@@ -34,11 +34,11 @@ export const MaxCost = 16;
 
 export const RarityValues = Array.from(Array(6).keys()) as ReadonlyArray<GameServantRarity>;
 
-export const LevelCapByRarityMap = {
+export const LevelCapByRarityMap: ReadonlyRecord<GameServantRarity, number> = {
     0: 65,
     1: 60,
     2: 65,
     3: 70,
     4: 80,
     5: 90
-} as ReadonlyRecord<GameServantRarity, number>; 
+}; 

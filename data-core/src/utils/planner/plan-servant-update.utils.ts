@@ -32,7 +32,7 @@ export function createNew(unlockedCostumes?: Iterable<number>): PlanServantUpdat
             2: null,
             3: null
         },
-        costumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
+        costumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 }
 
@@ -118,7 +118,7 @@ function _createFromExistingSingle(
             2: appendSkill2,
             3: appendSkill3
         },
-        costumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
+        costumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 
 }
@@ -236,7 +236,7 @@ function _createFromExistingMultiple(
             2: appendSkill2,
             3: appendSkill3
         },
-        costumes: ServantUpdateUtils.generateCostumesMap(unlockedCostumes)
+        costumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 
 }
@@ -365,7 +365,7 @@ export function applyToPlanServant(
         targetPlanServant.appendSkills[3] = appendSkill3 || undefined;
     }
     if (targetCostumes) {
-        ServantUpdateUtils.updateCostumesFromMap(costumes, targetCostumes);
+        ServantUpdateUtils.updateFromCostumesMap(costumes, targetCostumes);
     }
 
     return targetPlanServant;
