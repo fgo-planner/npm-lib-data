@@ -1,8 +1,8 @@
 import { Immutable, ImmutableArray } from '@fgo-planner/common-core';
 import { PlanServant } from '@fgo-planner/data-types';
 import { InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, PlanServantUpdate } from '../../types';
-import * as ServantUpdateUtils from '../common/instantiated-servant-update.utils';
-import * as PlanServantUtils from './plan-servant.utils';
+import * as ServantUpdateUtils from '../common/InstantiatedServantUpdateUtils';
+import * as PlanServantUtils from './PlanServantUtils';
 
 //#region PlanServantUpdate instantiation functions
 

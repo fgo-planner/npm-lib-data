@@ -1,6 +1,6 @@
 import { InstantiatedServantAscensionLevel, InstantiatedServantSkillLevel } from '@fgo-planner/data-types';
-import { InstantiatedServantUpdateBoolean } from '../common/instantiated-servant-update-boolean.type';
-import { InstantiatedServantUpdateNumber } from '../common/instantiated-servant-update-number.type';
+import { InstantiatedServantUpdateBoolean } from '../common/InstantiatedServantUpdateBoolean.type';
+import { InstantiatedServantUpdateNumber } from '../common/InstantiatedServantUpdateNumber.type';
 
 /**
  * Data transfer object for updating plan servant data. Some fields can be set

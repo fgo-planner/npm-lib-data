@@ -1,4 +1,4 @@
-import { InstantiatedServantUpdateBoolean } from '../../types/common/instantiated-servant-update-boolean.type';
+import { InstantiatedServantUpdateBoolean } from '../../types';
 
 export function convertToCostumesMap(source: Iterable<number> | undefined): Map<number, boolean> {
     const result = new Map<number, boolean>();

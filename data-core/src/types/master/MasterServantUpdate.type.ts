@@ -1,6 +1,6 @@
 import { InstantiatedServantAscensionLevel, InstantiatedServantBondLevel, InstantiatedServantNoblePhantasmLevel, InstantiatedServantSkillLevel } from '@fgo-planner/data-types';
-import { InstantiatedServantUpdateBoolean } from '../common/instantiated-servant-update-boolean.type';
-import { InstantiatedServantUpdateNumber } from '../common/instantiated-servant-update-number.type';
+import { InstantiatedServantUpdateBoolean } from '../common/InstantiatedServantUpdateBoolean.type';
+import { InstantiatedServantUpdateNumber } from '../common/InstantiatedServantUpdateNumber.type';
 
 /**
  * Qualifier for identifying the update type.

@@ -1,6 +1,6 @@
-export * as InstantiatedServantConstants from './common/instantiated-servant.constants';
-export * as GameItemConstants from './game/game-item.constants';
-export * as GameServantConstants from './game/game-servant.constants';
-export * as MasterAccountConstants from './master/master-account.constants';
-export * as MasterItemConstants from './master/master-item.constants';
-export * as MasterServantConstants from './master/master-servant.constants';
+export * as InstantiatedServantConstants from './common/InstantiatedServantConstants';
+export * as GameItemConstants from './game/GameItemConstants';
+export * as GameServantConstants from './game/GameServantConstants';
+export * as MasterAccountConstants from './master/MasterAccountConstants';
+export * as MasterItemConstants from './master/MasterItemConstants';
+export * as MasterServantConstants from './master/MasterServantConstants';

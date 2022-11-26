@@ -1,6 +1,6 @@
 import { Immutable } from '@fgo-planner/common-core';
 import { PlanServant } from '@fgo-planner/data-types';
-import * as InstantiatedServantUtils from '../common/instantiated-servant.utils';
+import * as InstantiatedServantUtils from '../common/InstantiatedServantUtils';
 
 /**
  * Instantiates a default `PlanServant` object.

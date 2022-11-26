@@ -1,8 +1,8 @@
 import { DateTimeUtils } from '@fgo-planner/common-core';
 import { ImmutableMasterServant, MasterServant } from '@fgo-planner/data-types';
 import { InstantiatedServantConstants, MasterServantConstants } from '../../constants';
-import { getInstanceId } from '../common/instantiated-servant.utils';
-import * as InstantiatedServantUtils from '../common/instantiated-servant.utils';
+import { getInstanceId } from '../common/InstantiatedServantUtils';
+import * as InstantiatedServantUtils from '../common/InstantiatedServantUtils';
 
 /**
  * Instantiates a default `MasterServant` object.

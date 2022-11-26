@@ -2,8 +2,8 @@ import { ReadonlyRecord } from '@fgo-planner/common-core';
 import { ImmutableMasterServant, InstantiatedServantBondLevel, MasterServant } from '@fgo-planner/data-types';
 import { InstantiatedServantConstants, MasterServantConstants } from '../../constants';
 import { ExistingMasterServantUpdate, ExistingMasterServantUpdateType, ImportedMasterServantUpdate, InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, MasterServantUpdate, NewMasterServantUpdate, NewMasterServantUpdateType } from '../../types';
-import * as ServantUpdateUtils from '../common/instantiated-servant-update.utils';
-import * as MasterServantUtils from './master-servant.utils';
+import * as ServantUpdateUtils from '../common/InstantiatedServantUpdateUtils';
+import * as MasterServantUtils from './MasterServantUtils';
 
 //#region Local type definitions
 
