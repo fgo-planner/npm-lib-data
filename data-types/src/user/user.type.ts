@@ -1,5 +1,5 @@
-import { EntityWithTimestamps } from '../entity-with-timestamps.type';
-import { UserPreferences } from './user-preferences.type';
+import { EntityWithTimestamps } from '../EntityWithTimestamps.type';
+import { UserPreferences } from './UserPreferences.type';
 
 export type User<ID = string> = EntityWithTimestamps<ID> & {
 

@@ -1,6 +1,6 @@
-import { PlanCommon } from './plan-common.type';
-import { PlanServant } from './plan-servant.type';
-import { PlanUpcomingResources } from './plan-upcoming-resources.type';
+import { PlanCommon } from './PlanCommon.type';
+import { PlanServant } from './PlanServant.type';
+import { PlanUpcomingResources } from './PlanUpcomingResources.type';
 
 export type Plan<ID = string> = PlanCommon<ID> & {
 
