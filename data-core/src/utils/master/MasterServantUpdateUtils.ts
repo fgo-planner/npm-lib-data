@@ -1,7 +1,7 @@
 import { ReadonlyRecord } from '@fgo-planner/common-core';
 import { ImmutableMasterServant, InstantiatedServantBondLevel, MasterServant } from '@fgo-planner/data-types';
-import { InstantiatedServantConstants, MasterServantConstants } from '../../constants';
-import { ExistingMasterServantUpdate, ExistingMasterServantUpdateType, ImportedMasterServantUpdate, InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, MasterServantUpdate, NewMasterServantUpdate, NewMasterServantUpdateType } from '../../types';
+import { InstantiatedServantConstants } from '../../constants';
+import { BatchMasterServantUpdate, InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, InstantiatedServantUpdateNumber, MasterServantUpdate } from '../../types';
 import * as ServantUpdateUtils from '../common/InstantiatedServantUpdateUtils';
 import * as MasterServantUtils from './MasterServantUtils';
 
@@ -15,18 +15,22 @@ type BondLevels = ReadonlyRecord<number, InstantiatedServantBondLevel>;
 //#region Instantiation functions
 
 /**
- * Instantiates a default `NewMasterServantUpdate` object for adding a servant.
+ * Instantiates a default `MasterServantUpdate` object for adding a servant.
  */
 export function createNew(
+    gameId?: number,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
-): NewMasterServantUpdate {
+): MasterServantUpdate {
 
-    const gameId = MasterServantConstants.DefaultServantId;
+    let bondLevel: InstantiatedServantUpdateNumber<InstantiatedServantBondLevel> | null;
+    if (bondLevels && gameId !== undefined) {
+        bondLevel = bondLevels[gameId] || null;
+    } else {
+        bondLevel = null;
+    }
 
     return {
-        type: NewMasterServantUpdateType,
-        gameId,
         summoned: InstantiatedServantUpdateBoolean.True, // Assume servant has been summoned by player by default
         summonDate: null,
         np: InstantiatedServantConstants.MinNoblePhantasmLevel,
@@ -44,30 +48,30 @@ export function createNew(
             2: null,
             3: null
         },
-        bondLevel: bondLevels?.[gameId] || null,
+        bondLevel,
         unlockedCostumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 
 }
 
 /**
- * Creates a `ExistingMasterServantUpdate` object from an existing servant.
+ * Creates a `MasterServantUpdate` object from an existing servant.
  */
 export function createFromExisting(
     masterServant: ImmutableMasterServant,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
-): ExistingMasterServantUpdate;
+): MasterServantUpdate;
 
 /**
- * Creates a `ExistingMasterServantUpdate` object from multiple existing
+ * Creates a `MasterServantUpdate` object from multiple existing
  * servants.
  */
 export function createFromExisting(
     masterServants: ReadonlyArray<ImmutableMasterServant>,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
-): ExistingMasterServantUpdate;
+): MasterServantUpdate;
 
 /**
  * Function implementation.
@@ -98,7 +102,7 @@ function _createFromExistingSingle(
     masterServant: ImmutableMasterServant,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
-): ExistingMasterServantUpdate {
+): MasterServantUpdate {
 
     const {
         gameId,
@@ -122,8 +126,6 @@ function _createFromExistingSingle(
     } = masterServant;
 
     return {
-        type: ExistingMasterServantUpdateType,
-        gameId,
         summoned: ServantUpdateUtils.fromBoolean(summoned),
         summonDate: summonDate?.getTime() || null,
         np,
@@ -141,7 +143,7 @@ function _createFromExistingSingle(
             2: appendSkill2,
             3: appendSkill3
         },
-        bondLevel: bondLevels?.[masterServant.gameId] || null,
+        bondLevel: bondLevels?.[gameId] || null,
         unlockedCostumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 
@@ -151,7 +153,7 @@ function _createFromExistingMultiple(
     masterServants: ReadonlyArray<ImmutableMasterServant>,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
-): ExistingMasterServantUpdate {
+): MasterServantUpdate {
 
     /**
      * Edge cases
@@ -231,8 +233,6 @@ function _createFromExistingMultiple(
     }
 
     return {
-        type: ExistingMasterServantUpdateType,
-        gameId: IndeterminateValue,
         summoned,
         summonDate,
         np,
@@ -319,7 +319,6 @@ export function applyToMasterServant(
 ): MasterServant {
 
     const {
-        type,
         summoned,
         summonDate,
         np,
@@ -341,12 +340,6 @@ export function applyToMasterServant(
         unlockedCostumes
     } = masterServantUpdate;
 
-    /**
-     * Do not update the `gameId` for existing servants.
-     */
-    if (type !== ExistingMasterServantUpdateType) {
-        targetMasterServant.gameId = masterServantUpdate.gameId;
-    }
     if (summoned !== InstantiatedServantUpdateBoolean.Indeterminate) {
         targetMasterServant.summoned = ServantUpdateUtils.toBoolean(summoned);
     }
@@ -437,7 +430,7 @@ export type BatchApplyOptions = {
 };
 
 /**
- * Batch applies updates from data import to an existing `MasterServant` array.
+ * Batch applies multiple updates to an existing `MasterServant` array.
  * Also updates the bond levels map and unlocked costume IDs if provided.
  *
  * @param masterServantUpdates The updates that will be applied.
@@ -463,7 +456,7 @@ export type BatchApplyOptions = {
  * operation. If no servants were added, then it will return the given value.
  */
 export function batchApplyToMasterServants(
-    masterServantUpdates: Array<ImportedMasterServantUpdate>,
+    masterServantUpdates: Array<BatchMasterServantUpdate>,
     targetMasterServants: Array<MasterServant>,
     startInstanceId: number,
     options: BatchApplyOptions = {},
@@ -567,7 +560,7 @@ export function batchApplyToMasterServants(
  * operation. If no servants were added, then it will return the given value.
  */
 export function batchAppendToMasterServants(
-    masterServantUpdates: Array<ImportedMasterServantUpdate>,
+    masterServantUpdates: Array<BatchMasterServantUpdate>,
     targetMasterServants: Array<MasterServant>,
     startInstanceId: number,
     targetBondLevels?: Record<number, InstantiatedServantBondLevel>,
@@ -610,7 +603,7 @@ export function batchAppendToMasterServants(
  * operation. If no servants were added, then it will return the given value.
  */
 export function batchOverwriteMasterServants(
-    masterServantUpdates: Array<ImportedMasterServantUpdate>,
+    masterServantUpdates: Array<BatchMasterServantUpdate>,
     targetMasterServants: Array<MasterServant>,
     startInstanceId: number,
     keepInstanceIds = true,
@@ -644,13 +637,13 @@ export function batchOverwriteMasterServants(
  * will not have an entry in the returned map.
  */
 function _findMergeTargets(
-    masterServantUpdates: Array<ImportedMasterServantUpdate>,
+    masterServantUpdates: Array<BatchMasterServantUpdate>,
     targetMasterServants: Array<MasterServant>,
     onlyTargetByInstanceId: boolean,
     useNextBestTargetAssignment: boolean
-): Map<ImportedMasterServantUpdate, MasterServant> {
+): Map<BatchMasterServantUpdate, MasterServant> {
 
-    const result = new Map<ImportedMasterServantUpdate, MasterServant>();
+    const result = new Map<BatchMasterServantUpdate, MasterServant>();
 
     /**
      * No possible targets, just return the empty map.

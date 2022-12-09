@@ -2,17 +2,15 @@ import { ReadonlyRecord } from '@fgo-planner/common-core';
 import { MasterServant_1_201300, MasterServant_2_504400, MasterServant_3_1100900 } from '@fgo-planner/data-test-resources';
 import { InstantiatedServantBondLevel } from '@fgo-planner/data-types';
 import { InstantiatedServantConstants, MasterServantConstants } from '../../../src/constants';
-import { ExistingMasterServantUpdate, ImportedMasterServantUpdate, InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, NewMasterServantUpdate } from '../../../src/types';
+import { InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, MasterServantUpdate } from '../../../src/types';
 import { MasterServantUpdateUtils, MasterServantUtils } from '../../../src/utils';
 
 describe('MasterServantUpdateUtils.createNew', () => {
 
-    it('should instantiate a NewMasterServantUpdate object with expected default values', () => {
+    it('should instantiate a MasterServantUpdate object with expected default values', () => {
 
         const result = MasterServantUpdateUtils.createNew();
 
-        expect(result.type).toStrictEqual('New');
-        expect(result.gameId).toStrictEqual(MasterServantConstants.DefaultServantId);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toBeNull();
         expect(result.np).toStrictEqual(InstantiatedServantConstants.MinLevel);
@@ -29,7 +27,7 @@ describe('MasterServantUpdateUtils.createNew', () => {
         expect(result.unlockedCostumes.size).toStrictEqual(0);
     });
 
-    it('should instantiate a NewMasterServantUpdate object with bond level', () => {
+    it('should instantiate a MasterServantUpdate object with bond level', () => {
 
         const bondLevels: ReadonlyRecord<number, InstantiatedServantBondLevel> = {
             [MasterServantConstants.DefaultServantId]: 5,
@@ -40,10 +38,12 @@ describe('MasterServantUpdateUtils.createNew', () => {
 
         const unlockedCostumes: Array<number> = [];
 
-        const result = MasterServantUpdateUtils.createNew(bondLevels, unlockedCostumes);
+        const result = MasterServantUpdateUtils.createNew(
+            MasterServantConstants.DefaultServantId,
+            bondLevels,
+            unlockedCostumes
+        );
 
-        expect(result.type).toStrictEqual('New');
-        expect(result.gameId).toStrictEqual(MasterServantConstants.DefaultServantId);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toBeNull();
         expect(result.np).toStrictEqual(InstantiatedServantConstants.MinLevel);
@@ -60,7 +60,7 @@ describe('MasterServantUpdateUtils.createNew', () => {
         expect(result.unlockedCostumes.size).toStrictEqual(0);
     });
 
-    it('should instantiate a NewMasterServantUpdate object with costume IDs', () => {
+    it('should instantiate a MasterServantUpdate object with costume IDs', () => {
 
         const bondLevels: ReadonlyRecord<number, InstantiatedServantBondLevel> = {};
 
@@ -70,10 +70,12 @@ describe('MasterServantUpdateUtils.createNew', () => {
             400430
         ];
 
-        const result = MasterServantUpdateUtils.createNew(bondLevels, unlockedCostumes);
+        const result = MasterServantUpdateUtils.createNew(
+            MasterServantConstants.DefaultServantId,
+            bondLevels,
+            unlockedCostumes
+        );
 
-        expect(result.type).toStrictEqual('New');
-        expect(result.gameId).toStrictEqual(MasterServantConstants.DefaultServantId);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toBeNull();
         expect(result.np).toStrictEqual(InstantiatedServantConstants.MinLevel);
@@ -97,14 +99,12 @@ describe('MasterServantUpdateUtils.createNew', () => {
 
 describe('MasterServantUpdateUtils.createFromExisting', () => {
 
-    it('should instantiate an ExistingMasterServantUpdate object when given a MasterServant', () => {
+    it('should instantiate an MasterServantUpdate object when given a MasterServant', () => {
 
         const masterServant = MasterServant_3_1100900;
 
         const result = MasterServantUpdateUtils.createFromExisting(masterServant);
 
-        expect(result.type).toStrictEqual('Existing');
-        expect(result.gameId).toStrictEqual(1100900);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toStrictEqual(1662940800000);
         expect(result.np).toStrictEqual(4);
@@ -122,7 +122,7 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
         expect(result.unlockedCostumes.size).toStrictEqual(0);
     });
 
-    it('should instantiate an ExistingMasterServantUpdate object with bond level when given a MasterServant', () => {
+    it('should instantiate an MasterServantUpdate object with bond level when given a MasterServant', () => {
 
         const masterServant = MasterServant_3_1100900;
 
@@ -137,8 +137,6 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
 
         const result = MasterServantUpdateUtils.createFromExisting(masterServant, bondLevels, unlockedCostumes);
 
-        expect(result.type).toStrictEqual('Existing');
-        expect(result.gameId).toStrictEqual(1100900);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toStrictEqual(1662940800000);
         expect(result.np).toStrictEqual(4);
@@ -156,7 +154,7 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
         expect(result.unlockedCostumes.size).toStrictEqual(0);
     });
 
-    it('should instantiate an ExistingMasterServantUpdate object with costume IDs when given a MasterServant', () => {
+    it('should instantiate an MasterServantUpdate object with costume IDs when given a MasterServant', () => {
 
         const masterServant = MasterServant_3_1100900;
 
@@ -168,10 +166,12 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
             400430
         ];
 
-        const result = MasterServantUpdateUtils.createFromExisting(masterServant, bondLevels, unlockedCostumes);
+        const result = MasterServantUpdateUtils.createFromExisting(
+            masterServant,
+            bondLevels,
+            unlockedCostumes
+        );
 
-        expect(result.type).toStrictEqual('Existing');
-        expect(result.gameId).toStrictEqual(1100900);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toStrictEqual(1662940800000);
         expect(result.np).toStrictEqual(4);
@@ -192,7 +192,7 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
         expect(result.unlockedCostumes.get(400430)).toStrictEqual(true);
     });
 
-    it('should instantiate an ExistingMasterServantUpdate object when given an array with one MasterServant', () => {
+    it('should instantiate an MasterServantUpdate object when given an array with one MasterServant', () => {
 
         const masterServants = [
             MasterServant_3_1100900
@@ -207,10 +207,12 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
 
         const unlockedCostumes: Array<number> = [];
 
-        const result = MasterServantUpdateUtils.createFromExisting(masterServants, bondLevels, unlockedCostumes);
+        const result = MasterServantUpdateUtils.createFromExisting(
+            masterServants,
+            bondLevels,
+            unlockedCostumes
+        );
 
-        expect(result.type).toStrictEqual('Existing');
-        expect(result.gameId).toStrictEqual(1100900);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toStrictEqual(1662940800000);
         expect(result.np).toStrictEqual(4);
@@ -228,7 +230,7 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
         expect(result.unlockedCostumes.size).toStrictEqual(0);
     });
 
-    it('should instantiate an ExistingMasterServantUpdate object when given an array with multiple MasterServant', () => {
+    it('should instantiate an MasterServantUpdate object when given an array with multiple MasterServant', () => {
 
         const masterServants = [
             MasterServant_1_201300,
@@ -249,10 +251,12 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
             400430
         ];
 
-        const result = MasterServantUpdateUtils.createFromExisting(masterServants, bondLevels, unlockedCostumes);
+        const result = MasterServantUpdateUtils.createFromExisting(
+            masterServants,
+            bondLevels,
+            unlockedCostumes
+        );
 
-        expect(result.type).toStrictEqual('Existing');
-        expect(result.gameId).toStrictEqual(IndeterminateValue);
         expect(result.summoned).toStrictEqual(InstantiatedServantUpdateBoolean.True);
         expect(result.summonDate).toStrictEqual(1662940800000);
         expect(result.np).toStrictEqual(IndeterminateValue);
@@ -277,112 +281,11 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
 
 describe('MasterServantUpdateUtils.applyToMasterServant', () => {
 
-    it('should not update the gameId value for existing servant update', () => {
-
-        const masterServant = MasterServantUtils.clone(MasterServant_3_1100900);
-
-        const update: ExistingMasterServantUpdate = {
-            type: 'Existing',
-            gameId: 12345,
-            summoned: InstantiatedServantUpdateBoolean.Indeterminate,
-            summonDate: IndeterminateValue,
-            np: IndeterminateValue,
-            level: IndeterminateValue,
-            ascension: IndeterminateValue,
-            fouAtk: IndeterminateValue,
-            fouHp: IndeterminateValue,
-            skills: {
-                1: IndeterminateValue,
-                2: IndeterminateValue,
-                3: IndeterminateValue
-            },
-            appendSkills: {
-                1: IndeterminateValue,
-                2: IndeterminateValue,
-                3: IndeterminateValue
-            },
-            bondLevel: IndeterminateValue,
-            unlockedCostumes: new Map()
-        };
-
-        MasterServantUpdateUtils.applyToMasterServant(update, masterServant);
-
-        expect(masterServant.gameId).toStrictEqual(1100900);
-    });
-
-    it('should update the gameId value for new servant update', () => {
-
-        const masterServant = MasterServantUtils.clone(MasterServant_3_1100900);
-
-        const update: ImportedMasterServantUpdate = {
-            type: 'Imported',
-            gameId: 12345,
-            summoned: InstantiatedServantUpdateBoolean.Indeterminate,
-            summonDate: IndeterminateValue,
-            np: IndeterminateValue,
-            level: IndeterminateValue,
-            ascension: IndeterminateValue,
-            fouAtk: IndeterminateValue,
-            fouHp: IndeterminateValue,
-            skills: {
-                1: IndeterminateValue,
-                2: IndeterminateValue,
-                3: IndeterminateValue
-            },
-            appendSkills: {
-                1: IndeterminateValue,
-                2: IndeterminateValue,
-                3: IndeterminateValue
-            },
-            bondLevel: IndeterminateValue,
-            unlockedCostumes: new Map()
-        };
-
-        MasterServantUpdateUtils.applyToMasterServant(update, masterServant);
-
-        expect(masterServant.gameId).toStrictEqual(12345);
-    });
-
-    it('should update the gameId value for new servant update', () => {
-
-        const masterServant = MasterServantUtils.clone(MasterServant_3_1100900);
-
-        const update: NewMasterServantUpdate = {
-            type: 'New',
-            gameId: 12345,
-            summoned: InstantiatedServantUpdateBoolean.Indeterminate,
-            summonDate: IndeterminateValue,
-            np: IndeterminateValue,
-            level: IndeterminateValue,
-            ascension: IndeterminateValue,
-            fouAtk: IndeterminateValue,
-            fouHp: IndeterminateValue,
-            skills: {
-                1: IndeterminateValue,
-                2: IndeterminateValue,
-                3: IndeterminateValue
-            },
-            appendSkills: {
-                1: IndeterminateValue,
-                2: IndeterminateValue,
-                3: IndeterminateValue
-            },
-            bondLevel: IndeterminateValue,
-            unlockedCostumes: new Map()
-        };
-
-        MasterServantUpdateUtils.applyToMasterServant(update, masterServant);
-
-        expect(masterServant.gameId).toStrictEqual(12345);
-    });
-
     it('should update summoned and summonDate', () => {
 
         const masterServant = MasterServantUtils.clone(MasterServant_3_1100900);
 
-        const update: ExistingMasterServantUpdate = {
-            type: 'Existing',
-            gameId: IndeterminateValue,
+        const update: MasterServantUpdate = {
             summoned: InstantiatedServantUpdateBoolean.False,
             summonDate: null,
             np: IndeterminateValue,
@@ -434,9 +337,7 @@ describe('MasterServantUpdateUtils.applyToMasterServant', () => {
 
         const masterServant = MasterServantUtils.clone(MasterServant_3_1100900);
 
-        const update: ExistingMasterServantUpdate = {
-            type: 'Existing',
-            gameId: IndeterminateValue,
+        const update: MasterServantUpdate = {
             summoned: InstantiatedServantUpdateBoolean.Indeterminate,
             summonDate: IndeterminateValue,
             np: 1,
