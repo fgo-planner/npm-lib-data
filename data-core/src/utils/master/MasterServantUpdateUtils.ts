@@ -125,6 +125,13 @@ function _createFromExistingSingle(
         }
     } = masterServant;
 
+    let bondLevel: InstantiatedServantUpdateNumber<InstantiatedServantBondLevel> | null;
+    if (!bondLevels) {
+        bondLevel = IndeterminateValue;
+    } else {
+        bondLevel = bondLevels[gameId] || null;
+    }
+
     return {
         summoned: ServantUpdateUtils.fromBoolean(summoned),
         summonDate: summonDate?.getTime() || null,
@@ -143,7 +150,7 @@ function _createFromExistingSingle(
             2: appendSkill2,
             3: appendSkill3
         },
-        bondLevel: bondLevels?.[gameId] || null,
+        bondLevel,
         unlockedCostumes: ServantUpdateUtils.convertToCostumesMap(unlockedCostumes)
     };
 

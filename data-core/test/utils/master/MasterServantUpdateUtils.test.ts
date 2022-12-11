@@ -118,7 +118,7 @@ describe('MasterServantUpdateUtils.createFromExisting', () => {
         expect(result.appendSkills[1]).toStrictEqual(1);
         expect(result.appendSkills[2]).toStrictEqual(10);
         expect(result.appendSkills[3]).toBeNull();
-        expect(result.bondLevel).toBeNull();
+        expect(result.bondLevel).toStrictEqual(IndeterminateValue);
         expect(result.unlockedCostumes.size).toStrictEqual(0);
     });
 

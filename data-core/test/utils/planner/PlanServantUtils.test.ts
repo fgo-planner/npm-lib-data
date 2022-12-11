@@ -350,3 +350,83 @@ describe('PlanServantUtils.isEqual', () => {
     });
 
 });
+
+describe('PlanServantUtils.isAllDisabled', () => {
+
+    it('should return true if all enabled flags are false', () => {
+
+        const planServant: PlanServant = {
+            instanceId: 1,
+            enabled: {
+                servant: false,
+                ascensions: false,
+                skills: false,
+                appendSkills: false,
+                costumes: false
+            },
+            skills: {},
+            appendSkills: {}
+        };
+
+        const result = PlanServantUtils.isAllDisabled(planServant);
+        expect(result).toStrictEqual(true);
+    });
+
+    it('should return true if enabled.servant is false', () => {
+
+        const planServant: PlanServant = {
+            instanceId: 1,
+            enabled: {
+                servant: false,
+                ascensions: true,
+                skills: true,
+                appendSkills: true,
+                costumes: true
+            },
+            skills: {},
+            appendSkills: {}
+        };
+
+        const result = PlanServantUtils.isAllDisabled(planServant);
+        expect(result).toStrictEqual(true);
+    });
+
+    it('should return true if enabled.servant is true, but all other flags are false', () => {
+
+        const planServant: PlanServant = {
+            instanceId: 1,
+            enabled: {
+                servant: true,
+                ascensions: false,
+                skills: false,
+                appendSkills: false,
+                costumes: false
+            },
+            skills: {},
+            appendSkills: {}
+        };
+
+        const result = PlanServantUtils.isAllDisabled(planServant);
+        expect(result).toStrictEqual(true);
+    });
+
+    it('should return false if enabled.servant is true, and at least on other flag is true', () => {
+
+        const planServant: PlanServant = {
+            instanceId: 1,
+            enabled: {
+                servant: true,
+                ascensions: false,
+                skills: true,
+                appendSkills: false,
+                costumes: false
+            },
+            skills: {},
+            appendSkills: {}
+        };
+
+        const result = PlanServantUtils.isAllDisabled(planServant);
+        expect(result).toStrictEqual(false);
+    });
+
+});

@@ -54,3 +54,14 @@ export function isEqual(a: Immutable<PlanServant>, b: Immutable<PlanServant>): b
         a.enabled.appendSkills === b.enabled.appendSkills &&
         a.enabled.costumes === b.enabled.costumes;
 }
+
+export function isAllDisabled(planServant: Immutable<PlanServant>): boolean {
+    const enabled = planServant.enabled;
+    
+    return !enabled.servant || (
+        !enabled.appendSkills &&
+        !enabled.ascensions &&
+        !enabled.costumes &&
+        !enabled.skills
+    );
+}
