@@ -6,6 +6,8 @@ export type GameServantMetadata = {
 
     fgoManagerName?: string;
 
+    searchTags?: Array<string>;
+
     links: Array<ExternalLink>;
 
 };
