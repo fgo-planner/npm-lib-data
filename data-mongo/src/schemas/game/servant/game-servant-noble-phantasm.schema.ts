@@ -7,13 +7,13 @@ import { Schema } from 'mongoose';
 export const GameServantNoblePhantasmSchema = new Schema<GameServantNoblePhantasm>({
     cardType: {
         type: String,
-        enum: Object.keys(GameServantCardType),
+        enum: Object.values(GameServantCardType),
         required: true,
         default: GameServantCardType.Arts
     },
     target: {
         type: String,
-        enum: Object.keys(GameServantNoblePhantasmTarget),
+        enum: Object.values(GameServantNoblePhantasmTarget),
         required: true,
         default: GameServantNoblePhantasmTarget.Support
     }

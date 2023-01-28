@@ -1,13 +1,14 @@
 import { Immutable } from '@fgo-planner/common-types';
-import { GameServant, GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget } from '@fgo-planner/data-types';
+import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
 
 /**
  * Chen Gong (2* Caster)
  */
-export const GameServant_504400: Immutable<GameServant> = {
+export const GameServant_504400: Immutable<GameServantWithMetadata> = {
     _id: 504400,
     collectionNo: 258,
     name: 'Chen Gong',
+    displayName: 'Chen Gong',
     class: GameServantClass.Caster,
     rarity: 2,
     cost: 4,
@@ -174,8 +175,8 @@ export const GameServant_504400: Immutable<GameServant> = {
     },
     costumes: {},
     metadata: {
-        displayName: 'Chen Gong',
         fgoManagerName: 'Chen Gong',
+        searchTags: [],
         links: []
     },
     np: [

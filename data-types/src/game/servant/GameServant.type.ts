@@ -5,8 +5,7 @@ import { GameServantClass } from './GameServantClass.type';
 import { GameServantCostume } from './GameServantCostume.type';
 import { GameServantGachaType } from './GameServantGachaType.type';
 import { GameServantGender } from './GameServantGender.type';
-import { GameServantGrowthCurve } from './GameServantGrowthCurve.enum';
-import { GameServantMetadata } from './GameServantMetadata.type';
+import { GameServantGrowthCurveBase } from './GameServantGrowthCurveBase.type';
 import { GameServantNoblePhantasm } from './GameServantNoblePhantasm.type';
 import { GameServantRarity } from './GameServantRarity.type';
 import { GameServantSkillMaterials } from './GameServantSkillMaterials.type';
@@ -16,6 +15,8 @@ export type GameServant = Entity<number> & {
     collectionNo: number;
 
     name?: string;
+
+    displayName?: string;
 
     gachaType?: GameServantGachaType;
 
@@ -56,7 +57,7 @@ export type GameServant = Entity<number> & {
      */
     atkMax: number;
 
-    growthCurve: GameServantGrowthCurve;
+    growthCurve: GameServantGrowthCurveBase;
 
     /**
      * Contains the unique noble phantasm card type and target combinations for the
@@ -80,7 +81,5 @@ export type GameServant = Entity<number> & {
     ascensionMaterials?: GameServantAscensionMaterials;
 
     costumes: Record<number, GameServantCostume>;
-
-    metadata: GameServantMetadata;
 
 };

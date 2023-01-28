@@ -1,12 +1,11 @@
 import { ExternalLink } from '../../ExternalLink.type';
+import { SearchTag } from '../../SearchTag.type';
 
 export type GameServantMetadata = {
 
-    displayName?: string;
-
     fgoManagerName?: string;
 
-    searchTags?: Array<string>;
+    searchTags: Array<SearchTag>;
 
     links: Array<ExternalLink>;
 

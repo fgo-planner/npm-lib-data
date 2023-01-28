@@ -1,18 +1,19 @@
-import { GameServant, GameServantClass } from '@fgo-planner/data-core';
-import mongoose, { Document, Model, Query, Schema } from 'mongoose';
+import { GameServantWithMetadata, GameServantClass } from '@fgo-planner/data-core';
+import mongoose, { Document, Model, ProjectionType, Query, Schema } from 'mongoose';
 import { GameServantSchemaDefinition } from '../../../schemas';
 
-export type GameServantDocument = GameServant & Document<number, any, GameServant>;
+export type GameServantDocument = GameServantWithMetadata & Document<number, any, GameServantWithMetadata>;
 
 /**
  * Mongoose document model definition for the `GameItem` type.
  */
-type GameServantModel = Model<GameServant> & {
+type GameServantModel = Model<GameServantWithMetadata> & {
 
     /**
      * Creates a query to find a single document by its `collectionNo` field.
      */
-    findByCollectionNo: (collectionNo: number) => Query<GameServantDocument, GameServantDocument>;
+    // eslint-disable-next-line max-len
+    findByCollectionNo: (collectionNo: number, projection?: ProjectionType<GameServantWithMetadata>) => Query<GameServantDocument, GameServantDocument>;
 
     /**
      * Creates a query for retrieving all the documents with the given `class` in
@@ -26,9 +27,10 @@ type GameServantModel = Model<GameServant> & {
 
 const findByCollectionNo = function (
     this: GameServantModel,
-    collectionNo: number
+    collectionNo: number,
+    projection?: ProjectionType<GameServantWithMetadata>
 ): Query<GameServantDocument | null, GameServantDocument> {
-    return this.findOne({ collectionNo });
+    return this.findOne({ collectionNo }, projection);
 };
 
 const findByClass = function (
@@ -51,7 +53,7 @@ const Statics = {
 /**
  * Mongoose schema for the `GameServant` type.
  */
-const GameServantSchema = new Schema<GameServant>(GameServantSchemaDefinition, {
+const GameServantSchema = new Schema<GameServantWithMetadata>(GameServantSchemaDefinition, {
     timestamps: true,
     minimize: false
 });
@@ -80,4 +82,4 @@ GameServantSchema.index(
 );
 */
 
-export const GameServantModel = mongoose.model<GameServant, GameServantModel>('GameServant', GameServantSchema, 'GameServants');
+export const GameServantModel = mongoose.model<GameServantWithMetadata, GameServantModel>('GameServant', GameServantSchema, 'GameServants');

@@ -1,13 +1,14 @@
 import { Immutable } from '@fgo-planner/common-types';
-import { GameServant, GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget } from '@fgo-planner/data-types';
+import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
 
 /**
  * Arash (1* Archer)
  */
-export const GameServant_201300: Immutable<GameServant> = {
+export const GameServant_201300: Immutable<GameServantWithMetadata> = {
     _id: 201300,
     collectionNo: 16,
     name: 'Arash',
+    displayName: 'Arash',
     class: GameServantClass.Archer,
     rarity: 1,
     cost: 3,
@@ -174,8 +175,8 @@ export const GameServant_201300: Immutable<GameServant> = {
     },
     costumes: {},
     metadata: {
-        displayName: 'Arash',
         fgoManagerName: 'Arash',
+        searchTags: [],
         links: []
     },
     np: [

@@ -1,13 +1,14 @@
 import { Immutable } from '@fgo-planner/common-types';
-import { GameServant, GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget } from '@fgo-planner/data-types';
+import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
 
 /**
  * Space Ishtar (5* Avenger)
  */
-export const GameServant_1100900: Immutable<GameServant> = {
+export const GameServant_1100900: Immutable<GameServantWithMetadata> = {
     _id: 1100900,
     collectionNo: 268,
     name: 'Space Ishtar',
+    displayName: 'Space Ishtar',
     class: GameServantClass.Avenger,
     rarity: 5,
     cost: 16,
@@ -177,9 +178,9 @@ export const GameServant_1100900: Immutable<GameServant> = {
         }
     },
     metadata: {
-        displayName: 'Space Ishtar',
-        links: [],
-        fgoManagerName: 'Space Ishtar'
+        fgoManagerName: 'Space Ishtar',
+        searchTags: [],
+        links: []
     },
     np: [
         {

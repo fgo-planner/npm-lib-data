@@ -1,4 +1,4 @@
-import { GameServant, GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials } from '@fgo-planner/data-core';
+import { GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials, GameServantWithMetadata } from '@fgo-planner/data-core';
 import { Schema, SchemaDefinition } from 'mongoose';
 import { CommonTransformers } from '../../../transformers';
 import { ValidationStrings } from '../../../validators';
@@ -95,7 +95,7 @@ const GameServantAscensionMaterialsSchema = new Schema<GameServantAscensionMater
 /**
  * Mongoose schema definition for the `GameServant` type.
  */
-export const GameServantSchemaDefinition: SchemaDefinition<GameServant> = {
+export const GameServantSchemaDefinition: SchemaDefinition<GameServantWithMetadata> = {
     _id: {
         type: Number,
         required: true,
@@ -119,13 +119,16 @@ export const GameServantSchemaDefinition: SchemaDefinition<GameServant> = {
         type: String,
         index: true
     },
+    displayName: {
+        type: String
+    },
     gachaType: {
         type: String,
-        enum: Object.keys(GameServantGachaType)
+        enum: Object.values(GameServantGachaType)
     },
     class: {
         type: String,
-        enum: Object.keys(GameServantClass),
+        enum: Object.values(GameServantClass),
         required: true,
         default: GameServantClass.Saber,
         index: true
@@ -169,13 +172,13 @@ export const GameServantSchemaDefinition: SchemaDefinition<GameServant> = {
     },
     gender: {
         type: String,
-        enum: Object.keys(GameServantGender),
+        enum: Object.values(GameServantGender),
         required: true,
         default: GameServantGender.Female
     },
     attribute: {
         type: String,
-        enum: Object.keys(GameServantAttribute),
+        enum: Object.values(GameServantAttribute),
         required: true,
         default: GameServantAttribute.Earth
     },

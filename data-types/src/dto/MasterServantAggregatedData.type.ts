@@ -7,10 +7,10 @@ import { ImmutableMasterServant } from '../immutable/ImmutableMasterServant.type
  * DTO containing a `MasterServant` object, as well as the instance ID and the
  * source `GameServant` object.
  */
-export type MasterServantAggregatedData = Readonly<InstantiatedServant & {
+export type MasterServantAggregatedData<T extends GameServant = GameServant> = Readonly<InstantiatedServant & {
 
     masterServant: ImmutableMasterServant;
 
-    gameServant: Immutable<GameServant>;
+    gameServant: Immutable<T>;
 
 }>;
