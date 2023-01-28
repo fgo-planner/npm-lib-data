@@ -1,7 +1,7 @@
 import { GameServantEnhancement } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
-import { GameItemQuantitiesSchemaTypeOptions } from '../item/game-item-quantities.schema';
+import { ItemQuantitiesSchemaTypeOptions } from '../../common/item/ItemQuantities.schema';
 
 /**
  * Mongoose schema for the `GameServantEnhancement` type.
@@ -18,7 +18,7 @@ export const GameServantEnhancementSchema = new Schema<GameServantEnhancement>({
         default: 0
     },
     materials: {
-        ...GameItemQuantitiesSchemaTypeOptions,
+        ...ItemQuantitiesSchemaTypeOptions,
         required: true,
         default: {}
     }

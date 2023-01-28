@@ -1,12 +1,12 @@
-import { GameItemQuantities, MasterItemConstants } from '@fgo-planner/data-core';
+import { ItemQuantities, MasterItemConstants } from '@fgo-planner/data-core';
 import { SchemaTypeOptions } from 'mongoose';
 import { CommonTransformers } from '../../../transformers';
 import { CommonValidators, ValidationStrings } from '../../../validators';
 
 /**
- * Mongoose schema type options for the `GameItemQuantities` type.
+ * Mongoose schema type options for the `ItemQuantities` type.
  */
-export const GameItemQuantitiesSchemaTypeOptions: SchemaTypeOptions<GameItemQuantities> = {
+export const ItemQuantitiesSchemaTypeOptions: SchemaTypeOptions<ItemQuantities> = {
     type: Map,
     of: {
         type: Number

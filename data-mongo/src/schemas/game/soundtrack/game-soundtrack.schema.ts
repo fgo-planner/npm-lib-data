@@ -1,7 +1,7 @@
 import { GameSoundtrack } from '@fgo-planner/data-core';
 import { SchemaDefinition } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
-import { GameItemQuantitiesSchemaTypeOptions } from '../item/game-item-quantities.schema';
+import { ItemQuantitiesSchemaTypeOptions } from '../../common/item/ItemQuantities.schema';
 
 /**
  * Mongoose schema definition for the `GameSoundtrack` type.
@@ -29,7 +29,7 @@ export const GameSoundtrackSchemaDefinition: SchemaDefinition<GameSoundtrack> = 
     name: {
         type: String
     },
-    material: GameItemQuantitiesSchemaTypeOptions,
+    material: ItemQuantitiesSchemaTypeOptions,
     audioUrl: {
         type: String
         // TODO Add URL validation

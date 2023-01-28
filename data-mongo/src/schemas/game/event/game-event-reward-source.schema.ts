@@ -1,7 +1,7 @@
 import { GameEventRewardSource, GameEventRewardSourceType } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { CommonValidators, ValidationStrings } from '../../../validators';
-import { GameItemQuantitySchema } from '../item/game-item-quantity.schema';
+import { ItemQuantitiesSchemaTypeOptions } from '../../common/item/ItemQuantities.schema';
 
 /**
  * Mongoose schema for the `GameEventRewardSource.masterRewards` property.
@@ -199,9 +199,9 @@ export const GameEventRewardSourceSchema = new Schema<GameEventRewardSource>({
         default: {}
     },
     enhancementRewards: {
-        type: [GameItemQuantitySchema],
+        ...ItemQuantitiesSchemaTypeOptions,
         required: true,
-        default: []
+        default: {}
     }
 }, {
     _id: false,

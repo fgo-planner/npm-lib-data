@@ -1,11 +1,11 @@
-import { GameEmberQuantities } from '@fgo-planner/data-core';
+import { EmberQuantities } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { CommonValidators, ValidationStrings } from '../../../validators';
 
 /**
- * Mongoose schema for the `GameEmberQuantities` type.
+ * Mongoose schema for the `EmberQuantities` type.
  */
-export const GameEmberQuantitiesSchema = new Schema<GameEmberQuantities>({
+export const EmberQuantitiesSchema = new Schema<EmberQuantities>({
     1: {
         type: Number,
         min: 0,

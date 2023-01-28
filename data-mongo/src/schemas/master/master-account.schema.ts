@@ -1,11 +1,11 @@
-import { MasterAccountConstants, InstantiatedServantConstants } from '@fgo-planner/data-core';
+import { InstantiatedServantConstants, MasterAccountConstants } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
 import { CommonTransformers } from '../../transformers';
 import { MasterAccount } from '../../types';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
-import { GameEmberQuantitiesSchema } from '../game/ember/game-ember-quantities.schema';
-import { GameItemQuantitiesSchemaTypeOptions } from '../game/item/game-item-quantities.schema';
+import { EmberQuantitiesSchema } from '../common/ember/EmberQuantities.schema';
+import { ItemQuantitiesSchemaTypeOptions } from '../common/item/ItemQuantities.schema';
 import { MasterServantSchema } from './master-servant.schema';
 
 /**
@@ -13,12 +13,12 @@ import { MasterServantSchema } from './master-servant.schema';
  */
 export const MasterAccountResourcesSchema = new Schema<MasterAccount['resources']>({
     items: {
-        ...GameItemQuantitiesSchemaTypeOptions,
+        ...ItemQuantitiesSchemaTypeOptions,
         required: true,
         default: {}
     },
     embers: {
-        type: GameEmberQuantitiesSchema,
+        type: EmberQuantitiesSchema,
         required: true,
         default: {}
     },
