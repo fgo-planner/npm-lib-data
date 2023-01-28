@@ -1,13 +1,13 @@
 import { Entity } from '../../Entity.type';
 import { GameServantAscensionMaterials } from './GameServantAscensionMaterials.type';
-import { GameServantAttribute } from './GameServantAttribute.enum';
-import { GameServantClass } from './GameServantClass.enum';
+import { GameServantAttribute } from './GameServantAttribute.type';
+import { GameServantClass } from './GameServantClass.type';
 import { GameServantCostume } from './GameServantCostume.type';
-import { GameServantGachaType } from './GameServantGachaType.enum';
-import { GameServantGender } from './GameServantGender.enum';
+import { GameServantGachaType } from './GameServantGachaType.type';
+import { GameServantGender } from './GameServantGender.type';
 import { GameServantGrowthCurve } from './GameServantGrowthCurve.enum';
 import { GameServantMetadata } from './GameServantMetadata.type';
-import { GameServantNoblePhantasm } from './GameServantNoblePhantasm.enum';
+import { GameServantNoblePhantasm } from './GameServantNoblePhantasm.type';
 import { GameServantRarity } from './GameServantRarity.type';
 import { GameServantSkillMaterials } from './GameServantSkillMaterials.type';
 

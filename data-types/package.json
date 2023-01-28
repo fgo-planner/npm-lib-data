@@ -1,6 +1,6 @@
 {
     "name": "@fgo-planner/data-types",
-    "version": "0.4.3",
+    "version": "0.5.0-RC1",
     "repository": {
         "type": "git",
         "url": "https://github.com/fgo-planner/npm-lib-data.git"

@@ -1,3 +1,16 @@
+const Linear = 0;
+const ReverseS = 5;
+const S = 10;
+const SemiReverseS = 20;
+const SemiS = 25;
+
+export type GameServantGrowthCurveBase =
+    typeof Linear | 
+    typeof ReverseS | 
+    typeof S | 
+    typeof SemiReverseS | 
+    typeof SemiS;
+
 /**
  * Enumeration of servant growth curve types. The enum values represent the 
  * 'base' value of each type. The actual in-game growth curve ID can be
@@ -13,28 +26,26 @@
  * - 8: Reverse S 3★
  * - 9: Reverse S 4★
  * - 10: Reverse S 5★
- * - 12: S 1★ (currently unused)
+ * - 11: S 1★
  * - 12: S 2★
  * - 13: S 3★
  * - 14: S 4★
  * - 15: S 5★
- * - 21: Semi Reverse S 1★ (currently unused)
- * - 22: Semi Reverse S 2★ (currently unused)
+ * - 21: Semi Reverse S 1★
+ * - 22: Semi Reverse S 2★
  * - 23: Semi Reverse S 3★
  * - 24: Semi Reverse S 4★
  * - 25: Semi Reverse S 5★
- * - 26: Semi S 1★ (currently unused)
+ * - 26: Semi S 1★
  * - 27: Semi S 2★
  * - 28: Semi S 3★
  * - 29: Semi S 4★
  * - 30: Semi S 5★
- * 
- * @deprecated Replaced by `GameServantGrowthCurveBase`.
  */
-export enum GameServantGrowthCurve {
-    Linear = 0,
-    ReverseS = 5,
-    S = 10,
-    SemiReverseS = 20,
-    SemiS = 25
-}
+export const GameServantGrowthCurveBase = {
+    Linear,
+    ReverseS,
+    S,
+    SemiReverseS,
+    SemiS
+} as const;
