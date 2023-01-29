@@ -1,5 +1,5 @@
 import { Immutable } from '@fgo-planner/common-types';
-import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
+import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantGrowthCurveBase, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
 
 /**
  * Space Ishtar (5* Avenger)
@@ -19,7 +19,7 @@ export const GameServant_1100900: Immutable<GameServantWithMetadata> = {
     hpMax: 13041,
     atkBase: 1949,
     atkMax: 12612,
-    growthCurve: 10,
+    growthCurve: GameServantGrowthCurveBase.S,
     skillMaterials: {
         1: {
             qp: 200000,
@@ -179,7 +179,20 @@ export const GameServant_1100900: Immutable<GameServantWithMetadata> = {
     },
     metadata: {
         fgoManagerName: 'Space Ishtar',
-        searchTags: [],
+        searchTags: [
+            {
+                value: 'Space Ishtar',
+                enabled: true
+            },
+            {
+                value: 'Ashtart',
+                enabled: true
+            },
+            {
+                value: 'Ishtar Ashtart',
+                enabled: true
+            }
+        ],
         links: []
     },
     np: [

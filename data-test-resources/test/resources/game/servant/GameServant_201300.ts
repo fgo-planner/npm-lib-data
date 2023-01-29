@@ -1,5 +1,5 @@
 import { Immutable } from '@fgo-planner/common-types';
-import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
+import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantGrowthCurveBase, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
 
 /**
  * Arash (1* Archer)
@@ -19,7 +19,7 @@ export const GameServant_201300: Immutable<GameServantWithMetadata> = {
     hpMax: 7122,
     atkBase: 1057,
     atkMax: 5816,
-    growthCurve: 0,
+    growthCurve: GameServantGrowthCurveBase.Linear,
     skillMaterials: {
         1: {
             qp: 10000,
@@ -176,7 +176,12 @@ export const GameServant_201300: Immutable<GameServantWithMetadata> = {
     costumes: {},
     metadata: {
         fgoManagerName: 'Arash',
-        searchTags: [],
+        searchTags: [
+            {
+                value: 'Arash',
+                enabled: true
+            }
+        ],
         links: []
     },
     np: [

@@ -1,5 +1,5 @@
 import { Immutable } from '@fgo-planner/common-types';
-import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
+import { GameServantAttribute, GameServantCardType, GameServantClass, GameServantGender, GameServantGrowthCurveBase, GameServantNoblePhantasmTarget, GameServantWithMetadata } from '@fgo-planner/data-types';
 
 /**
  * Chen Gong (2* Caster)
@@ -19,7 +19,7 @@ export const GameServant_504400: Immutable<GameServantWithMetadata> = {
     hpMax: 7755,
     atkBase: 1085,
     atkMax: 6119,
-    growthCurve: 5,
+    growthCurve: GameServantGrowthCurveBase.ReverseS,
     skillMaterials: {
         1: {
             qp: 20000,
@@ -176,7 +176,12 @@ export const GameServant_504400: Immutable<GameServantWithMetadata> = {
     costumes: {},
     metadata: {
         fgoManagerName: 'Chen Gong',
-        searchTags: [],
+        searchTags: [
+            {
+                value: 'Chen Gong',
+                enabled: true
+            }
+        ],
         links: []
     },
     np: [
