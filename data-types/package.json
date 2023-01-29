@@ -1,6 +1,6 @@
 {
     "name": "@fgo-planner/data-types",
-    "version": "0.5.0-RC1",
+    "version": "0.5.0",
     "repository": {
         "type": "git",
         "url": "https://github.com/fgo-planner/npm-lib-data.git"
@@ -46,6 +46,6 @@
         "eslint": "^8.21.0",
         "npm-run-all": "^4.1.5",
         "rimraf": "^3.0.2",
-        "typescript": "^4.7.4"
+        "typescript": "^4.9.4"
     }
 }
