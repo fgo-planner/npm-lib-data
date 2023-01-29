@@ -5,3 +5,4 @@ export * as MasterServantUtils from './master/MasterServantUtils';
 export * as PlanServantUpdateUtils from './planner/PlanServantUpdateUtils';
 export * as PlanServantUtils from './planner/PlanServantUtils';
 export * as PlanUtils from './planner/PlanUtils';
+export * as SearchTagUtils from './SearchTagUtils';
