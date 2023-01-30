@@ -1,4 +1,4 @@
-import { GameServantWithMetadata, GameServantClass } from '@fgo-planner/data-core';
+import { ExternalLink, GameServantClass, GameServantWithMetadata } from '@fgo-planner/data-core';
 import mongoose, { Document, Model, ProjectionType, Query, Schema } from 'mongoose';
 import { GameServantSchemaDefinition } from '../../../schemas';
 
@@ -11,6 +11,8 @@ type GameServantModel = Model<GameServantWithMetadata> & {
 
     /**
      * Creates a query to find a single document by its `collectionNo` field.
+     * 
+     * @deprecated
      */
     // eslint-disable-next-line max-len
     findByCollectionNo: (collectionNo: number, projection?: ProjectionType<GameServantWithMetadata>) => Query<GameServantDocument, GameServantDocument>;
@@ -18,8 +20,14 @@ type GameServantModel = Model<GameServantWithMetadata> & {
     /**
      * Creates a query for retrieving all the documents with the given `class` in
      * the collection.
+     * 
+     * @deprecated
      */
     findByClass: (servantClass: GameServantClass) => Query<Array<GameServantDocument>, GameServantDocument>;
+
+    getExternalLinks: (id: number) => Promise<Array<ExternalLink> | null>;
+
+    getFgoManagerNamesMap: () => Promise<Record<number, string>>;
 
 };
 
@@ -40,6 +48,32 @@ const findByClass = function (
     return this.find({ class: servantClass });
 };
 
+const getExternalLinks = async function (
+    this: GameServantModel,
+    id: number
+): Promise<Array<ExternalLink> | null> {
+    const doc = await this.findById(id, { 'metadata.links': 1 });
+    if (!doc) {
+        return null;
+    }
+    return doc.metadata.links;
+};
+
+const getFgoManagerNamesMap = async function (
+    this: GameServantModel
+): Promise<Record<number, string>> {
+    const docs = await this.find({}, { 'metadata.fgoManagerName': 1 });
+    const result: Record<number, string> = {};
+    for (const doc of docs) {
+        const { _id, metadata } = doc.toObject();
+        if (!metadata.fgoManagerName) {
+            continue;
+        }
+        result[_id] = metadata.fgoManagerName;
+    }
+    return result;
+};
+
 //#endregion
 
 /**
@@ -47,7 +81,9 @@ const findByClass = function (
  */
 const Statics = {
     findByCollectionNo,
-    findByClass
+    findByClass,
+    getExternalLinks,
+    getFgoManagerNamesMap
 };
 
 /**
