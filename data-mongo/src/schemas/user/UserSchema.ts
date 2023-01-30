@@ -1,6 +1,6 @@
 import { SchemaDefinition } from 'mongoose';
 import { User } from '../../types';
-import { UserPreferencesSchema } from './user-preferences.schema';
+import { UserPreferencesSchema } from './UserPreferencesSchema';
 
 /**
  * Mongoose schema definition for the `User` type.

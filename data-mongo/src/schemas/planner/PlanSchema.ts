@@ -2,8 +2,8 @@ import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
 import { Plan } from '../../types';
 import { PlanValidators, ValidationStrings } from '../../validators';
-import { PlanServantSchema } from './plan-servant.schema';
-import { PlanUpcomingResourcesSchema } from './plan-upcoming-resources.schema';
+import { PlanServantSchema } from './PlanServantSchema';
+import { PlanUpcomingResourcesSchema } from './PlanUpcomingResourcesSchema';
 
 /**
  * Mongoose schema for the `PlanServant.enabled` property.

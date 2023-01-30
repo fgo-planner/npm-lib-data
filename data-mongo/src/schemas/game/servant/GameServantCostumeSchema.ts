@@ -1,7 +1,7 @@
 import { GameServantCostume } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
-import { GameServantEnhancementSchema } from './game-servant-enhancement.schema';
+import { GameServantEnhancementSchema } from './GameServantEnhancementSchema';
 
 /**
  * Mongoose schema for the `GameServantCostume` type.

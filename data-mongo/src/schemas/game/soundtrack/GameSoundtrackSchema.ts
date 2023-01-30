@@ -1,7 +1,7 @@
 import { GameSoundtrack } from '@fgo-planner/data-core';
 import { SchemaDefinition } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
-import { ItemQuantitiesSchemaTypeOptions } from '../../common/item/ItemQuantities.schema';
+import { ItemQuantitiesSchemaTypeOptions } from '../../common/item/ItemQuantitiesSchema';
 
 /**
  * Mongoose schema definition for the `GameSoundtrack` type.

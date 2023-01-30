@@ -1,1 +1,1 @@
-export * from './common-transformers';
+export * from './CommonTransformers';

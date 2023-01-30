@@ -1,6 +1,6 @@
 import { SchemaDefinition } from 'mongoose';
 import { GameEvent } from '../../../types';
-import { GameEventRewardSourceSchema } from './game-event-reward-source.schema';
+import { GameEventRewardSourceSchema } from './GameEventRewardSourceSchema';
 
 /**
  * Mongoose schema definition for the `GameEvent` type.

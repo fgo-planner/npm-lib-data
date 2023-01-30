@@ -1,6 +1,6 @@
 import { PlanServant } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
-import { InstantiatedServantAscensionLevelSchemaTypeOptions, InstantiatedServantFouSchemaTypeOptions, InstantiatedServantIdSchemaTypeOptions, InstantiatedServantLevelSchemaTypeOptions, InstantiatedServantSkillLevelSchemaTypeOptions } from '../common/servant/instantiated-servant.schema';
+import { InstantiatedServantAscensionLevelSchemaTypeOptions, InstantiatedServantFouSchemaTypeOptions, InstantiatedServantIdSchemaTypeOptions, InstantiatedServantLevelSchemaTypeOptions, InstantiatedServantSkillLevelSchemaTypeOptions } from '../common/servant/InstantiatedServantSchema';
 
 /**
  * Mongoose schema for the `PlanServant.enabled` property.

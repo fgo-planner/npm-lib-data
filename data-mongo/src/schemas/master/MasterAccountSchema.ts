@@ -1,12 +1,12 @@
 import { InstantiatedServantConstants, MasterAccountConstants } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
-import { CommonTransformers } from '../../transformers';
+import { CommonTransformers } from '../../Transformers';
 import { MasterAccount } from '../../types';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
-import { EmberQuantitiesSchema } from '../common/ember/EmberQuantities.schema';
-import { ItemQuantitiesSchemaTypeOptions } from '../common/item/ItemQuantities.schema';
-import { MasterServantSchema } from './master-servant.schema';
+import { EmberQuantitiesSchema } from '../common/ember/EmberQuantitiesSchema';
+import { ItemQuantitiesSchemaTypeOptions } from '../common/item/ItemQuantitiesSchema';
+import { MasterServantSchema } from './MasterServantSchema';
 
 /**
  * Mongoose schema for the `MasterAccount.resources` property.

@@ -1,7 +1,7 @@
 import { GameServantMetadata } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
-import { ExternalLinkSchema } from '../../external-link.schema';
-import { SearchTagSchema } from '../../SearchTag.schema';
+import { ExternalLinkSchema } from '../../ExternalLinkSchema';
+import { SearchTagSchema } from '../../SearchTagSchema';
 
 /**
  * Mongoose schema for the `GameServantMetadata` type.

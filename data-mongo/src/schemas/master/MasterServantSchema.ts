@@ -1,7 +1,7 @@
 import { InstantiatedServantConstants, MasterServant } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../validators';
-import { InstantiatedServantAscensionLevelSchemaTypeOptions, InstantiatedServantFouSchemaTypeOptions, InstantiatedServantIdSchemaTypeOptions, InstantiatedServantLevelSchemaTypeOptions, InstantiatedServantNoblePhantasmLevelSchemaTypeOptions, InstantiatedServantSkillLevelSchemaTypeOptions } from '../common/servant/instantiated-servant.schema';
+import { InstantiatedServantAscensionLevelSchemaTypeOptions, InstantiatedServantFouSchemaTypeOptions, InstantiatedServantIdSchemaTypeOptions, InstantiatedServantLevelSchemaTypeOptions, InstantiatedServantNoblePhantasmLevelSchemaTypeOptions, InstantiatedServantSkillLevelSchemaTypeOptions } from '../common/servant/InstantiatedServantSchema';
 
 /**
  * Mongoose schema for the `MasterServant.skills` property.

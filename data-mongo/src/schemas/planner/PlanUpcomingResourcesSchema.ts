@@ -1,8 +1,8 @@
 import { PlanUpcomingResources } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../validators';
-import { EmberQuantitiesSchema } from '../common/ember/EmberQuantities.schema';
-import { ItemQuantitiesSchemaTypeOptions } from '../common/item/ItemQuantities.schema';
+import { EmberQuantitiesSchema } from '../common/ember/EmberQuantitiesSchema';
+import { ItemQuantitiesSchemaTypeOptions } from '../common/item/ItemQuantitiesSchema';
 
 /**
  * Mongoose schema for the `PlanUpcomingResources` type.

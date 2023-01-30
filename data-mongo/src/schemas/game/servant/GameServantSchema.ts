@@ -1,11 +1,11 @@
 import { GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials, GameServantWithMetadata } from '@fgo-planner/data-core';
 import { Schema, SchemaDefinition } from 'mongoose';
-import { CommonTransformers } from '../../../transformers';
+import { CommonTransformers } from '../../../Transformers';
 import { ValidationStrings } from '../../../validators';
-import { GameServantCostumeSchema } from './game-servant-costume.schema';
-import { GameServantEnhancementSchema } from './game-servant-enhancement.schema';
-import { GameServantMetadataSchema } from './game-servant-metadata.schema';
-import { GameServantNoblePhantasmSchema } from './game-servant-noble-phantasm.schema';
+import { GameServantCostumeSchema } from './GameServantCostumeSchema';
+import { GameServantEnhancementSchema } from './GameServantEnhancementSchema';
+import { GameServantMetadataSchema } from './GameServantMetadataSchema';
+import { GameServantNoblePhantasmSchema } from './GameServantNoblePhantasmSchema';
 
 /**
  * Mongoose schema for the `GameServantSkillMaterials` type.

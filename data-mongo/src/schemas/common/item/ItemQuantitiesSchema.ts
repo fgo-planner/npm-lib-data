@@ -1,6 +1,6 @@
 import { ItemQuantities, MasterItemConstants } from '@fgo-planner/data-core';
 import { SchemaTypeOptions } from 'mongoose';
-import { CommonTransformers } from '../../../transformers';
+import { CommonTransformers } from '../../../Transformers';
 import { CommonValidators, ValidationStrings } from '../../../validators';
 
 /**

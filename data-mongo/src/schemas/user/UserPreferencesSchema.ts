@@ -1,6 +1,6 @@
 import { UserPreferences, UserWebClientPreferences, UserWebClientTheme } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
-import { RgbaColorSchema } from '../rgba-color.schema';
+import { RgbaColorSchema } from '../RgbaColorSchema';
 
 /**
  * Mongoose schema for the `UserWebClientTheme` type.
