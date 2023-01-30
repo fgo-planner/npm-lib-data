@@ -27,8 +27,6 @@ type GameServantModel = Model<GameServantWithMetadata> & {
 
     getExternalLinks: (id: number) => Promise<Array<ExternalLink> | null>;
 
-    getFgoManagerNamesMap: () => Promise<Record<number, string>>;
-
 };
 
 //#region Static function implementations
@@ -59,21 +57,6 @@ const getExternalLinks = async function (
     return doc.metadata.links;
 };
 
-const getFgoManagerNamesMap = async function (
-    this: GameServantModel
-): Promise<Record<number, string>> {
-    const docs = await this.find({}, { 'metadata.fgoManagerName': 1 });
-    const result: Record<number, string> = {};
-    for (const doc of docs) {
-        const { _id, metadata } = doc.toObject();
-        if (!metadata.fgoManagerName) {
-            continue;
-        }
-        result[_id] = metadata.fgoManagerName;
-    }
-    return result;
-};
-
 //#endregion
 
 /**
@@ -82,8 +65,7 @@ const getFgoManagerNamesMap = async function (
 const Statics = {
     findByCollectionNo,
     findByClass,
-    getExternalLinks,
-    getFgoManagerNamesMap
+    getExternalLinks
 };
 
 /**
