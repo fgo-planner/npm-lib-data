@@ -91,3 +91,6 @@ typings/
 
 # Build output
 */lib/
+
+# VS Code
+.VSCodeCounter/
