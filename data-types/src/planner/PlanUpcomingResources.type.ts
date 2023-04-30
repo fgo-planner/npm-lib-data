@@ -1,6 +1,6 @@
-import { PlanResources } from './PlanResources.type';
+import { Resources } from '../common/resources/Resources.type';
 
-export type PlanUpcomingResources = PlanResources & {
+export type PlanUpcomingResources = Resources & {
 
     name: string;
 

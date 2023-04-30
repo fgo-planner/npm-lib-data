@@ -10,7 +10,7 @@ import * as InstantiatedServantUtils from '../common/InstantiatedServantUtils';
 export function instantiate(instanceId = 0): MasterServant {
     return {
         instanceId,
-        gameId: MasterServantConstants.DefaultServantId,
+        servantId: MasterServantConstants.DefaultServantId,
         summoned: true, // Assume servant has been summoned by player by default
         np: InstantiatedServantConstants.MinNoblePhantasmLevel,
         level: InstantiatedServantConstants.MinLevel,
@@ -53,7 +53,7 @@ export function getLastInstanceId(masterServants: ReadonlyArray<ImmutableMasterS
 
 /**
  * Compares two `MasterServants` object to determine their equality. The
- * `instanceId` and `gameId` fields are ignored in the comparison.
+ * `instanceId` and `servantId` fields are ignored in the comparison.
  */
 export function isEqual(a: ImmutableMasterServant, b: ImmutableMasterServant): boolean {
     return InstantiatedServantUtils.isEnhancementsEqual(a, b) &&

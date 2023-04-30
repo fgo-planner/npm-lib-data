@@ -54,7 +54,7 @@ export function lastServantInstanceIdValid(servants: Array<MasterServant>, lastI
 }
 
 export function getDefaultLastServantInstanceId(doc: MasterAccount): number {
-    const servants = doc.servants;
+    const servants = doc.servants.servants;
     if (!servants.length) {
         return 0;
     }

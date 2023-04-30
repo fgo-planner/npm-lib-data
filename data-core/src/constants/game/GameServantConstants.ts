@@ -42,3 +42,17 @@ export const LevelCapByRarityMap: ReadonlyRecord<GameServantRarity, number> = {
     4: 80,
     5: 90
 }; 
+
+export const NoCostCostumeOptions = new Set([
+    101830,  // (53) Altera
+    100550,  // (54) Nero
+    201230,  // (55) Euryale
+    401430,  // (56) Ushiwakamaru
+    401340,  // (57) Medb
+    502330,  // (58) Helena
+    501230,  // (59) Nitocris
+    602130,  // (60) Shuten Douji
+    600930,  // (61) Serenity
+    701630,  // (62) Tamamo Cat
+    900130   // (64) Jeanne d'Arc
+]) as ReadonlySet<number>;

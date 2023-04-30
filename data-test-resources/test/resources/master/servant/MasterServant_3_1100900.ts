@@ -6,7 +6,7 @@ import { ImmutableMasterServant } from '@fgo-planner/data-types';
  * ```
     {
         instanceId: 3,
-        gameId: 1100900,
+        servantId: 1100900,
         summoned: true,
         summonDate: 1662940800000,
         np: 4,
@@ -28,7 +28,7 @@ import { ImmutableMasterServant } from '@fgo-planner/data-types';
  */
 export const MasterServant_3_1100900: ImmutableMasterServant = {
     instanceId: 3,
-    gameId: 1100900,
+    servantId: 1100900,
     summoned: true,
     summonDate: new Date(1662940800000),
     np: 4,

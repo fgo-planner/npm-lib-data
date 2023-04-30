@@ -1,4 +1,4 @@
-import { ItemQuantities } from '../../common/item/ItemQuantities.type';
+import { ItemQuantities } from '../../common/resources/ItemQuantities.type';
 import { Entity } from '../../Entity.type';
 
 export type GameSoundtrack = Entity<number> & {

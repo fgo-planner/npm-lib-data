@@ -1,15 +1,15 @@
-import { EmberQuantities } from '../common/ember/EmberQuantities.type';
-import { ItemQuantities } from '../common/item/ItemQuantities.type';
-import { InstantiatedServantBondLevel } from '../common/servant/InstantiatedServantBondLevel.type';
+import { Resources } from '../common/resources/Resources.type';
 import { EntityWithTimestamps } from '../EntityWithTimestamps.type';
-import { MasterServant } from './MasterServant.type';
+import { MasterCostumes } from './MasterCostumes.type';
+import { MasterServants } from './MasterServants.type';
+import { MasterSoundtracks } from './MasterSoundtracks.type';
 
 export type MasterAccount<ID = string> = EntityWithTimestamps<ID> & {
 
     userId: ID;
 
     /**
-     * Account nickname.
+     * Account nickname/display name.
      */
     name?: string;
 
@@ -17,24 +17,12 @@ export type MasterAccount<ID = string> = EntityWithTimestamps<ID> & {
 
     exp?: number;
 
-    resources: {
-
-        items: ItemQuantities;
-
-        embers: EmberQuantities;
-
-        qp: number;
-
-    };
-
-    servants: Array<MasterServant>;
+    resources: Resources;
     
-    lastServantInstanceId: number;
-
-    costumes: Array<number>;
+    servants: MasterServants;
     
-    bondLevels: Record<number, InstantiatedServantBondLevel>;
+    costumes: MasterCostumes;
     
-    soundtracks: Array<number>;
+    soundtracks: MasterSoundtracks;
 
 };

@@ -12,7 +12,7 @@ export type MasterServant = InstantiatedServant & InstantiatedServantEnhancement
     /**
      * The ID of the `GameServant` that this servant is an instance of.
      */
-    gameId: number;
+    servantId: number;
 
     /**
      * Whether the servant has already been summoned by the master, or is just
