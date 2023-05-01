@@ -9,15 +9,28 @@ const Shielder = 'Shielder';
 const Ruler = 'Ruler';
 const AlterEgo = 'AlterEgo';
 const Avenger = 'Avenger';
-const MoonCancer = 'MoonCancer';
-const Foreigner = 'Foreigner';
-const BeastI = 'BeastI';
+const DemonGodPillar = 'DemonGodPillar';
+const GrandCaster = 'GrandCaster';
 const BeastII = 'BeastII';
+const UshiChaosTide = 'UshiChaosTide';
+const BeastI = 'BeastI';
+const MoonCancer = 'MoonCancer';
 const BeastIIIR = 'BeastIIIR';
+const Foreigner = 'Foreigner';
 const BeastIIIL = 'BeastIIIL';
-const BeastFalse = 'BeastFalse';
+const BeastUnknown = 'BeastUnknown';
 const Pretender = 'Pretender';
+const BeastIV = 'BeastIV';
+const BeastILost = 'BeastILost';
+const UOlgaMarieAlienGod = 'UOlgaMarieAlienGod';
+const UOlgaMarie = 'UOlgaMarie';
+const Beast = 'Beast';
+const BeastVI = 'BeastVI';
 const Unknown = 'Unknown';
+const AgarthaPenth = 'AgarthaPenth';
+const CCCFinaleEmiyaAlter = 'CCCFinaleEmiyaAlter';
+const SalemAbby = 'SalemAbby';
+const All = 'All';
 
 export type GameServantClass =
     typeof Saber |
@@ -31,15 +44,28 @@ export type GameServantClass =
     typeof Ruler |
     typeof AlterEgo |
     typeof Avenger |
-    typeof MoonCancer |
-    typeof Foreigner |
-    typeof BeastI |
+    typeof DemonGodPillar |
+    typeof GrandCaster |
     typeof BeastII |
+    typeof UshiChaosTide |
+    typeof BeastI |
+    typeof MoonCancer |
     typeof BeastIIIR |
+    typeof Foreigner |
     typeof BeastIIIL |
-    typeof BeastFalse |
+    typeof BeastUnknown |
     typeof Pretender |
-    typeof Unknown;
+    typeof BeastIV |
+    typeof BeastILost |
+    typeof UOlgaMarieAlienGod |
+    typeof UOlgaMarie |
+    typeof Beast |
+    typeof BeastVI |
+    typeof Unknown |
+    typeof AgarthaPenth |
+    typeof CCCFinaleEmiyaAlter |
+    typeof SalemAbby |
+    typeof All;
 
 /**
  * Enumerations of servant classes.
@@ -56,13 +82,26 @@ export const GameServantClass = {
     Ruler,
     AlterEgo,
     Avenger,
-    MoonCancer,
-    Foreigner,
-    BeastI,
+    DemonGodPillar,
+    GrandCaster,
     BeastII,
+    UshiChaosTide,
+    BeastI,
+    MoonCancer,
     BeastIIIR,
+    Foreigner,
     BeastIIIL,
-    BeastFalse,
+    BeastUnknown,
     Pretender,
-    Unknown
+    BeastIV,
+    BeastILost,
+    UOlgaMarieAlienGod,
+    UOlgaMarie,
+    Beast,
+    BeastVI,
+    Unknown,
+    AgarthaPenth,
+    CCCFinaleEmiyaAlter,
+    SalemAbby,
+    All
 } as const;
