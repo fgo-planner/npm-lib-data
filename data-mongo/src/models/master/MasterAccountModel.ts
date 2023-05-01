@@ -57,29 +57,29 @@ const partialUpdate = async function (
 
     const id = update._id;
 
-    let lastServantInstanceId = update.lastServantInstanceId || 0;
     if (update.servants) {
+        let lastServantInstanceId = update.servants.lastServantInstanceId || 0;
         /**
          * The updated value should not be less than the largest value in the servants
          * array.
          */
         lastServantInstanceId = Math.max(
-            MasterServantUtils.getLastInstanceId(update.servants),
+            MasterServantUtils.getLastInstanceId(update.servants.servants),
             lastServantInstanceId
         );
+        const existing = await this.findById(id, { 'servants.lastServantInstanceId': 1 });
+        if (existing) {
+            const previousLastServantInstanceId = existing.servants.lastServantInstanceId || 0;
+            /**
+             * The updated value should never be less than the previous value.
+             */
+            lastServantInstanceId = Math.max(
+                previousLastServantInstanceId,
+                lastServantInstanceId
+            );
+        }
+        update.servants.lastServantInstanceId = lastServantInstanceId;
     }
-    const existing = await this.findById(id, { lastServantInstanceId: 1 });
-    if (existing) {
-        const previousLastServantInstanceId = existing.lastServantInstanceId || 0;
-        /**
-         * The updated value should never be less than the previous value.
-         */
-        lastServantInstanceId = Math.max(
-            previousLastServantInstanceId,
-            lastServantInstanceId
-        );
-    }
-    update.lastServantInstanceId = lastServantInstanceId;
 
     return this.findOneAndUpdate(
         { _id: id },

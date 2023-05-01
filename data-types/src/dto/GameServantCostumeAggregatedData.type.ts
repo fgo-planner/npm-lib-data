@@ -18,6 +18,11 @@ export type GameServantCostumeAggregatedData<T extends GameServant = GameServant
      */
     alwaysUnlocked: boolean;
 
+    /**
+     * Whether the costume can be unlocked for free (using ticket, etc.).
+     */
+    noCostUnlockAvailable: boolean;
+
     costume: GameServantCostume;
     
     gameServant: T;

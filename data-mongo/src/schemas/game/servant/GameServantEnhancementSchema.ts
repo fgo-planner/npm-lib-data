@@ -1,7 +1,7 @@
 import { GameServantEnhancement } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { ValidationStrings } from '../../../validators';
-import { ItemQuantitiesSchemaTypeOptions } from '../../common/item/ItemQuantitiesSchema';
+import { ItemQuantitiesSchemaTypeOptions } from '../../common/resources/ItemQuantitiesSchema';
 
 /**
  * Mongoose schema for the `GameServantEnhancement` type.

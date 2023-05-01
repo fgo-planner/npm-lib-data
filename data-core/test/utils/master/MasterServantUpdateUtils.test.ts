@@ -315,7 +315,7 @@ describe('MasterServantUpdateUtils.applyToMasterServant', () => {
 
         MasterServantUpdateUtils.applyToMasterServant(update, masterServant, bondLevels);
 
-        expect(masterServant.gameId).toStrictEqual(1100900);
+        expect(masterServant.servantId).toStrictEqual(1100900);
         expect(masterServant.summoned).toStrictEqual(false);
         expect(masterServant.summonDate).toBeUndefined();
         expect(masterServant.np).toStrictEqual(4);
@@ -367,7 +367,7 @@ describe('MasterServantUpdateUtils.applyToMasterServant', () => {
 
         MasterServantUpdateUtils.applyToMasterServant(update, masterServant, bondLevels);
 
-        expect(masterServant.gameId).toStrictEqual(1100900);
+        expect(masterServant.servantId).toStrictEqual(1100900);
         expect(masterServant.summoned).toStrictEqual(true);
         expect(masterServant.summonDate).toEqual(new Date(1662940800000));
         expect(masterServant.np).toStrictEqual(1);

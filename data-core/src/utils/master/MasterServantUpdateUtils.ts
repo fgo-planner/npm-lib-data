@@ -18,14 +18,14 @@ type BondLevels = ReadonlyRecord<number, InstantiatedServantBondLevel>;
  * Instantiates a default `MasterServantUpdate` object for adding a servant.
  */
 export function createNew(
-    gameId?: number,
+    servantId?: number,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
 ): MasterServantUpdate {
 
     let bondLevel: InstantiatedServantUpdateNumber<InstantiatedServantBondLevel> | null;
-    if (bondLevels && gameId !== undefined) {
-        bondLevel = bondLevels[gameId] || null;
+    if (bondLevels && servantId !== undefined) {
+        bondLevel = bondLevels[servantId] || null;
     } else {
         bondLevel = null;
     }
@@ -105,7 +105,7 @@ function _createFromExistingSingle(
 ): MasterServantUpdate {
 
     const {
-        gameId,
+        servantId,
         summoned,
         summonDate,
         np,
@@ -129,7 +129,7 @@ function _createFromExistingSingle(
     if (!bondLevels) {
         bondLevel = IndeterminateValue;
     } else {
-        bondLevel = bondLevels[gameId] || null;
+        bondLevel = bondLevels[servantId] || null;
     }
 
     return {
@@ -234,7 +234,7 @@ function _createFromExistingMultiple(
         if (appendSkill3 !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(appendSkill3, masterServant.appendSkills[3])) {
             appendSkill3 = IndeterminateValue;
         }
-        if (bondLevel !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(bondLevel, bondLevels?.[masterServant.gameId])) {
+        if (bondLevel !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(bondLevel, bondLevels?.[masterServant.servantId])) {
             bondLevel = IndeterminateValue;
         }
     }
@@ -388,9 +388,9 @@ export function applyToMasterServant(
     }
     if (bondLevel !== IndeterminateValue && targetBondLevels) {
         if (bondLevel == null) {
-            delete targetBondLevels[targetMasterServant.gameId];
+            delete targetBondLevels[targetMasterServant.servantId];
         } else {
-            targetBondLevels[targetMasterServant.gameId] = bondLevel;
+            targetBondLevels[targetMasterServant.servantId] = bondLevel;
         }
     }
     if (targetUnlockedCostumes) {
@@ -409,7 +409,7 @@ export function applyToMasterServant(
 export type BatchApplyOptions = {
     /**
      * If an update has an `instanceId` value, then it will be used to find a
-     * matching target. The target is only assigned the `instanceId` and `gameId`
+     * matching target. The target is only assigned the `instanceId` and `servantId`
      * fields match, preventing update from applying to the wrong servant.
      *
      * If an update does not have an `instanceId` value or a matching target could
@@ -420,9 +420,9 @@ export type BatchApplyOptions = {
     onlyTargetByInstanceId?: boolean;
 
     /**
-     * If a target with matching `instanceId` and `gameId` could not be found, or if
+     * If a target with matching `instanceId` and `servantId` could not be found, or if
      * the update did not have an `instanceId` value, then the 'next best' target
-     * will be assigned from the remaining target pool solely based on `gameId`.
+     * will be assigned from the remaining target pool solely based on `servantId`.
      * 
      * Defaults to `true` if not specified.
      */
@@ -670,18 +670,18 @@ function _findMergeTargets(
      * the `instanceId`) to the wrong update.
      */
     for (const update of masterServantUpdates) {
-        const { gameId, instanceId } = update;
+        const { servantId, instanceId } = update;
         if (instanceId == null) {
             continue;
         }
         for (const target of targetMasterServants) {
             if (target.instanceId === instanceId) {
                 /**
-                 * If the `instanceId` is a match, but the `gameId` is not, then it will be
+                 * If the `instanceId` is a match, but the `servantId` is not, then it will be
                  * ignored and processed later as if it did not have an `instanceId`. Otherwise,
                  * add it to the result map and assigned targets set.
                  */
-                if (target.gameId === gameId) {
+                if (target.servantId === servantId) {
                     result.set(update, target);
                     assignedTargets.add(target);
                 }
@@ -706,15 +706,15 @@ function _findMergeTargets(
     /**
      * Process the remaining updates. Updates that had an `instanceId` that did not
      * match will also be processed here. Each of these updates will be assigned a
-     * target with matching `gameId`, in sequential order.
+     * target with matching `servantId`, in sequential order.
      */
     for (const update of masterServantUpdates) {
         if (result.has(update)) {
             continue;
         }
-        const gameId = update.gameId;
+        const servantId = update.servantId;
         for (const target of targetMasterServants) {
-            if (target.gameId === gameId && !assignedTargets.has(target)) {
+            if (target.servantId === servantId && !assignedTargets.has(target)) {
                 result.set(update, target);
                 assignedTargets.add(target);
                 break;

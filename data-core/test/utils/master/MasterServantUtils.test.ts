@@ -9,7 +9,7 @@ describe('MasterServantUtils.instantiate', () => {
         const result = MasterServantUtils.instantiate();
 
         expect(result.instanceId).toStrictEqual(0);
-        expect(result.gameId).toStrictEqual(MasterServantConstants.DefaultServantId);
+        expect(result.servantId).toStrictEqual(MasterServantConstants.DefaultServantId);
         expect(result.summoned).toStrictEqual(true);
         expect(result.summonDate).toBeUndefined();
         expect(result.np).toStrictEqual(InstantiatedServantConstants.MinNoblePhantasmLevel);
@@ -31,7 +31,7 @@ describe('MasterServantUtils.instantiate', () => {
         const result = MasterServantUtils.instantiate(testInstanceId);
 
         expect(result.instanceId).toStrictEqual(testInstanceId);
-        expect(result.gameId).toStrictEqual(MasterServantConstants.DefaultServantId);
+        expect(result.servantId).toStrictEqual(MasterServantConstants.DefaultServantId);
         expect(result.summoned).toStrictEqual(true);
         expect(result.summonDate).toBeUndefined();
         expect(result.np).toStrictEqual(InstantiatedServantConstants.MinNoblePhantasmLevel);
@@ -55,7 +55,7 @@ describe('MasterServantUtils.clone', () => {
 
         const testMasterServant: MasterServant = {
             instanceId: 69,
-            gameId: 100100,
+            servantId: 100100,
             summoned: true,
             np: 5,
             level: 80,
@@ -81,7 +81,7 @@ describe('MasterServantUtils.clone', () => {
         expect(result.appendSkills).not.toBe(testMasterServant.appendSkills);
 
         expect(result.instanceId).toStrictEqual(69);
-        expect(result.gameId).toStrictEqual(100100);
+        expect(result.servantId).toStrictEqual(100100);
         expect(result.summoned).toStrictEqual(true);
         expect(result.summonDate).toBeUndefined();
         expect(result.np).toStrictEqual(5);
@@ -101,7 +101,7 @@ describe('MasterServantUtils.clone', () => {
 
         const testMasterServant: MasterServant = {
             instanceId: 69,
-            gameId: 100100,
+            servantId: 100100,
             summoned: true,
             summonDate: new Date(1574294400000),
             np: 5,
@@ -129,7 +129,7 @@ describe('MasterServantUtils.clone', () => {
         expect(result.summonDate).not.toBe(testMasterServant.summonDate);
 
         expect(result.instanceId).toStrictEqual(69);
-        expect(result.gameId).toStrictEqual(100100);
+        expect(result.servantId).toStrictEqual(100100);
         expect(result.summoned).toStrictEqual(true);
         expect(result.summonDate).toBeDefined();
         expect(result.summonDate!.getTime()).toStrictEqual(1574294400000);
@@ -162,7 +162,7 @@ describe('MasterServantUtils.getLastInstanceId', () => {
         const testMasterServants: Array<MasterServant> = [
             {
                 instanceId: 1,
-                gameId: 100100,
+                servantId: 100100,
                 summoned: true,
                 np: 5,
                 level: 80,
@@ -176,7 +176,7 @@ describe('MasterServantUtils.getLastInstanceId', () => {
             },
             {
                 instanceId: 69,
-                gameId: 100300,
+                servantId: 100300,
                 summoned: true,
                 np: 3,
                 level: 80,
@@ -190,7 +190,7 @@ describe('MasterServantUtils.getLastInstanceId', () => {
             },
             {
                 instanceId: 2,
-                gameId: 100200,
+                servantId: 100200,
                 summoned: true,
                 np: 2,
                 level: 80,
@@ -217,7 +217,7 @@ describe('MasterServantUtils.isEqual', () => {
     it('should return false due to mismatched summoned flag', () => {
 
         const a: MasterServant = {
-            gameId: 100100,
+            servantId: 100100,
             instanceId: 1,
             summoned: true,
             summonDate: new Date(1574294400000),
@@ -231,7 +231,7 @@ describe('MasterServantUtils.isEqual', () => {
         };
 
         const b: MasterServant = {
-            gameId: 100200,
+            servantId: 100200,
             instanceId: 2,
             summoned: false,
             np: 1,
@@ -250,7 +250,7 @@ describe('MasterServantUtils.isEqual', () => {
     it('should return false due to mismatched summon date', () => {
 
         const a: MasterServant = {
-            gameId: 100100,
+            servantId: 100100,
             instanceId: 1,
             summoned: true,
             summonDate: new Date(1574294400000),
@@ -264,7 +264,7 @@ describe('MasterServantUtils.isEqual', () => {
         };
 
         const b: MasterServant = {
-            gameId: 100200,
+            servantId: 100200,
             instanceId: 2,
             summoned: true,
             summonDate: new Date(1574294300000),
@@ -284,7 +284,7 @@ describe('MasterServantUtils.isEqual', () => {
     it('should return false due to mismatched NP level', () => {
 
         const a: MasterServant = {
-            gameId: 100100,
+            servantId: 100100,
             instanceId: 1,
             summoned: true,
             summonDate: new Date(1574294400000),
@@ -298,7 +298,7 @@ describe('MasterServantUtils.isEqual', () => {
         };
 
         const b: MasterServant = {
-            gameId: 100200,
+            servantId: 100200,
             instanceId: 2,
             summoned: true,
             summonDate: new Date(1574294400000),
@@ -318,7 +318,7 @@ describe('MasterServantUtils.isEqual', () => {
     it('should return false due to mismatched enhancements', () => {
 
         const a: MasterServant = {
-            gameId: 100100,
+            servantId: 100100,
             instanceId: 1,
             summoned: true,
             summonDate: new Date(1574294400000),
@@ -332,7 +332,7 @@ describe('MasterServantUtils.isEqual', () => {
         };
 
         const b: MasterServant = {
-            gameId: 100200,
+            servantId: 100200,
             instanceId: 2,
             summoned: true,
             summonDate: new Date(1574294400000),
@@ -360,7 +360,7 @@ describe('MasterServantUtils.isEqual', () => {
     it('should return true if equal', () => {
 
         const a: MasterServant = {
-            gameId: 100100,
+            servantId: 100100,
             instanceId: 1,
             summoned: true,
             summonDate: new Date(1574294400000),
@@ -382,7 +382,7 @@ describe('MasterServantUtils.isEqual', () => {
         };
 
         const b: MasterServant = {
-            gameId: 100200,
+            servantId: 100200,
             instanceId: 2,
             summoned: true,
             summonDate: new Date(1574294400000),

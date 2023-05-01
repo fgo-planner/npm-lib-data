@@ -36,7 +36,7 @@ const MasterServantAppendSkillsSchema = new Schema<MasterServant['appendSkills']
  */
 export const MasterServantSchema = new Schema<MasterServant>({
     instanceId: InstantiatedServantIdSchemaTypeOptions,
-    gameId: {
+    servantId: {
         type: Number,
         required: true,
         min: 0,

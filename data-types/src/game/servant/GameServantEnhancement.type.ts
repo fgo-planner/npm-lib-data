@@ -1,4 +1,4 @@
-import { ItemQuantities } from '../../common/item/ItemQuantities.type';
+import { ItemQuantities } from '../../common/resources/ItemQuantities.type';
 
 /**
  * Material and QP cost for performing servant skill or ascension upgrade.
