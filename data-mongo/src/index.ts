@@ -21,5 +21,7 @@ export {
     MasterAccountUpdate,
     Plan,
     PlanGroup,
+    PlanList,
+    PlanListItem,
     User
 } from './types';

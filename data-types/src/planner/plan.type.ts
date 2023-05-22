@@ -4,8 +4,6 @@ import { PlanUpcomingResources } from './PlanUpcomingResources.type';
 
 export type Plan<ID = string> = PlanCommon<ID> & {
 
-    groupId?: ID;
-
     targetDate?: Date;
 
     enabled: {

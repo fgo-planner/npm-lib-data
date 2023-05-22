@@ -1,5 +1,5 @@
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, Query, Schema, UpdateWriteOpResult } from 'mongoose';
+import mongoose, { Document, Model, Query, Schema } from 'mongoose';
 import { PlanSchemaDefinition } from '../../schemas';
 import { BasicPlan, Plan } from '../../types';
 
@@ -27,11 +27,6 @@ type PlanModel = Model<Plan> & {
      */
     findByAccountId: (accountId: ObjectId) => Query<Array<BasicPlanDocument>, BasicPlanDocument>;
 
-    /**
-     * Creates a query that removes all plans from a group with the given `groupId`.
-     */
-    removeFromGroup: (groupId: ObjectId) => Query<UpdateWriteOpResult, PlanDocument>;
-
 };
 
 //#region Static function implementations
@@ -43,21 +38,13 @@ const findByAccountId = function (
     return this.find({ accountId }, BasicPlanProjection);
 };
 
-const removeFromGroup = function (
-    this: PlanModel,
-    groupId: ObjectId
-): Query<UpdateWriteOpResult, PlanDocument> {
-    return this.updateMany({ groupId }, { $unset: { groupId: 1 } });
-};
-
 //#endregion
 
 /**
  * Properties and functions that can be assigned as statics on the schema.
  */
 const Statics = {
-    findByAccountId,
-    removeFromGroup
+    findByAccountId
 };
 
 /**

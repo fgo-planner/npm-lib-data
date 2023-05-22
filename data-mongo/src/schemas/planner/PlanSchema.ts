@@ -43,10 +43,6 @@ export const PlanSchemaDefinition: SchemaDefinition<Plan> = {
         required: true,
         index: true
     },
-    groupId: {
-        type: ObjectId,
-        sparse: true
-    },
     name: {
         type: String,
         trim: true,

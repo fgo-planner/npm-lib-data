@@ -1,6 +1,6 @@
 import { InstantiatedServantConstants, MasterServants } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
-import { CommonTransformers } from '../../Transformers';
+import { CommonTransformers } from '../../transformers';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
 import { MasterServantSchema } from './MasterServantSchema';
 

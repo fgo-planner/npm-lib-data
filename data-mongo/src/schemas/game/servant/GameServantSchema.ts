@@ -1,6 +1,6 @@
 import { GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials, GameServantWithMetadata } from '@fgo-planner/data-core';
 import { Schema, SchemaDefinition } from 'mongoose';
-import { CommonTransformers } from '../../../Transformers';
+import { CommonTransformers } from '../../../transformers';
 import { ValidationStrings } from '../../../validators';
 import { GameServantCostumeSchema } from './GameServantCostumeSchema';
 import { GameServantEnhancementSchema } from './GameServantEnhancementSchema';

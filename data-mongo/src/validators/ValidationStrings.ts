@@ -49,4 +49,10 @@ export const MasterServantFirstSkillUnlocked = `${GenericInvalidValue} The first
 
 export const PlanServantsUniqueInstanceIdNotUnique = `${GenericInvalidValuePathOnly} Servant instanceIds must be unique.`;
 
+export const PlanListPlanItemContainsChildren = `${GenericInvalidValuePathOnly} Plan items cannot contain children.`;
+
+export const PlanListGroupItemMissingChildren = `${GenericInvalidValuePathOnly} Group items must have children array (can be empty).`;
+
+export const PlanListGroupItemInvalid = `${GenericInvalidValuePathOnly} Group items contain invalid children.`;
+
 //#endregion
