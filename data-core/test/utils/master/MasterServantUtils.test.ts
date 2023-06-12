@@ -103,7 +103,7 @@ describe('MasterServantUtils.clone', () => {
             instanceId: 69,
             servantId: 100100,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 5,
             level: 80,
             ascension: 4,
@@ -126,13 +126,12 @@ describe('MasterServantUtils.clone', () => {
         expect(result).not.toBe(testMasterServant);
         expect(result.skills).not.toBe(testMasterServant.skills);
         expect(result.appendSkills).not.toBe(testMasterServant.appendSkills);
-        expect(result.summonDate).not.toBe(testMasterServant.summonDate);
 
         expect(result.instanceId).toStrictEqual(69);
         expect(result.servantId).toStrictEqual(100100);
         expect(result.summoned).toStrictEqual(true);
         expect(result.summonDate).toBeDefined();
-        expect(result.summonDate!.getTime()).toStrictEqual(1574294400000);
+        expect(result.summonDate).toStrictEqual('2019-11-21T00:00:00.000Z');
         expect(result.np).toStrictEqual(5);
         expect(result.level).toStrictEqual(80);
         expect(result.ascension).toStrictEqual(4);
@@ -220,7 +219,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100100,
             instanceId: 1,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 1,
             level: 80,
             ascension: 4,
@@ -253,7 +252,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100100,
             instanceId: 1,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 1,
             level: 80,
             ascension: 4,
@@ -267,7 +266,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100200,
             instanceId: 2,
             summoned: true,
-            summonDate: new Date(1574294300000),
+            summonDate: '2019-11-20T23:58:20.000Z',
             np: 1,
             level: 80,
             ascension: 4,
@@ -287,7 +286,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100100,
             instanceId: 1,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 1,
             level: 80,
             ascension: 4,
@@ -301,7 +300,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100200,
             instanceId: 2,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 2,
             level: 80,
             ascension: 4,
@@ -321,7 +320,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100100,
             instanceId: 1,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 1,
             level: 80,
             ascension: 4,
@@ -335,7 +334,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100200,
             instanceId: 2,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 1,
             level: 80,
             ascension: 4,
@@ -363,7 +362,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100100,
             instanceId: 1,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 1,
             level: 80,
             ascension: 4,
@@ -385,7 +384,7 @@ describe('MasterServantUtils.isEqual', () => {
             servantId: 100200,
             instanceId: 2,
             summoned: true,
-            summonDate: new Date(1574294400000),
+            summonDate: '2019-11-21T00:00:00.000Z',
             np: 1,
             level: 80,
             ascension: 4,

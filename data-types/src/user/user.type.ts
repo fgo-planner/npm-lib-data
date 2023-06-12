@@ -1,7 +1,8 @@
+import { SerializableDate } from '../SerializableDate.type';
 import { EntityWithTimestamps } from '../EntityWithTimestamps.type';
 import { UserPreferences } from './UserPreferences.type';
 
-export type User<ID = string> = EntityWithTimestamps<ID> & {
+export type User<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<{
 
     username: string;
 
@@ -14,5 +15,5 @@ export type User<ID = string> = EntityWithTimestamps<ID> & {
     enabled: boolean;
 
     userPrefs: UserPreferences;
-    
-};
+
+}, ID, DATE>;

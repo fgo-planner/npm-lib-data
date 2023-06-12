@@ -1,4 +1,5 @@
-import { ImmutableMasterServant } from '@fgo-planner/data-types';
+import { Immutable } from '@fgo-planner/common-types';
+import { MasterServant } from '@fgo-planner/data-types';
 
 /**
  * Space Ishtar (5* Avenger)
@@ -26,11 +27,11 @@ import { ImmutableMasterServant } from '@fgo-planner/data-types';
     }
     ```
  */
-export const MasterServant_3_1100900: ImmutableMasterServant = {
+export const MasterServant_3_1100900: Immutable<MasterServant> = {
     instanceId: 3,
     servantId: 1100900,
     summoned: true,
-    summonDate: new Date(1662940800000),
+    summonDate: new Date(1662940800000).toJSON(),
     np: 4,
     level: 106,
     ascension: 4,

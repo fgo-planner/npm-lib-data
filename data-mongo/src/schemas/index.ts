@@ -6,6 +6,5 @@ export * from './game/soundtrack/GameSoundtrackSchema';
 export * from './master/MasterAccountSchema';
 export * from './master/MasterServantSchema';
 export * from './planner/PlanGroupSchema';
-export * from './planner/PlanListSchema';
 export * from './planner/PlanSchema';
 export * from './user/UserSchema';

@@ -1,4 +1,5 @@
-import { Entity } from '../../Entity.type';
+import { EntityWithTimestamps } from '../../EntityWithTimestamps.type';
+import { SerializableDate } from '../../SerializableDate.type';
 import { GameItemBackground } from './GameItemBackground.enum';
 import { GameItemUsage } from './GameItemUsage.enum';
 
@@ -10,7 +11,7 @@ import { GameItemUsage } from './GameItemUsage.enum';
  * - Event items and currencies
  * - Other consumable items
  */
-export type GameItem = Entity<number> & {
+export type GameItem<DATE extends SerializableDate = string> = EntityWithTimestamps<{
 
     name: string;
 
@@ -25,4 +26,4 @@ export type GameItem = Entity<number> & {
 
     uses: Array<GameItemUsage>;
 
-};
+}, number, DATE>;

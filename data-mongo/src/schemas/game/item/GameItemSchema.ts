@@ -1,11 +1,12 @@
-import { GameItem, GameItemBackground, GameItemUsage } from '@fgo-planner/data-core';
+import { GameItemBackground, GameItemUsage } from '@fgo-planner/data-core';
 import { SchemaDefinition } from 'mongoose';
+import { GameItemDocument } from '../../../types';
 import { ValidationStrings } from '../../../validators';
 
 /**
- * Mongoose schema definition for the `GameItem` type.
+ * Mongoose schema definition for the `GameItemDocument` type.
  */
-export const GameItemSchemaDefinition: SchemaDefinition<GameItem> = {
+export const GameItemSchemaDefinition: SchemaDefinition<GameItemDocument> = {
     _id: {
         type: Number,
         required: true,

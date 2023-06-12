@@ -1,6 +1,6 @@
 {
     "name": "@fgo-planner/data-types",
-    "version": "0.7.1",
+    "version": "0.8.1",
     "repository": {
         "type": "git",
         "url": "https://github.com/fgo-planner/npm-lib-data.git"
@@ -33,7 +33,7 @@
         "prepublishOnly": "npm i && npm run build"
     },
     "peerDependencies": {
-        "@fgo-planner/common-types": ">= 0.0.4 < 0.1.0"
+        "@fgo-planner/common-types": ">= 0.0.6 < 0.1.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.18.10",

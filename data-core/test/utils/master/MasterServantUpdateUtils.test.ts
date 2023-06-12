@@ -369,7 +369,7 @@ describe('MasterServantUpdateUtils.applyToMasterServant', () => {
 
         expect(masterServant.servantId).toStrictEqual(1100900);
         expect(masterServant.summoned).toStrictEqual(true);
-        expect(masterServant.summonDate).toEqual(new Date(1662940800000));
+        expect(masterServant.summonDate).toEqual('2022-09-12T00:00:00.000Z');
         expect(masterServant.np).toStrictEqual(1);
         expect(masterServant.level).toStrictEqual(69);
         expect(masterServant.ascension).toStrictEqual(2);

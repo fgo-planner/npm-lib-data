@@ -1,11 +1,12 @@
-import { Entity } from '../../Entity.type';
+import { EntityWithTimestamps } from '../../EntityWithTimestamps.type';
+import { SerializableDate } from '../../SerializableDate.type';
 import { GameEventRewardSource } from './GameEventRewardSource.type';
 
-export type GameEvent<ID = string> = Entity<ID> & {
+export type GameEvent<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<{
     name: string;
     shortName?: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: DATE;
+    endDate: DATE;
     rerun: boolean;
     rewardSources: GameEventRewardSource[];
-};
+}, ID, DATE>;

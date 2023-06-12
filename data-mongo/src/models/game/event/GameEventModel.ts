@@ -1,60 +1,55 @@
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, Query, Schema } from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 import { GameEventSchemaDefinition } from '../../../schemas';
-import { GameEvent } from '../../../types';
+import { GameEventDocument } from '../../../types';
 
-export type GameEventDocument = GameEvent & Document<ObjectId, any, GameEvent>;
 
-/**
- * Mongoose document model definition for the `GameEvent` type.
- */
-type GameEventModel = Model<GameEvent> & {
+//#region Mongoose document types
 
-    /**
-     * Creates a query for retrieving the events that start in the given year.
-     */
-    findByYear: (year: number) => Query<Array<GameEventDocument>, GameEventDocument>;
+export type GameEventDbDocument = GameEventDocument & Document<ObjectId, any, GameEventDocument>;
 
-};
+//#endregion
+
 
 //#region Static function implementations
 
-const findByYear = function (
-    this: GameEventModel,
-    year: number
-): Query<Array<GameEventDocument>, GameEventDocument> {
+/**
+ * Creates a query for retrieving the events that start in the given year.
+ */
+function findByYear(this: Model<GameEventDocument>, year: number) {
     const startDate = new Date(year, 0);
     const endDate = new Date(year + 1, 0);
     const dateQuery = {
         $gte: startDate,
         $lt: endDate
     };
-    return this.find({ startDate: dateQuery });
-};
+    return this.find<GameEventDbDocument>({ startDate: dateQuery });
+}
 
 //#endregion
 
-/**
- * Properties and functions that can be assigned as statics on the schema.
- */
-const Statics = {
-    findByYear
-};
 
-/**
- * Mongoose schema for the `GameEvent` type.
- */
-const GameEventSchema = new Schema<GameEvent>(GameEventSchemaDefinition, {
+const GameEventSchema = new Schema<GameEventDocument>(GameEventSchemaDefinition, {
     timestamps: true,
     minimize: false
 });
 
-// Add the static properties to the schema.
+const Statics = {
+    findByYear
+};
+
+// Add the static properties to the schema
 Object.assign(GameEventSchema.statics, Statics);
 
+// Add additional options
 GameEventSchema.set('toJSON', {
-    // virtuals: true,
-    versionKey: false,
+    versionKey: false
 });
 
-export const GameEventModel = mongoose.model<GameEvent, GameEventModel>('GameEvent', GameEventSchema, 'GameEvents');
+type GameEventModel = Model<GameEventDocument> & typeof Statics;
+
+export const GameEventModel = mongoose.model<GameEventDocument, GameEventModel>(
+    'GameEvent',
+    GameEventSchema,
+    'GameEvents'
+);

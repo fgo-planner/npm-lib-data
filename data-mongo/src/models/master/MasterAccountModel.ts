@@ -1,59 +1,66 @@
-import { MasterServantUtils } from '@fgo-planner/data-core';
+import { MasterServantUtils, MasterAccountUpdate } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, Query, Schema } from 'mongoose';
+import mongoose, { Document, Model, ProjectionFields, Schema } from 'mongoose';
 import { MasterAccountSchemaDefinition } from '../../schemas';
-import { BasicMasterAccount, MasterAccount, MasterAccountUpdate } from '../../types';
+import { BasicMasterAccountDocument, MasterAccountDocument, MasterServantsDocument } from '../../types';
 import { MasterAccountValidators } from '../../validators';
 
-export type MasterAccountDocument = MasterAccount & Document<ObjectId, any, MasterAccount>;
-export type BasicMasterAccountDocument = BasicMasterAccount & Document<ObjectId, any, BasicMasterAccount>;
+
+//#region Projections
 
 const BasicMasterAccountProjection = {
     name: 1,
     friendId: 1,
     createdAt: 1,
     updatedAt: 1
+} as const satisfies ProjectionFields<BasicMasterAccountDocument>;
+
+type LastServantInstanceIdDocument = Pick<MasterAccountDocument, '_id'> & {
+    servants: Pick<MasterServantsDocument, 'lastServantInstanceId'>;
 };
 
-/**
- * Mongoose document model definition for the `MasterAccount` type.
- */
-type MasterAccountModel = Model<MasterAccount> & {
+const LastServantInstanceIdProjection = {
+    servants: {
+        lastServantInstanceId: 1
+    }
+} as const satisfies ProjectionFields<LastServantInstanceIdDocument>;
 
-    /**
-     * Checks if the given friend ID string is in a valid format. Friend IDs must
-     * be exactly 9 characters long and can only contain numerical digits.
-     */
-    isFriendIdFormatValid: (friendId: string) => boolean;
+//#endregion
 
-    /**
-     * Creates a query for retrieving the master accounts associated with the given
-     * `userId`. Result will contain simplified version of the master account data.
-     */
-    findByUserId: (userId: ObjectId) => Query<Array<BasicMasterAccountDocument>, BasicMasterAccountDocument>;
 
-    /**
-     * Performs a partial update of the master account. Calls the `findOneAndUpdate`
-     * method internally, with some custom validations. All updates to existing
-     * documents in the collection should be done through this method if possible.
-     */
-    partialUpdate: (update: MasterAccountUpdate) => Query<BasicMasterAccountDocument, BasicMasterAccountDocument>;
+//#region Mongoose document types
 
-};
+export type MasterAccountDbDocument = MasterAccountDocument & Document<ObjectId, any, MasterAccountDocument>;
+
+export type BasicMasterAccountDbDocument = BasicMasterAccountDocument & Document<ObjectId, any, BasicMasterAccountDocument>;
+
+type LastServantInstanceIdDbDocument = LastServantInstanceIdDocument & Document<ObjectId, any, LastServantInstanceIdDocument>;
+
+//#endregion
+
 
 //#region Static function implementations
 
-const findByUserId = function (
-    this: MasterAccountModel,
-    userId: ObjectId
-): Query<Array<BasicMasterAccountDocument>, BasicMasterAccountDocument> {
-    return this.find({ userId }, BasicMasterAccountProjection);
-};
+/**
+ * Checks if the given friend ID string is in a valid format. Friend IDs must
+ * be exactly 9 characters long and can only contain numerical digits.
+ */
+const isFriendIdFormatValid = MasterAccountValidators.isFriendIdFormatValid;
 
-const partialUpdate = async function (
-    this: MasterAccountModel,
-    update: MasterAccountUpdate
-): Promise<Query<BasicMasterAccountDocument | null, BasicMasterAccountDocument>> {
+/**
+ * Creates a query for retrieving the master accounts associated with the given
+ * `userId`. Result will contain simplified version of the master account data.
+ */
+function findByUserId(this: MasterAccountModel, userId: ObjectId) {
+    return this.find<BasicMasterAccountDbDocument>({ userId }, BasicMasterAccountProjection);
+}
+
+/**
+ * Performs a partial update of the master account. Calls the `findOneAndUpdate`
+ * method internally, with some custom validations. All updates to existing
+ * documents in the collection should be done through this method if possible.
+ */
+async function partialUpdate(this: MasterAccountModel, update: MasterAccountUpdate) {
 
     const id = update._id;
 
@@ -67,7 +74,7 @@ const partialUpdate = async function (
             MasterServantUtils.getLastInstanceId(update.servants.servants),
             lastServantInstanceId
         );
-        const existing = await this.findById(id, { 'servants.lastServantInstanceId': 1 });
+        const existing = await this.findById<LastServantInstanceIdDbDocument>(id, LastServantInstanceIdProjection);
         if (existing) {
             const previousLastServantInstanceId = existing.servants.lastServantInstanceId || 0;
             /**
@@ -81,38 +88,39 @@ const partialUpdate = async function (
         update.servants.lastServantInstanceId = lastServantInstanceId;
     }
 
-    return this.findOneAndUpdate(
+    return this.findOneAndUpdate<MasterAccountDbDocument>(
         { _id: id },
         { $set: update },
         { runValidators: true, new: true }
     );
-};
+}
 
 //#endregion
 
-/**
- * Properties and functions that can be assigned as statics on the schema.
- */
-const Statics = {
-    isFriendIdFormatValid: MasterAccountValidators.isFriendIdFormatValid,
-    findByUserId,
-    partialUpdate
-};
 
-/**
- * Mongoose schema for the `MasterAccount` type.
- */
-const MasterAccountSchema = new Schema<MasterAccount>(MasterAccountSchemaDefinition, {
+const MasterAccountSchema = new Schema<MasterAccountDocument>(MasterAccountSchemaDefinition, {
     timestamps: true,
     minimize: false
 });
 
-// Add the static properties to the schema.
+const Statics = {
+    isFriendIdFormatValid,
+    findByUserId,
+    partialUpdate
+};
+
+// Add the static properties to the schema
 Object.assign(MasterAccountSchema.statics, Statics);
 
+// Add additional options
 MasterAccountSchema.set('toJSON', {
-    // virtuals: true,
-    versionKey: false,
+    versionKey: false
 });
 
-export const MasterAccountModel = mongoose.model<MasterAccount, MasterAccountModel>('MasterAccount', MasterAccountSchema, 'MasterAccounts');
+type MasterAccountModel = Model<MasterAccountDocument> & typeof Statics;
+
+export const MasterAccountModel = mongoose.model<MasterAccountDocument, MasterAccountModel>(
+    'MasterAccount',
+    MasterAccountSchema,
+    'MasterAccounts'
+);

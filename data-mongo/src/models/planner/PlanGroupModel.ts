@@ -1,63 +1,50 @@
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, Query, Schema } from 'mongoose';
+import mongoose, { Document, Model, Schema } from 'mongoose';
 import { PlanGroupSchemaDefinition } from '../../schemas';
-import { BasicPlanGroup, PlanGroup } from '../../types';
+import { PlanGroupDocument } from '../../types';
 
-export type PlanGroupDocument = PlanGroup & Document<ObjectId, any, PlanGroup>;
-export type BasicPlanGroupDocument = BasicPlanGroup & Document<ObjectId, any, BasicPlanGroup>;
 
-const BasicPlanGroupProjection = {
-    name: 1,
-    description: 1,
-    createdAt: 1,
-    updatedAt: 1
-};
+//#region Mongoose document types
 
-/**
- * Mongoose document model definition for the `Plan` type.
- */
-type PlanGroupModel = Model<PlanGroup> & {
-
-    /**
-     * Creates a query for retrieving the plan groups associated with the given
-     * `accountId`. Result will contain simplified version of the plan group data.
-     */
-    findByAccountId: (accountId: ObjectId) => Query<Array<BasicPlanGroupDocument>, BasicPlanGroupDocument>;
-
-};
-
-//#region Static function implementations
-
-const findByAccountId = function (
-    this: PlanGroupModel,
-    accountId: ObjectId
-): Query<Array<BasicPlanGroupDocument>, BasicPlanGroupDocument> {
-    return this.find({ accountId }, BasicPlanGroupProjection);
-};
+export type PlanGroupDbDocument = PlanGroupDocument & Document<ObjectId, any, PlanGroupDocument>;
 
 //#endregion
 
-/**
- * Properties and functions that can be assigned as statics on the schema.
- */
-const Statics = {
-    findByAccountId
-};
+
+//#region Static function implementations
 
 /**
- * Mongoose schema for the `PlanGroup` type.
+ * Creates a query for retrieving the plan groups associated with the given
+ * `accountId`. At most only one document should be returned.
  */
-const PlanGroupSchema = new Schema<PlanGroup>(PlanGroupSchemaDefinition, {
+function findByAccountId(this: Model<PlanGroupDocument>, accountId: ObjectId) {
+    return this.find<PlanGroupDbDocument>({ accountId });
+}
+
+//#endregion
+
+
+const PlanGroupSchema = new Schema<PlanGroupDocument>(PlanGroupSchemaDefinition, {
     timestamps: true,
     minimize: false
 });
 
-// Add the static properties to the schema.
+const Statics = {
+    findByAccountId
+};
+
+// Add the static properties to the schema
 Object.assign(PlanGroupSchema.statics, Statics);
 
+// Add additional options
 PlanGroupSchema.set('toJSON', {
-    // virtuals: true,
-    versionKey: false,
+    versionKey: false
 });
 
-export const PlanGroupModel = mongoose.model<PlanGroup, PlanGroupModel>('PlanGroup', PlanGroupSchema, 'PlanGroups');
+type PlanGroupModel = Model<PlanGroupDocument> & typeof Statics;
+
+export const PlanGroupModel = mongoose.model<PlanGroupDocument, PlanGroupModel>(
+    'PlanGroup',
+    PlanGroupSchema,
+    'PlanGroups'
+);

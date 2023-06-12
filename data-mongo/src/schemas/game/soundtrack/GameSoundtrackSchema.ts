@@ -1,12 +1,12 @@
-import { GameSoundtrack } from '@fgo-planner/data-core';
 import { SchemaDefinition } from 'mongoose';
+import { GameSoundtrackDocument } from '../../../types';
 import { ValidationStrings } from '../../../validators';
 import { ItemQuantitiesSchemaTypeOptions } from '../../common/resources/ItemQuantitiesSchema';
 
 /**
- * Mongoose schema definition for the `GameSoundtrack` type.
+ * Mongoose schema definition for the `GameSoundtrackDocument` type.
  */
-export const GameSoundtrackSchemaDefinition: SchemaDefinition<GameSoundtrack> = {
+export const GameSoundtrackSchemaDefinition: SchemaDefinition<GameSoundtrackDocument> = {
     _id: {
         type: Number,
         required: true,

@@ -1,16 +1,17 @@
-import { Entity } from '../../Entity.type';
+import { EntityWithTimestamps } from '../../EntityWithTimestamps.type';
+import { SerializableDate } from '../../SerializableDate.type';
 import { GameServantAscensionMaterials } from './GameServantAscensionMaterials.type';
-import { GameServantAttribute } from './GameServantAttribute.type';
-import { GameServantClass } from './GameServantClass.type';
+import { GameServantAttribute } from './GameServantAttribute.enum';
+import { GameServantClass } from './GameServantClass.enum';
 import { GameServantCostume } from './GameServantCostume.type';
-import { GameServantGachaType } from './GameServantGachaType.type';
-import { GameServantGender } from './GameServantGender.type';
-import { GameServantGrowthCurveBase } from './GameServantGrowthCurveBase.type';
+import { GameServantGachaType } from './GameServantGachaType.enum';
+import { GameServantGender } from './GameServantGender.enum';
+import { GameServantGrowthCurveBase } from './GameServantGrowthCurveBase.enum';
 import { GameServantNoblePhantasm } from './GameServantNoblePhantasm.type';
 import { GameServantRarity } from './GameServantRarity.type';
 import { GameServantSkillMaterials } from './GameServantSkillMaterials.type';
 
-export type GameServant = Entity<number> & {
+export type GameServant<DATE extends SerializableDate = string> = EntityWithTimestamps<{
 
     collectionNo: number;
 
@@ -82,4 +83,4 @@ export type GameServant = Entity<number> & {
 
     costumes: Record<number, GameServantCostume>;
 
-};
+}, number, DATE>;

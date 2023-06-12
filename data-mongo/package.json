@@ -1,6 +1,6 @@
 {
     "name": "@fgo-planner/data-mongo",
-    "version": "0.7.0",
+    "version": "0.8.1",
     "scripts": {
         "clean": "rimraf lib",
         "build-ts": "npm run clean && tsc --strict",
@@ -25,10 +25,10 @@
     "types": "lib/index.d.ts",
     "sideEffects": false,
     "dependencies": {
-        "@fgo-planner/data-core": "^0.7.0"
+        "@fgo-planner/data-core": "^0.8.1"
     },
     "peerDependencies": {
-        "@fgo-planner/common-core": "^0.1.2",
+        "@fgo-planner/common-core": "^0.1.4",
         "mongoose": "^6.6.5"
     },
     "devDependencies": {

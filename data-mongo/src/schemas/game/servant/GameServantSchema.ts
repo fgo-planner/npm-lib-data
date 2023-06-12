@@ -1,5 +1,6 @@
-import { GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials, GameServantWithMetadata } from '@fgo-planner/data-core';
+import { GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials } from '@fgo-planner/data-core';
 import { Schema, SchemaDefinition } from 'mongoose';
+import { GameServantWithMetadataDocument } from '../../../types';
 import { CommonTransformers } from '../../../transformers';
 import { ValidationStrings } from '../../../validators';
 import { GameServantCostumeSchema } from './GameServantCostumeSchema';
@@ -93,9 +94,9 @@ const GameServantAscensionMaterialsSchema = new Schema<GameServantAscensionMater
 });
 
 /**
- * Mongoose schema definition for the `GameServant` type.
+ * Mongoose schema definition for the `GameServantWithMetadataDocument` type.
  */
-export const GameServantSchemaDefinition: SchemaDefinition<GameServantWithMetadata> = {
+export const GameServantSchemaDefinition: SchemaDefinition<GameServantWithMetadataDocument> = {
     _id: {
         type: Number,
         required: true,

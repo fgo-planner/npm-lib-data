@@ -1,10 +1,12 @@
+import { SerializableDate } from '../SerializableDate.type';
+import { EntityWithTimestamps } from '../EntityWithTimestamps.type';
 import { PlanCommon } from './PlanCommon.type';
 import { PlanServant } from './PlanServant.type';
 import { PlanUpcomingResources } from './PlanUpcomingResources.type';
 
-export type Plan<ID = string> = PlanCommon<ID> & {
+export type Plan<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<{
 
-    targetDate?: Date;
+    accountId: ID;
 
     enabled: {
 
@@ -19,11 +21,11 @@ export type Plan<ID = string> = PlanCommon<ID> & {
     };
 
     shared: boolean;
-    
+
     servants: Array<PlanServant>;
 
     costumes: Array<number>;
 
     upcomingResources: Array<PlanUpcomingResources>;
 
-};
+} & PlanCommon<DATE>, ID, DATE>;

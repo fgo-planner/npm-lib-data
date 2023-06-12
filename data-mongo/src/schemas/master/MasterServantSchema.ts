@@ -1,12 +1,13 @@
-import { InstantiatedServantConstants, MasterServant } from '@fgo-planner/data-core';
+import { InstantiatedServantConstants } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
+import { MasterServantDocument } from '../../types';
 import { ValidationStrings } from '../../validators';
 import { InstantiatedServantAscensionLevelSchemaTypeOptions, InstantiatedServantFouSchemaTypeOptions, InstantiatedServantIdSchemaTypeOptions, InstantiatedServantLevelSchemaTypeOptions, InstantiatedServantNoblePhantasmLevelSchemaTypeOptions, InstantiatedServantSkillLevelSchemaTypeOptions } from '../common/servant/InstantiatedServantSchema';
 
 /**
  * Mongoose schema for the `MasterServant.skills` property.
  */
-const MasterServantSkillsSchema = new Schema<MasterServant['skills']>({
+const MasterServantSkillsSchema = new Schema<MasterServantDocument['skills']>({
     1: {
         ...InstantiatedServantSkillLevelSchemaTypeOptions,
         required: true,
@@ -22,7 +23,7 @@ const MasterServantSkillsSchema = new Schema<MasterServant['skills']>({
 /**
  * Mongoose schema for the `MasterServant.appendSkills` property.
  */
-const MasterServantAppendSkillsSchema = new Schema<MasterServant['appendSkills']>({
+const MasterServantAppendSkillsSchema = new Schema<MasterServantDocument['appendSkills']>({
     1: InstantiatedServantSkillLevelSchemaTypeOptions,
     2: InstantiatedServantSkillLevelSchemaTypeOptions,
     3: InstantiatedServantSkillLevelSchemaTypeOptions
@@ -32,9 +33,9 @@ const MasterServantAppendSkillsSchema = new Schema<MasterServant['appendSkills']
 });
 
 /**
- * Mongoose schema for the `MasterServant` type.
+ * Mongoose schema for the `MasterServantDocument` type.
  */
-export const MasterServantSchema = new Schema<MasterServant>({
+export const MasterServantSchema = new Schema<MasterServantDocument>({
     instanceId: InstantiatedServantIdSchemaTypeOptions,
     servantId: {
         type: Number,

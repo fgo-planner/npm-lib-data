@@ -1,6 +1,6 @@
 import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
-import { Plan } from '../../types';
+import { PlanDocument } from '../../types';
 import { PlanValidators, ValidationStrings } from '../../validators';
 import { PlanServantSchema } from './PlanServantSchema';
 import { PlanUpcomingResourcesSchema } from './PlanUpcomingResourcesSchema';
@@ -8,7 +8,7 @@ import { PlanUpcomingResourcesSchema } from './PlanUpcomingResourcesSchema';
 /**
  * Mongoose schema for the `PlanServant.enabled` property.
  */
-export const PlanEnabledSchema = new Schema<Plan['enabled']>({
+export const PlanEnabledSchema = new Schema<PlanDocument['enabled']>({
     ascensions: {
         type: Boolean,
         required: true,
@@ -35,9 +35,9 @@ export const PlanEnabledSchema = new Schema<Plan['enabled']>({
 });
 
 /**
- * Mongoose schema definition for the `Plan` type.
+ * Mongoose schema definition for the `PlanDocument` type.
  */
-export const PlanSchemaDefinition: SchemaDefinition<Plan> = {
+export const PlanSchemaDefinition: SchemaDefinition<PlanDocument> = {
     accountId: {
         type: ObjectId,
         required: true,
@@ -52,9 +52,11 @@ export const PlanSchemaDefinition: SchemaDefinition<Plan> = {
         type: String
         // TODO Add length limit
     },
-    targetDate: {
-        type: Date,
-        // TODO Add limits/validators
+    startDate: {
+        type: Date
+    },
+    endDate: {
+        type: Date
     },
     enabled: {
         type: PlanEnabledSchema,

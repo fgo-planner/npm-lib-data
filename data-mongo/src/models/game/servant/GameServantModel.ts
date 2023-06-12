@@ -1,103 +1,102 @@
-import { ExternalLink, GameServantClass, GameServantWithMetadata } from '@fgo-planner/data-core';
-import mongoose, { Document, Model, ProjectionType, Query, Schema } from 'mongoose';
+import { GameServantMetadata, GameServantWithMetadata } from '@fgo-planner/data-core';
+import mongoose, { Document, Model, ProjectionFields, Schema } from 'mongoose';
 import { GameServantSchemaDefinition } from '../../../schemas';
+import { GameServantWithMetadataDocument } from '../../../types';
 
-export type GameServantDocument = GameServantWithMetadata & Document<number, any, GameServantWithMetadata>;
 
-/**
- * Mongoose document model definition for the `GameItem` type.
- */
-type GameServantModel = Model<GameServantWithMetadata> & {
+//#region Projections
 
-    /**
-     * Creates a query to find a single document by its `collectionNo` field.
-     * 
-     * @deprecated
-     */
-    // eslint-disable-next-line max-len
-    findByCollectionNo: (collectionNo: number, projection?: ProjectionType<GameServantWithMetadata>) => Query<GameServantDocument, GameServantDocument>;
+const ExcludeMetadataProjection = {
+    metadata: 0
+} as const satisfies ProjectionFields<GameServantWithMetadataDocument>;
 
-    /**
-     * Creates a query for retrieving all the documents with the given `class` in
-     * the collection.
-     * 
-     * @deprecated
-     */
-    findByClass: (servantClass: GameServantClass) => Query<Array<GameServantDocument>, GameServantDocument>;
-
-    getExternalLinks: (id: number) => Promise<Array<ExternalLink> | null>;
-
+type ExternalLinksDocument = Pick<GameServantWithMetadataDocument, '_id'> & {
+    metadata: Pick<GameServantMetadata, 'links'>;
 };
 
-//#region Static function implementations
-
-const findByCollectionNo = function (
-    this: GameServantModel,
-    collectionNo: number,
-    projection?: ProjectionType<GameServantWithMetadata>
-): Query<GameServantDocument | null, GameServantDocument> {
-    return this.findOne({ collectionNo }, projection);
-};
-
-const findByClass = function (
-    this: GameServantModel,
-    servantClass: GameServantClass
-): Query<Array<GameServantDocument>, GameServantDocument> {
-    return this.find({ class: servantClass });
-};
-
-const getExternalLinks = async function (
-    this: GameServantModel,
-    id: number
-): Promise<Array<ExternalLink> | null> {
-    const doc = await this.findById(id, { 'metadata.links': 1 });
-    if (!doc) {
-        return null;
+const ExternalLinksProjection = {
+    metadata: {
+        links: 1
     }
-    return doc.metadata.links;
+} as const satisfies ProjectionFields<ExternalLinksDocument>;
+
+type SearchTagsDocument = Pick<GameServantWithMetadataDocument, '_id'> & {
+    metadata: Pick<GameServantMetadata, 'searchTags'>;
 };
+
+const SearchTagsProjection = {
+    metadata: {
+        searchTags: 1
+    }
+} as const satisfies ProjectionFields<SearchTagsDocument>;
+
+type FgoManagerNameDocument = Pick<GameServantWithMetadataDocument, '_id'> & {
+    metadata: Pick<GameServantMetadata, 'fgoManagerName'>;
+};
+
+const FgoManagerNameProjection = {
+    metadata: {
+        fgoManagerName: 1
+    }
+} as const satisfies ProjectionFields<FgoManagerNameDocument>;
 
 //#endregion
 
-/**
- * Properties and functions that can be assigned as statics on the schema.
- */
-const Statics = {
-    findByCollectionNo,
-    findByClass,
-    getExternalLinks
-};
 
-/**
- * Mongoose schema for the `GameServant` type.
- */
+//#region Mongoose document types
+
+export type GameServantDbDocument = GameServantWithMetadataDocument & Document<number, any, GameServantWithMetadataDocument>;
+
+type ExternalLinksDbDocument = ExternalLinksDocument & Document<number, any, ExternalLinksDocument>;
+
+type SearchTagsDbDocument = SearchTagsDocument & Document<number, any, SearchTagsDocument>;
+
+type FgoManagerNameDbDocument = FgoManagerNameDocument & Document<number, any, FgoManagerNameDocument>;
+
+//#endregion
+
+
+//#region Static function implementations
+
+function findExternalLinksById(this: Model<GameServantWithMetadataDocument>, id: number) {
+    return this.findById<ExternalLinksDbDocument>(id, ExternalLinksProjection);
+}
+
+async function findSearchTags(this: Model<GameServantWithMetadataDocument>) {
+    return this.find<SearchTagsDbDocument>({}, SearchTagsProjection);
+}
+
+async function findFgoManagerNames(this: Model<GameServantWithMetadataDocument>) {
+    return this.find<FgoManagerNameDbDocument>({}, FgoManagerNameProjection);
+}
+
+//#endregion
+
+
 const GameServantSchema = new Schema<GameServantWithMetadata>(GameServantSchemaDefinition, {
     timestamps: true,
     minimize: false
 });
 
-// Add the static properties to the schema.
+const Statics = {
+    ExcludeMetadataProjection,
+    findExternalLinksById,
+    findSearchTags,
+    findFgoManagerNames
+};
+
+// Add the static properties to the schema
 Object.assign(GameServantSchema.statics, Statics);
 
+// Add additional options
 GameServantSchema.set('toJSON', {
-    // virtuals: true,
-    versionKey: false,
+    versionKey: false
 });
 
-// Add text index
-// TODO Redo this
-/*
-GameServantSchema.index(
-    GameObjectSchemaTextIndex,
-    {
-        name: 'textIndex',
-        weights: {
-            urlPath: 5,
-            name: 5,
-            nameJp: 3,
-        }
-    }
-);
-*/
+type GameServantModel = Model<GameServantWithMetadataDocument> & typeof Statics;
 
-export const GameServantModel = mongoose.model<GameServantWithMetadata, GameServantModel>('GameServant', GameServantSchema, 'GameServants');
+export const GameServantModel = mongoose.model<GameServantWithMetadata, GameServantModel>(
+    'GameServant',
+    GameServantSchema,
+    'GameServants'
+);

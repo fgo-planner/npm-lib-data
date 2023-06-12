@@ -1,11 +1,11 @@
 import { SchemaDefinition } from 'mongoose';
-import { User } from '../../types';
+import { UserDocument } from '../../types';
 import { UserPreferencesSchema } from './UserPreferencesSchema';
 
 /**
- * Mongoose schema definition for the `User` type.
+ * Mongoose schema definition for the `UserDocument` type.
  */
-export const UserSchemaDefinition: SchemaDefinition<User> = {
+export const UserSchemaDefinition: SchemaDefinition<UserDocument> = {
     username: {
         type: String,
         // TODO Add validation

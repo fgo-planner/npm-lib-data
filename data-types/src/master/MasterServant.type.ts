@@ -3,11 +3,12 @@ import { InstantiatedServantEnhancements } from '../common/servant/InstantiatedS
 import { InstantiatedServantNoblePhantasmLevel } from '../common/servant/InstantiatedServantNoblePhantasmLevel.type';
 import { InstantiatedServantSkillLevel } from '../common/servant/InstantiatedServantSkillLevel.type';
 import { InstantiatedServant } from '../common/servant/InstantiatedServant.type';
+import { SerializableDate } from '../SerializableDate.type';
 
 /**
  * An instance of a servant that is associated with a `MasterAccount`.
  */
-export type MasterServant = InstantiatedServant & InstantiatedServantEnhancements & {
+export type MasterServant<DATE extends SerializableDate = string> = InstantiatedServant & InstantiatedServantEnhancements & {
 
     /**
      * The ID of the `GameServant` that this servant is an instance of.
@@ -23,7 +24,7 @@ export type MasterServant = InstantiatedServant & InstantiatedServantEnhancement
     /**
      * The servant's summoning date.
      */
-    summonDate?: Date;
+    summonDate?: DATE;
 
     /**
      * Noble phantasm level.
@@ -35,9 +36,9 @@ export type MasterServant = InstantiatedServant & InstantiatedServantEnhancement
      */
     level: number;
 
-     /**
-      * Ascension level.
-      */
+    /**
+     * Ascension level.
+     */
     ascension: InstantiatedServantAscensionLevel;
 
     /**

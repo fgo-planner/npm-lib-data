@@ -1,57 +1,53 @@
-import { GameItem, GameItemUsage } from '@fgo-planner/data-core';
-import mongoose, { Document, Model, Query, Schema } from 'mongoose';
+import { GameItemUsage } from '@fgo-planner/data-core';
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import { GameItemDocument } from '../../../types';
 import { GameItemSchemaDefinition } from '../../../schemas';
 
-export type GameItemDocument = GameItem & Document<number, any, GameItem>;
 
-/**
- * Mongoose document model definition for the `GameItem` type.
- */
-type GameItemModel = Model<GameItem> & {
+//#region Mongoose document types
 
-    /**
-     * Creates a query for retrieving the items that belong to any of the given
-     * usages from the collection.
-     */
-    findByUsage: (usage: GameItemUsage | GameItemUsage[]) => Query<Array<GameItemDocument>, GameItemDocument>;
-
-};
-
-//#region Static function implementations
-
-const findByUsage = function (
-    this: GameItemModel,
-    usage: GameItemUsage | Array<GameItemUsage>
-): Query<Array<GameItemDocument>, GameItemDocument> {
-    if (!Array.isArray(usage)) {
-        usage = [usage];
-    }
-    return this.find({ uses: { $in: usage } });
-};
+export type GameItemDbDocument = GameItemDocument & Document<number, any, GameItemDocument>;
 
 //#endregion
 
-/**
- * Properties and functions that can be assigned as statics on the schema.
- */
-const Statics = {
-    findByUsage
-};
+
+//#region Static function implementations
 
 /**
- * Mongoose schema for the `GameItem` type.
+ * Creates a query for retrieving the items that belong to any of the given
+ * usages from the collection.
  */
-const GameItemSchema = new Schema<GameItem>(GameItemSchemaDefinition, {
+function findByUsage(this: Model<GameItemDocument>, usage: GameItemUsage | Array<GameItemUsage>) {
+    if (!Array.isArray(usage)) {
+        usage = [usage];
+    }
+    return this.find<GameItemDbDocument>({ uses: { $in: usage } });
+}
+
+//#endregion
+
+
+const GameItemSchema = new Schema<GameItemDocument>(GameItemSchemaDefinition, {
     timestamps: true,
     minimize: false
 });
 
-// Add the static properties to the schema.
+const Statics = {
+    findByUsage
+};
+
+// Add the static properties to the schema
 Object.assign(GameItemSchema.statics, Statics);
 
+// Add additional options
 GameItemSchema.set('toJSON', {
-    // virtuals: true,
-    versionKey: false,
+    versionKey: false
 });
 
-export const GameItemModel = mongoose.model<GameItem, GameItemModel>('GameItem', GameItemSchema, 'GameItems');
+type GameItemModel = Model<GameItemDocument> & typeof Statics;
+
+export const GameItemModel = mongoose.model<GameItemDocument, GameItemModel>(
+    'GameItem',
+    GameItemSchema,
+    'GameItems'
+);

@@ -1,14 +1,14 @@
 import { SchemaDefinition } from 'mongoose';
-import { GameEvent } from '../../../types';
+import { GameEventDocument } from '../../../types';
 import { GameEventRewardSourceSchema } from './GameEventRewardSourceSchema';
 
 /**
- * Mongoose schema definition for the `GameEvent` type.
+ * Mongoose schema definition for the `GameEventDocument` type.
  */
-export const GameEventSchemaDefinition: SchemaDefinition<GameEvent> = {
+export const GameEventSchemaDefinition: SchemaDefinition<GameEventDocument> = {
     name: {
         type: String,
-        required: true,
+        required: true
     },
     shortName: {
         type: String
@@ -23,9 +23,9 @@ export const GameEventSchemaDefinition: SchemaDefinition<GameEvent> = {
         required: true,
         index: true
     },
-    rerun:  {
+    rerun: {
         type: Boolean,
-        required: true, 
+        required: true,
         index: true,
         default: false
     },

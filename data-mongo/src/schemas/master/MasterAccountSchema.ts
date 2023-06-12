@@ -1,7 +1,7 @@
 import { MasterAccountConstants } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import { SchemaDefinition } from 'mongoose';
-import { MasterAccount } from '../../types';
+import { MasterAccountDocument } from '../../types';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
 import { ResourcesSchema } from '../common/resources/ResourcesSchema';
 import { MasterCostumesSchema } from './MasterCostumesSchema';
@@ -9,9 +9,9 @@ import { MasterServantsSchema } from './MasterServantsSchema';
 import { MasterSoundtracksSchema } from './MasterSoundtracksSchema';
 
 /**
- * Mongoose schema definition for the `MasterAccount` type.
+ * Mongoose schema definition for the `MasterAccountDocument` type.
  */
-export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
+export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccountDocument> = {
     userId: {
         type: ObjectId,
         required: true,
@@ -25,7 +25,7 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
     friendId: {
         type: String,
         validate: {
-            validator: MasterAccountValidators.isFriendIdFormalValidOrEmpty,
+            validator: MasterAccountValidators.isFriendIdFormatValidOrEmpty,
             message: ValidationStrings.MasterFriendIdFormat
         },
         index: true
@@ -52,10 +52,10 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccount> = {
     },
     costumes: {
         type: MasterCostumesSchema,
-        default: {},
+        default: {}
     },
     soundtracks: {
         type: MasterSoundtracksSchema,
-        default: {},
+        default: {}
     }
 };

@@ -1,13 +1,14 @@
-import { InstantiatedServantConstants, MasterServants } from '@fgo-planner/data-core';
+import { InstantiatedServantConstants } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { CommonTransformers } from '../../transformers';
+import { MasterServantsDocument } from '../../types';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
 import { MasterServantSchema } from './MasterServantSchema';
 
 /**
- * Mongoose schema for the `MasterServants` type.
+ * Mongoose schema for the `MasterServantsDocument` type.
  */
-export const MasterServantsSchema = new Schema<MasterServants>({
+export const MasterServantsSchema = new Schema<MasterServantsDocument>({
     servants: {
         type: [MasterServantSchema],
         required: true,
@@ -31,7 +32,7 @@ export const MasterServantsSchema = new Schema<MasterServants>({
             {
                 validator: CommonValidators.isNullOrInteger,
                 message: ValidationStrings.NumberInteger
-            },
+            }
             /**
              * The validation below is not possible here because there is no way to access
              * the servants, due to `this` being of type `Query` (even when using
@@ -61,7 +62,7 @@ export const MasterServantsSchema = new Schema<MasterServants>({
                     InstantiatedServantConstants.MaxBondLevel
                 ),
                 message: ValidationStrings.GenericInvalidValuePathOnly
-            },
+            }
         ],
         required: true,
         default: {},

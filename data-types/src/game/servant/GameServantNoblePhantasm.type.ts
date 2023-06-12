@@ -1,5 +1,5 @@
-import { GameServantCardType } from './GameServantCardType.type';
-import { GameServantNoblePhantasmTarget } from './GameServantNoblePhantasmTarget.type';
+import { GameServantCardType } from './GameServantCardType.enum';
+import { GameServantNoblePhantasmTarget } from './GameServantNoblePhantasmTarget.enum';
 
 export type GameServantNoblePhantasm = {
 

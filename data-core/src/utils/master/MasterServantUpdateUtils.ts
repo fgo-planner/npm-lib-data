@@ -1,5 +1,5 @@
-import { ReadonlyRecord } from '@fgo-planner/common-core';
-import { ImmutableMasterServant, InstantiatedServantBondLevel, MasterServant } from '@fgo-planner/data-types';
+import { DateTimeUtils, Immutable, ReadonlyRecord } from '@fgo-planner/common-core';
+import { InstantiatedServantBondLevel, MasterServant } from '@fgo-planner/data-types';
 import { InstantiatedServantConstants } from '../../constants';
 import { BatchMasterServantUpdate, InstantiatedServantUpdateBoolean, InstantiatedServantUpdateIndeterminateValue as IndeterminateValue, InstantiatedServantUpdateNumber, MasterServantUpdate } from '../../types';
 import * as ServantUpdateUtils from '../common/InstantiatedServantUpdateUtils';
@@ -58,7 +58,7 @@ export function createNew(
  * Creates a `MasterServantUpdate` object from an existing servant.
  */
 export function createFromExisting(
-    masterServant: ImmutableMasterServant,
+    masterServant: Immutable<MasterServant>,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
 ): MasterServantUpdate;
@@ -68,7 +68,7 @@ export function createFromExisting(
  * servants.
  */
 export function createFromExisting(
-    masterServants: ReadonlyArray<ImmutableMasterServant>,
+    masterServants: ReadonlyArray<Immutable<MasterServant>>,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
 ): MasterServantUpdate;
@@ -77,7 +77,7 @@ export function createFromExisting(
  * Function implementation.
  */
 export function createFromExisting(
-    source: ReadonlyArray<ImmutableMasterServant> | ImmutableMasterServant,
+    source: ReadonlyArray<Immutable<MasterServant>> | Immutable<MasterServant>,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
 ): MasterServantUpdate {
@@ -91,7 +91,7 @@ export function createFromExisting(
     }
 
     return _createFromExistingSingle(
-        source as ImmutableMasterServant,
+        source as Immutable<MasterServant>,
         bondLevels,
         unlockedCostumes
     );
@@ -99,7 +99,7 @@ export function createFromExisting(
 }
 
 function _createFromExistingSingle(
-    masterServant: ImmutableMasterServant,
+    masterServant: Immutable<MasterServant>,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
 ): MasterServantUpdate {
@@ -134,7 +134,7 @@ function _createFromExistingSingle(
 
     return {
         summoned: ServantUpdateUtils.fromBoolean(summoned),
-        summonDate: summonDate?.getTime() || null,
+        summonDate: DateTimeUtils.getTime(summonDate) || null,
         np,
         level,
         ascension,
@@ -157,7 +157,7 @@ function _createFromExistingSingle(
 }
 
 function _createFromExistingMultiple(
-    masterServants: ReadonlyArray<ImmutableMasterServant>,
+    masterServants: ReadonlyArray<Immutable<MasterServant>>,
     bondLevels?: BondLevels,
     unlockedCostumes?: Iterable<number>
 ): MasterServantUpdate {
@@ -201,7 +201,8 @@ function _createFromExistingMultiple(
      */
     for (let i = 1; i < masterServants.length; i++) {
         const masterServant = masterServants[i];
-        if (summonDate !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(summonDate, masterServant.summonDate?.getTime())) {
+        const originalSummonDate = DateTimeUtils.getTime(masterServant.summonDate);
+        if (summonDate !== IndeterminateValue && !ServantUpdateUtils.isEqualValue(summonDate, originalSummonDate)) {
             summonDate = IndeterminateValue;
         }
         if (!ServantUpdateUtils.equalsBoolean(summoned, masterServant.summoned)) {
@@ -351,7 +352,7 @@ export function applyToMasterServant(
         targetMasterServant.summoned = ServantUpdateUtils.toBoolean(summoned);
     }
     if (summonDate !== IndeterminateValue) {
-        targetMasterServant.summonDate = summonDate == null ? undefined : new Date(summonDate);
+        targetMasterServant.summonDate = summonDate == null ? undefined : new Date(summonDate).toJSON();
     }
     if (np !== IndeterminateValue) {
         targetMasterServant.np = np;
@@ -482,7 +483,7 @@ export function batchApplyToMasterServants(
         useNextBestTargetAssignment = true,
         discardIfNoTarget = false
     } = options;
-    
+
     /**
      * Contains the corresponding target for each update. Some updates may not have
      * targets.

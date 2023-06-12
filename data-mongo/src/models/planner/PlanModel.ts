@@ -1,10 +1,10 @@
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, Query, Schema } from 'mongoose';
+import mongoose, { Document, Model, ProjectionFields, Schema } from 'mongoose';
 import { PlanSchemaDefinition } from '../../schemas';
-import { BasicPlan, Plan } from '../../types';
+import { BasicPlanDocument, PlanDocument } from '../../types';
 
-export type PlanDocument = Plan & Document<ObjectId, any, Plan>;
-export type BasicPlanDocument = BasicPlan & Document<ObjectId, any, BasicPlan>;
+
+//#region Projections
 
 const BasicPlanProjection = {
     groupId: 1,
@@ -14,53 +14,54 @@ const BasicPlanProjection = {
     shared: 1,
     createdAt: 1,
     updatedAt: 1
-};
-
-/**
- * Mongoose document model definition for the `Plan` type.
- */
-type PlanModel = Model<Plan> & {
-
-    /**
-     * Creates a query for retrieving the plans associated with the given
-     * `accountId`. Result will contain simplified version of the plan data.
-     */
-    findByAccountId: (accountId: ObjectId) => Query<Array<BasicPlanDocument>, BasicPlanDocument>;
-
-};
-
-//#region Static function implementations
-
-const findByAccountId = function (
-    this: PlanModel,
-    accountId: ObjectId
-): Query<Array<BasicPlanDocument>, BasicPlanDocument> {
-    return this.find({ accountId }, BasicPlanProjection);
-};
+} as const satisfies ProjectionFields<BasicPlanDocument>;
 
 //#endregion
 
-/**
- * Properties and functions that can be assigned as statics on the schema.
- */
-const Statics = {
-    findByAccountId
-};
+
+//#region Mongoose document types
+
+export type PlanDbDocument = PlanDocument & Document<ObjectId, any, PlanDocument>;
+
+export type BasicPlanDbDocument = BasicPlanDocument & Document<ObjectId, any, BasicPlanDocument>;
+
+//#endregion
+
+
+//#region Static function implementations
 
 /**
- * Mongoose schema for the `Plan` type.
+ * Creates a query for retrieving the plans associated with the given
+ * `accountId`. Result will contain simplified version of the plan data.
  */
-const PlanSchema = new Schema<Plan>(PlanSchemaDefinition, {
+function findByAccountId(this: PlanModel, accountId: string | ObjectId) {
+    return this.find<BasicPlanDbDocument>({ accountId }, BasicPlanProjection);
+}
+
+//#endregion
+
+
+const PlanSchema = new Schema<PlanDocument>(PlanSchemaDefinition, {
     timestamps: true,
     minimize: false
 });
 
+const Statics = {
+    findByAccountId
+};
+
 // Add the static properties to the schema.
 Object.assign(PlanSchema.statics, Statics);
 
+// Add additional options
 PlanSchema.set('toJSON', {
-    // virtuals: true,
-    versionKey: false,
+    versionKey: false
 });
 
-export const PlanModel = mongoose.model<Plan, PlanModel>('Plan', PlanSchema, 'Plans');
+type PlanModel = Model<PlanDocument> & typeof Statics;
+
+export const PlanModel = mongoose.model<PlanDocument, PlanModel>(
+    'Plan',
+    PlanSchema,
+    'Plans'
+);

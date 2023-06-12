@@ -1,6 +1,5 @@
-import { MasterAccountConstants, MasterServant, MasterServantUtils } from '@fgo-planner/data-core';
-import { MasterAccount } from '../types';
-
+import { MasterAccountConstants, MasterServantUtils } from '@fgo-planner/data-core';
+import { MasterAccountDocument, MasterServantDocument } from '../types';
 
 /**
  * Regex for checking if a friend ID string is in a valid format. Friend IDs
@@ -21,18 +20,18 @@ export function isFriendIdFormatValid(id: string): boolean {
  * the given friend ID string to check if it's in a valid format. Null or empty
  * inputs will return true.
  */
-export function isFriendIdFormalValidOrEmpty(id: string | null | undefined): boolean {
+export function isFriendIdFormatValidOrEmpty(id: string | null | undefined): boolean {
     if (!id) {
         return true;
     }
     return FriendIdFormatValidationRegex.test(id);
 }
 
-export function servantsSizeLimit(servants: Array<MasterServant>): boolean {
+export function servantsSizeLimit(servants: Array<MasterServantDocument>): boolean {
     return servants.length <= MasterAccountConstants.MaxServantsSize;
 }
 
-export function servantsInstanceIdsUnique(servants: Array<MasterServant>): boolean {
+export function servantsInstanceIdsUnique(servants: Array<MasterServantDocument>): boolean {
     if (!servants.length) {
         return true;
     }
@@ -46,15 +45,15 @@ export function servantsInstanceIdsUnique(servants: Array<MasterServant>): boole
     return true;
 }
 
-export function lastServantInstanceIdValid(servants: Array<MasterServant>, lastInstanceId: number): boolean {
+export function lastServantInstanceIdValid(servants: Array<MasterServantDocument>, lastInstanceId: number): boolean {
     if (!servants.length) {
         return true;
     }
     return lastInstanceId >= MasterServantUtils.getLastInstanceId(servants);
 }
 
-export function getDefaultLastServantInstanceId(doc: MasterAccount): number {
-    const servants = doc.servants.servants;
+export function getDefaultLastServantInstanceId(document: MasterAccountDocument): number {
+    const servants = document.servants.servants;
     if (!servants.length) {
         return 0;
     }

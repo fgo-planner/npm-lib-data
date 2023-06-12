@@ -34,7 +34,7 @@ export const ClassDisplayNameMap: ReadonlyRecord<keyof typeof GameServantClass, 
     [GameServantClass.AgarthaPenth]: 'Agartha Penth',
     [GameServantClass.CCCFinaleEmiyaAlter]: 'CCC Finale Emiya Alter',
     [GameServantClass.SalemAbby]: 'Salem Abby',
-    [GameServantClass.All]: 'All',
+    [GameServantClass.All]: 'All'
     // [GameServantClass.BeastFalse]: 'Beast (False)'
 };
 
@@ -91,7 +91,7 @@ export const LevelCapByRarityMap: ReadonlyRecord<GameServantRarity, number> = {
     3: 70,
     4: 80,
     5: 90
-}; 
+};
 
 export const NoCostCostumeOptions = new Set([
     101830,  // (53) Altera

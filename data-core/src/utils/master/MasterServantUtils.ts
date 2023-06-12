@@ -1,8 +1,8 @@
-import { DateTimeUtils } from '@fgo-planner/common-core';
-import { ImmutableMasterServant, MasterServant } from '@fgo-planner/data-types';
+import { Immutable, ImmutableArray } from '@fgo-planner/common-core';
+import { MasterServant, SerializableDate } from '@fgo-planner/data-types';
 import { InstantiatedServantConstants, MasterServantConstants } from '../../constants';
-import { getInstanceId } from '../common/InstantiatedServantUtils';
 import * as InstantiatedServantUtils from '../common/InstantiatedServantUtils';
+import { getInstanceId } from '../common/InstantiatedServantUtils';
 
 /**
  * Instantiates a default `MasterServant` object.
@@ -25,13 +25,9 @@ export function instantiate(instanceId = 0): MasterServant {
 /**
  * Returns a deep clone of the given `MasterServant` object.
  */
-export function clone(masterServant: ImmutableMasterServant): MasterServant {
-
-    const summonDate = DateTimeUtils.cloneDate(masterServant.summonDate);
-    
+export function clone(masterServant: Immutable<MasterServant>): MasterServant {
     return {
         ...masterServant,
-        summonDate,
         skills: {
             ...masterServant.skills
         },
@@ -44,7 +40,7 @@ export function clone(masterServant: ImmutableMasterServant): MasterServant {
 /**
  * Finds the largest `instanceId` in the given `MasterServant` array.
  */
-export function getLastInstanceId(masterServants: ReadonlyArray<ImmutableMasterServant>): number {
+export function getLastInstanceId<DATE extends SerializableDate>(masterServants: ImmutableArray<MasterServant<DATE>>): number {
     if (!masterServants.length) {
         return 0;
     }
@@ -55,9 +51,9 @@ export function getLastInstanceId(masterServants: ReadonlyArray<ImmutableMasterS
  * Compares two `MasterServants` object to determine their equality. The
  * `instanceId` and `servantId` fields are ignored in the comparison.
  */
-export function isEqual(a: ImmutableMasterServant, b: ImmutableMasterServant): boolean {
+export function isEqual(a: Immutable<MasterServant>, b: Immutable<MasterServant>): boolean {
     return InstantiatedServantUtils.isEnhancementsEqual(a, b) &&
         a.summoned === b.summoned &&
-        a.summonDate?.getTime() === b.summonDate?.getTime() &&
+        a.summonDate === b.summonDate &&
         a.np === b.np;
 }
