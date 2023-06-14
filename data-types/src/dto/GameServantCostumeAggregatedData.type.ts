@@ -6,7 +6,7 @@ import { GameServantCostume } from '../game/servant/GameServantCostume.type';
  * DTO containing a `GameServantCostume` object, as well as the costume ID and
  * the source `GameServant` object.
  */
-export type GameServantCostumeAggregatedData<T extends GameServant = GameServant> = Immutable<{
+export type GameServantCostumeAggregatedData = Immutable<{
 
     /**
      * Not the same as `collectionNo`.
@@ -24,7 +24,7 @@ export type GameServantCostumeAggregatedData<T extends GameServant = GameServant
     noCostUnlockAvailable: boolean;
 
     costume: GameServantCostume;
-    
-    gameServant: T;
+
+    gameServant: GameServant;
 
 }>;

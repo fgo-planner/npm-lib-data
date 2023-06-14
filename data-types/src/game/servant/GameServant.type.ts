@@ -11,7 +11,7 @@ import { GameServantNoblePhantasm } from './GameServantNoblePhantasm.type';
 import { GameServantRarity } from './GameServantRarity.type';
 import { GameServantSkillMaterials } from './GameServantSkillMaterials.type';
 
-export type GameServant<DATE extends SerializableDate = string> = EntityWithTimestamps<{
+export type GameServant<DATE extends SerializableDate = string> = EntityWithTimestamps<number, DATE> & {
 
     collectionNo: number;
 
@@ -83,4 +83,4 @@ export type GameServant<DATE extends SerializableDate = string> = EntityWithTime
 
     costumes: Record<number, GameServantCostume>;
 
-}, number, DATE>;
+};

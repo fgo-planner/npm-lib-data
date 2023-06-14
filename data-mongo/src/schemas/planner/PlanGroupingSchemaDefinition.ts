@@ -1,11 +1,11 @@
 import { ObjectId } from 'bson';
 import { Schema, SchemaDefinition } from 'mongoose';
-import { PlanGroupDetailsDocument, PlanGroupDocument } from '../../types';
+import { PlanGroupDocument, PlanGroupingDocument } from '../../types';
 
 /**
- * Mongoose schema for the `PlanGroupDetailsDocument` type.
+ * Mongoose schema for the `PlanGroup` type.
  */
-export const PlanGroupDetailsSchema = new Schema<PlanGroupDetailsDocument>({
+export const PlanGroupSchema = new Schema<PlanGroupDocument>({
     name: {
         type: String,
         trim: true,
@@ -27,26 +27,25 @@ export const PlanGroupDetailsSchema = new Schema<PlanGroupDetailsDocument>({
         default: []
     }
 }, {
-    _id: false,
     storeSubdocValidationError: false
 });
 
 /**
- * Mongoose schema definition for the `PlanGroupDocument` type.
+ * Mongoose schema definition for the `PlanGroupingDocument` type.
  */
-export const PlanGroupSchemaDefinition: SchemaDefinition<PlanGroupDocument> = {
+export const PlanGroupingSchemaDefinition: SchemaDefinition<PlanGroupingDocument> = {
     accountId: {
         type: ObjectId,
         required: true,
         unique: true
     },
-    ungroupedPlans: {
+    ungrouped: {
         type: [ObjectId],
         required: true,
         default: []
     },
     groups: {
-        type: [PlanGroupDetailsSchema],
+        type: [PlanGroupSchema],
         required: true,
         default: []
     }

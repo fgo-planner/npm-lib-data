@@ -1,7 +1,20 @@
-import { GameServantMetadata, GameServantWithMetadata } from '@fgo-planner/data-core';
-import mongoose, { Document, Model, ProjectionFields, Schema } from 'mongoose';
+import { GameServantWithMetadata } from '@fgo-planner/data-core';
+import mongoose, { Model, ProjectionFields, Schema } from 'mongoose';
 import { GameServantSchemaDefinition } from '../../../schemas';
-import { GameServantWithMetadataDocument } from '../../../types';
+import { GameServantExternalLinksDocument, GameServantFgoManagerNameDocument, GameServantSearchTagsDocument, GameServantWithMetadataDocument, MongooseDocument } from '../../../types';
+
+
+//#region Mongoose document types
+
+export type GameServantMongooseDocument = MongooseDocument<number, GameServantWithMetadataDocument>;
+
+export type GameServantExternalLinksMongooseDocument = MongooseDocument<number, GameServantExternalLinksDocument>;
+
+export type GameServantSearchTagsMongooseDocument = MongooseDocument<number, GameServantSearchTagsDocument>;
+
+export type GameServantFgoManagerNameMongooseDocument = MongooseDocument<number, GameServantFgoManagerNameDocument>;
+
+//#endregion
 
 
 //#region Projections
@@ -10,48 +23,23 @@ const ExcludeMetadataProjection = {
     metadata: 0
 } as const satisfies ProjectionFields<GameServantWithMetadataDocument>;
 
-type ExternalLinksDocument = Pick<GameServantWithMetadataDocument, '_id'> & {
-    metadata: Pick<GameServantMetadata, 'links'>;
-};
-
 const ExternalLinksProjection = {
     metadata: {
         links: 1
     }
-} as const satisfies ProjectionFields<ExternalLinksDocument>;
-
-type SearchTagsDocument = Pick<GameServantWithMetadataDocument, '_id'> & {
-    metadata: Pick<GameServantMetadata, 'searchTags'>;
-};
+} as const satisfies ProjectionFields<GameServantExternalLinksDocument>;
 
 const SearchTagsProjection = {
     metadata: {
         searchTags: 1
     }
-} as const satisfies ProjectionFields<SearchTagsDocument>;
-
-type FgoManagerNameDocument = Pick<GameServantWithMetadataDocument, '_id'> & {
-    metadata: Pick<GameServantMetadata, 'fgoManagerName'>;
-};
+} as const satisfies ProjectionFields<GameServantSearchTagsDocument>;
 
 const FgoManagerNameProjection = {
     metadata: {
         fgoManagerName: 1
     }
-} as const satisfies ProjectionFields<FgoManagerNameDocument>;
-
-//#endregion
-
-
-//#region Mongoose document types
-
-export type GameServantDbDocument = GameServantWithMetadataDocument & Document<number, any, GameServantWithMetadataDocument>;
-
-type ExternalLinksDbDocument = ExternalLinksDocument & Document<number, any, ExternalLinksDocument>;
-
-type SearchTagsDbDocument = SearchTagsDocument & Document<number, any, SearchTagsDocument>;
-
-type FgoManagerNameDbDocument = FgoManagerNameDocument & Document<number, any, FgoManagerNameDocument>;
+} as const satisfies ProjectionFields<GameServantFgoManagerNameDocument>;
 
 //#endregion
 
@@ -59,15 +47,15 @@ type FgoManagerNameDbDocument = FgoManagerNameDocument & Document<number, any, F
 //#region Static function implementations
 
 function findExternalLinksById(this: Model<GameServantWithMetadataDocument>, id: number) {
-    return this.findById<ExternalLinksDbDocument>(id, ExternalLinksProjection);
+    return this.findById<GameServantExternalLinksMongooseDocument>(id, ExternalLinksProjection);
 }
 
 async function findSearchTags(this: Model<GameServantWithMetadataDocument>) {
-    return this.find<SearchTagsDbDocument>({}, SearchTagsProjection);
+    return this.find<GameServantSearchTagsMongooseDocument>({}, SearchTagsProjection);
 }
 
 async function findFgoManagerNames(this: Model<GameServantWithMetadataDocument>) {
-    return this.find<FgoManagerNameDbDocument>({}, FgoManagerNameProjection);
+    return this.find<GameServantFgoManagerNameMongooseDocument>({}, FgoManagerNameProjection);
 }
 
 //#endregion

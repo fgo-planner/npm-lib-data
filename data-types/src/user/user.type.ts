@@ -2,7 +2,7 @@ import { SerializableDate } from '../SerializableDate.type';
 import { EntityWithTimestamps } from '../EntityWithTimestamps.type';
 import { UserPreferences } from './UserPreferences.type';
 
-export type User<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<{
+export type User<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<ID, DATE> & {
 
     username: string;
 
@@ -16,4 +16,4 @@ export type User<ID = string, DATE extends SerializableDate = string> = EntityWi
 
     userPrefs: UserPreferences;
 
-}, ID, DATE>;
+};

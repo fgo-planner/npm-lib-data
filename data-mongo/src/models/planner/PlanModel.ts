@@ -1,12 +1,21 @@
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, ProjectionFields, Schema } from 'mongoose';
+import mongoose, { Model, ProjectionFields, Schema } from 'mongoose';
 import { PlanSchemaDefinition } from '../../schemas';
-import { BasicPlanDocument, PlanDocument } from '../../types';
+import { MongooseDocument, PlanBasicDocument, PlanDocument } from '../../types';
+
+
+//#region Mongoose document types
+
+export type PlanMongooseDocument = MongooseDocument<ObjectId, PlanDocument>;
+
+export type PlanBasicMongooseDocument = MongooseDocument<ObjectId, PlanBasicDocument>;
+
+//#endregion
 
 
 //#region Projections
 
-const BasicPlanProjection = {
+const PlanBasicProjection = {
     groupId: 1,
     name: 1,
     description: 1,
@@ -14,16 +23,7 @@ const BasicPlanProjection = {
     shared: 1,
     createdAt: 1,
     updatedAt: 1
-} as const satisfies ProjectionFields<BasicPlanDocument>;
-
-//#endregion
-
-
-//#region Mongoose document types
-
-export type PlanDbDocument = PlanDocument & Document<ObjectId, any, PlanDocument>;
-
-export type BasicPlanDbDocument = BasicPlanDocument & Document<ObjectId, any, BasicPlanDocument>;
+} as const satisfies ProjectionFields<PlanBasicDocument>;
 
 //#endregion
 
@@ -35,7 +35,15 @@ export type BasicPlanDbDocument = BasicPlanDocument & Document<ObjectId, any, Ba
  * `accountId`. Result will contain simplified version of the plan data.
  */
 function findByAccountId(this: PlanModel, accountId: string | ObjectId) {
-    return this.find<BasicPlanDbDocument>({ accountId }, BasicPlanProjection);
+    return this.find<PlanBasicMongooseDocument>({ accountId }, PlanBasicProjection);
+}
+
+/**
+ * Creates a query for retrieving the plans associated with the given
+ * `accountId`. Result will contain simplified version of the plan data.
+ */
+function findPlanIdsByAccountId(this: PlanModel, accountId: string | ObjectId) {
+    return this.distinct<ObjectId>('_id', { accountId });
 }
 
 //#endregion
@@ -47,7 +55,8 @@ const PlanSchema = new Schema<PlanDocument>(PlanSchemaDefinition, {
 });
 
 const Statics = {
-    findByAccountId
+    findByAccountId,
+    findPlanIdsByAccountId
 };
 
 // Add the static properties to the schema.

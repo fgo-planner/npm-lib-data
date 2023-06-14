@@ -11,7 +11,7 @@ import { GameItemUsage } from './GameItemUsage.enum';
  * - Event items and currencies
  * - Other consumable items
  */
-export type GameItem<DATE extends SerializableDate = string> = EntityWithTimestamps<{
+export type GameItem<DATE extends SerializableDate = string> = EntityWithTimestamps<number, DATE> & {
 
     name: string;
 
@@ -26,4 +26,4 @@ export type GameItem<DATE extends SerializableDate = string> = EntityWithTimesta
 
     uses: Array<GameItemUsage>;
 
-}, number, DATE>;
+};

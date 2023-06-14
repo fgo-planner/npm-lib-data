@@ -1,17 +1,26 @@
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, ProjectionFields, Schema, UpdateQuery } from 'mongoose';
+import mongoose, { Model, ProjectionFields, Schema, UpdateQuery } from 'mongoose';
 import { UserSchemaDefinition } from '../../schemas';
-import { BasicUserDocument, UserDocument } from '../../types';
+import { MongooseDocument, UserBasicDocument, UserDocument, UserPreferencesDocument } from '../../types';
+
+
+//#region Mongoose document types
+
+export type UserDbDocument = MongooseDocument<ObjectId, UserDocument>;
+
+export type UserBasicDbDocument = MongooseDocument<ObjectId, UserBasicDocument>;
+
+export type UserPreferencesDbDocument = MongooseDocument<ObjectId, UserPreferencesDocument>;
+
+//#endregion
 
 
 //#region Projections
 
-const BasicUserProjection = {
+const UserBasicProjection = {
     username: 1,
     email: 1
-} as const satisfies ProjectionFields<BasicUserDocument>;
-
-type UserPreferencesDocument = Pick<UserDocument, '_id' | 'userPrefs'>;
+} as const satisfies ProjectionFields<UserBasicDocument>;
 
 const UserPreferencesProjection = {
     userPrefs: 1
@@ -20,21 +29,10 @@ const UserPreferencesProjection = {
 //#endregion
 
 
-//#region Mongoose document types
-
-export type UserDbDocument = UserDocument & Document<ObjectId, any, UserDocument>;
-
-export type BasicUserDbDocument = BasicUserDocument & Document<ObjectId, any, BasicUserDocument>;
-
-type UserPreferencesDbDocument = UserPreferencesDocument & Document<ObjectId, any, UserPreferencesDocument>;
-
-//#endregion
-
-
 //#region Static function implementations
 
 function findBasicById(this: Model<UserDocument>, id: ObjectId) {
-    return this.findById<BasicUserDbDocument>(id, BasicUserProjection);
+    return this.findById<UserBasicDbDocument>(id, UserBasicProjection);
 }
 
 function setEnabledStatus(this: Model<UserDocument>, id: ObjectId, status: boolean) {

@@ -7,10 +7,10 @@ import { GameServant } from '../game/servant/GameServant.type';
  * DTO containing a `MasterServant` object, as well as the instance ID and the
  * source `GameServant` object.
  */
-export type MasterServantAggregatedData<T extends GameServant = GameServant> = Immutable<InstantiatedServant & {
+export type MasterServantAggregatedData = Immutable<InstantiatedServant & {
 
-    masterServant: Immutable<MasterServant>;
+    masterServant: MasterServant;
 
-    gameServant: Immutable<T>;
+    gameServant: GameServant;
 
 }>;

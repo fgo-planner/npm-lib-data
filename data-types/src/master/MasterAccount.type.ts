@@ -5,7 +5,7 @@ import { MasterCostumes } from './MasterCostumes.type';
 import { MasterServants } from './MasterServants.type';
 import { MasterSoundtracks } from './MasterSoundtracks.type';
 
-export type MasterAccount<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<{
+export type MasterAccount<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<ID, DATE> & {
 
     userId: ID;
 
@@ -26,4 +26,4 @@ export type MasterAccount<ID = string, DATE extends SerializableDate = string> =
 
     soundtracks: MasterSoundtracks;
 
-}, ID, DATE>;
+};

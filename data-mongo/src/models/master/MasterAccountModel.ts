@@ -1,40 +1,36 @@
-import { MasterServantUtils, MasterAccountUpdate } from '@fgo-planner/data-core';
+import { MasterAccountUpdate, MasterServantUtils } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, ProjectionFields, Schema } from 'mongoose';
+import mongoose, { Model, ProjectionFields, Schema } from 'mongoose';
 import { MasterAccountSchemaDefinition } from '../../schemas';
-import { BasicMasterAccountDocument, MasterAccountDocument, MasterServantsDocument } from '../../types';
+import { MasterAccountBasicDocument, MasterAccountDocument, MasterAccountLastServantInstanceIdDocument, MongooseDocument } from '../../types';
 import { MasterAccountValidators } from '../../validators';
+
+
+//#region Mongoose document types
+
+export type MasterAccountMongooseDocument = MongooseDocument<ObjectId, MasterAccountDocument>;
+
+export type MasterAccountBasicMongooseDocument = MongooseDocument<ObjectId, MasterAccountBasicDocument>;
+
+export type MasterAccountLastServantInstanceIdMongooseDocument = MongooseDocument<ObjectId, MasterAccountLastServantInstanceIdDocument>;
+
+//#endregion
 
 
 //#region Projections
 
-const BasicMasterAccountProjection = {
+const MasterAccountBasicProjection = {
     name: 1,
     friendId: 1,
     createdAt: 1,
     updatedAt: 1
-} as const satisfies ProjectionFields<BasicMasterAccountDocument>;
-
-type LastServantInstanceIdDocument = Pick<MasterAccountDocument, '_id'> & {
-    servants: Pick<MasterServantsDocument, 'lastServantInstanceId'>;
-};
+} as const satisfies ProjectionFields<MasterAccountBasicDocument>;
 
 const LastServantInstanceIdProjection = {
     servants: {
         lastServantInstanceId: 1
     }
-} as const satisfies ProjectionFields<LastServantInstanceIdDocument>;
-
-//#endregion
-
-
-//#region Mongoose document types
-
-export type MasterAccountDbDocument = MasterAccountDocument & Document<ObjectId, any, MasterAccountDocument>;
-
-export type BasicMasterAccountDbDocument = BasicMasterAccountDocument & Document<ObjectId, any, BasicMasterAccountDocument>;
-
-type LastServantInstanceIdDbDocument = LastServantInstanceIdDocument & Document<ObjectId, any, LastServantInstanceIdDocument>;
+} as const satisfies ProjectionFields<MasterAccountLastServantInstanceIdDocument>;
 
 //#endregion
 
@@ -52,7 +48,7 @@ const isFriendIdFormatValid = MasterAccountValidators.isFriendIdFormatValid;
  * `userId`. Result will contain simplified version of the master account data.
  */
 function findByUserId(this: MasterAccountModel, userId: ObjectId) {
-    return this.find<BasicMasterAccountDbDocument>({ userId }, BasicMasterAccountProjection);
+    return this.find<MasterAccountBasicMongooseDocument>({ userId }, MasterAccountBasicProjection);
 }
 
 /**
@@ -74,7 +70,7 @@ async function partialUpdate(this: MasterAccountModel, update: MasterAccountUpda
             MasterServantUtils.getLastInstanceId(update.servants.servants),
             lastServantInstanceId
         );
-        const existing = await this.findById<LastServantInstanceIdDbDocument>(id, LastServantInstanceIdProjection);
+        const existing = await this.findById<MasterAccountLastServantInstanceIdMongooseDocument>(id, LastServantInstanceIdProjection);
         if (existing) {
             const previousLastServantInstanceId = existing.servants.lastServantInstanceId || 0;
             /**
@@ -88,7 +84,7 @@ async function partialUpdate(this: MasterAccountModel, update: MasterAccountUpda
         update.servants.lastServantInstanceId = lastServantInstanceId;
     }
 
-    return this.findOneAndUpdate<MasterAccountDbDocument>(
+    return this.findOneAndUpdate<MasterAccountMongooseDocument>(
         { _id: id },
         { $set: update },
         { runValidators: true, new: true }

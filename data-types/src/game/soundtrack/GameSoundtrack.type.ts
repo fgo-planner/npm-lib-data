@@ -2,7 +2,7 @@ import { EntityWithTimestamps } from '../../EntityWithTimestamps.type';
 import { SerializableDate } from '../../SerializableDate.type';
 import { ItemQuantities } from '../../common/resources/ItemQuantities.type';
 
-export type GameSoundtrack<DATE extends SerializableDate = string> = EntityWithTimestamps<{
+export type GameSoundtrack<DATE extends SerializableDate = string> = EntityWithTimestamps<number, DATE> & {
 
     name?: string;
 
@@ -21,4 +21,4 @@ export type GameSoundtrack<DATE extends SerializableDate = string> = EntityWithT
 
     thumbnailUrl?: string;
 
-}, number, DATE>;
+};

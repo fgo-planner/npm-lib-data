@@ -1,12 +1,12 @@
 import { ObjectId } from 'bson';
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { Model, Schema } from 'mongoose';
 import { GameEventSchemaDefinition } from '../../../schemas';
-import { GameEventDocument } from '../../../types';
+import { GameEventDocument, MongooseDocument } from '../../../types';
 
 
 //#region Mongoose document types
 
-export type GameEventDbDocument = GameEventDocument & Document<ObjectId, any, GameEventDocument>;
+export type GameEventDbDocument = MongooseDocument<ObjectId, GameEventDocument>;
 
 //#endregion
 

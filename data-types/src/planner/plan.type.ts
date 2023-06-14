@@ -4,7 +4,7 @@ import { PlanCommon } from './PlanCommon.type';
 import { PlanServant } from './PlanServant.type';
 import { PlanUpcomingResources } from './PlanUpcomingResources.type';
 
-export type Plan<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<{
+export type Plan<ID = string, DATE extends SerializableDate = string> = EntityWithTimestamps<ID, DATE> & PlanCommon<ID, DATE> & {
 
     accountId: ID;
 
@@ -28,4 +28,4 @@ export type Plan<ID = string, DATE extends SerializableDate = string> = EntityWi
 
     upcomingResources: Array<PlanUpcomingResources>;
 
-} & PlanCommon<DATE>, ID, DATE>;
+};
