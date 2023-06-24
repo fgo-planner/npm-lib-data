@@ -1,7 +1,6 @@
-import { Plan } from '../planner/Plan.type';
-import { OmitEntityWithTimestampsProps } from '../OmitEntityWithTimestampsProps.type';
+import { UpdatePlan } from './UpdatePlan.type';
 
-export type CreatePlan<ID = string> = Pick<Plan<ID>, 'accountId'> & Partial<OmitEntityWithTimestampsProps<Plan<ID>, ID>> & {
+export type CreatePlan<ID = string> = Omit<UpdatePlan<ID>, '_id'> & {
 
     groupId?: ID;
 

@@ -1,4 +1,5 @@
 import { Entity } from './Entity.type';
+import { EntityTimestamps } from './EntityTimestamps.type';
 import { SerializableDate } from './SerializableDate.type';
 
 /**
@@ -11,10 +12,4 @@ import { SerializableDate } from './SerializableDate.type';
  * @param DATE The data type of date fields. Should be `string` if this type
  * represents serialized JSON data, otherwise should be `Date`.
  */
-export type EntityWithTimestamps<ID = string, DATE extends SerializableDate = string> = Entity<ID> & {
-
-    createdAt?: DATE;
-
-    updatedAt?: DATE;
-
-};
+export type EntityWithTimestamps<ID = string, DATE extends SerializableDate = string> = Entity<ID> & EntityTimestamps<DATE>;

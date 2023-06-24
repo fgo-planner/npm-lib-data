@@ -1,5 +1,5 @@
 import { ObjectId } from 'bson';
-import { Schema, SchemaDefinition } from 'mongoose';
+import { Schema } from 'mongoose';
 import { PlanGroupDocument, PlanGroupingDocument } from '../../types';
 
 /**
@@ -15,30 +15,20 @@ export const PlanGroupSchema = new Schema<PlanGroupDocument>({
         type: String
         // TODO Add length limit
     },
-    startDate: {
-        type: Date
-    },
-    endDate: {
-        type: Date
-    },
     plans: {
         type: [ObjectId],
         required: true,
         default: []
     }
 }, {
-    storeSubdocValidationError: false
+    storeSubdocValidationError: false,
+    timestamps: true
 });
 
 /**
- * Mongoose schema definition for the `PlanGroupingDocument` type.
+ * Mongoose schema for the `PlanGroupingDocument` type.
  */
-export const PlanGroupingSchemaDefinition: SchemaDefinition<PlanGroupingDocument> = {
-    accountId: {
-        type: ObjectId,
-        required: true,
-        unique: true
-    },
+export const PlanGroupingSchema = new Schema<PlanGroupingDocument>({
     ungrouped: {
         type: [ObjectId],
         required: true,
@@ -49,4 +39,7 @@ export const PlanGroupingSchemaDefinition: SchemaDefinition<PlanGroupingDocument
         required: true,
         default: []
     }
-};
+}, {
+    _id: false,
+    storeSubdocValidationError: false
+});

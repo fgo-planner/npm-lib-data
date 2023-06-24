@@ -1,5 +1,5 @@
-import { EntityWithTimestamps } from '../../EntityWithTimestamps.type';
-import { SerializableDate } from '../../SerializableDate.type';
+import { EntityWithTimestamps } from '../../entity/EntityWithTimestamps.type';
+import { SerializableDate } from '../../entity/SerializableDate.type';
 import { ItemQuantities } from '../../common/resources/ItemQuantities.type';
 
 export type GameSoundtrack<DATE extends SerializableDate = string> = EntityWithTimestamps<number, DATE> & {

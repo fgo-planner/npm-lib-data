@@ -1,4 +1,4 @@
-import { SerializableDate } from '../SerializableDate.type';
+import { SerializableDate } from '../entity/SerializableDate.type';
 import { InstantiatedServantBondLevel } from '../common/servant/InstantiatedServantBondLevel.type';
 import { MasterServant } from './MasterServant.type';
 

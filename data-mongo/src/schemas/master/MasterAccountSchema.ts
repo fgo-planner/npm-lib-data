@@ -7,6 +7,7 @@ import { ResourcesSchema } from '../common/resources/ResourcesSchema';
 import { MasterCostumesSchema } from './MasterCostumesSchema';
 import { MasterServantsSchema } from './MasterServantsSchema';
 import { MasterSoundtracksSchema } from './MasterSoundtracksSchema';
+import { PlanGroupingSchema } from '../planner/PlanGroupingSchema';
 
 /**
  * Mongoose schema definition for the `MasterAccountDocument` type.
@@ -52,10 +53,17 @@ export const MasterAccountSchemaDefinition: SchemaDefinition<MasterAccountDocume
     },
     costumes: {
         type: MasterCostumesSchema,
+        required: true,
         default: {}
     },
     soundtracks: {
         type: MasterSoundtracksSchema,
+        required: true,
+        default: {}
+    },
+    planGrouping: {
+        type: PlanGroupingSchema,
+        required: true,
         default: {}
     }
 };

@@ -1,5 +1,5 @@
-import { EntityWithTimestamps } from '../../EntityWithTimestamps.type';
-import { SerializableDate } from '../../SerializableDate.type';
+import { EntityWithTimestamps } from '../../entity/EntityWithTimestamps.type';
+import { SerializableDate } from '../../entity/SerializableDate.type';
 import { GameServantAscensionMaterials } from './GameServantAscensionMaterials.type';
 import { GameServantAttribute } from './GameServantAttribute.enum';
 import { GameServantClass } from './GameServantClass.enum';

@@ -1,36 +1,18 @@
-import { PlanServant } from '@fgo-planner/data-core';
+import { PlanServant, PlanServantEnabledEnhancements } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
 import { InstantiatedServantAscensionLevelSchemaTypeOptions, InstantiatedServantFouSchemaTypeOptions, InstantiatedServantIdSchemaTypeOptions, InstantiatedServantLevelSchemaTypeOptions, InstantiatedServantSkillLevelSchemaTypeOptions } from '../common/servant/InstantiatedServantSchema';
+import { PlanEnabledEnhancementsSchemaDefinition } from './PlanEnabledEnhancementsSchema';
 
 /**
- * Mongoose schema for the `PlanServant.enabled` property.
+ * Mongoose schema for the `PlanServantEnabledEnhancements` type.
  */
-export const PlanServantEnabledSchema = new Schema<PlanServant['enabled']>({
+export const PlanServantEnabledEnhancementsSchema = new Schema<PlanServantEnabledEnhancements>({
     servant: {
         type: Boolean,
         required: true,
         default: true
     },
-    ascensions: {
-        type: Boolean,
-        required: true,
-        default: true
-    },
-    skills: {
-        type: Boolean,
-        required: true,
-        default: true
-    },
-    appendSkills: {
-        type: Boolean,
-        required: true,
-        default: true
-    },
-    costumes: {
-        type: Boolean,
-        required: true,
-        default: true
-    }
+    ...PlanEnabledEnhancementsSchemaDefinition
 }, {
     _id: false,
     storeSubdocValidationError: false
@@ -66,7 +48,7 @@ const PlanServantAppendSkillsSchema = new Schema<PlanServant['appendSkills']>({
 export const PlanServantSchema = new Schema<PlanServant>({
     instanceId: InstantiatedServantIdSchemaTypeOptions,
     enabled: {
-        type: PlanServantEnabledSchema,
+        type: PlanServantEnabledEnhancementsSchema,
         required: true,
         default: {}
     },

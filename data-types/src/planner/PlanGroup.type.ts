@@ -1,7 +1,10 @@
-import { SerializableDate } from '../SerializableDate.type';
-import { PlanCommon } from './PlanCommon.type';
+import { EntityWithTimestamps } from '../entity/EntityWithTimestamps.type';
 
-export type PlanGroup<ID = string, T = ID, DATE extends SerializableDate = string> = PlanCommon<ID, DATE> & {
+export type PlanGroup<ID = string, T = ID> = EntityWithTimestamps<ID> & {
+
+    name: string;
+
+    description: string;
 
     plans: Array<T>;
 

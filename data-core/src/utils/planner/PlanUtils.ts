@@ -1,7 +1,7 @@
 import { Immutable } from '@fgo-planner/common-core';
-import { PlanUpcomingResources } from '@fgo-planner/data-types';
+import { PlanResources } from '@fgo-planner/data-types';
 
-export function clonePlanUpcomingResources(upcomingResources: Immutable<PlanUpcomingResources>): PlanUpcomingResources {
+export function clonePlanResources(upcomingResources: Immutable<PlanResources>): PlanResources {
 
     const {
         name,

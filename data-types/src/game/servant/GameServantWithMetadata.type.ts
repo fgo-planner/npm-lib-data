@@ -1,4 +1,4 @@
-import { SerializableDate } from '../../SerializableDate.type';
+import { SerializableDate } from '../../entity/SerializableDate.type';
 import { GameServant } from './GameServant.type';
 import { GameServantMetadata } from './GameServantMetadata.type';
 

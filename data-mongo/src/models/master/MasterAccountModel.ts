@@ -2,7 +2,7 @@ import { MasterAccountUpdate, MasterServantUtils } from '@fgo-planner/data-core'
 import { ObjectId } from 'bson';
 import mongoose, { Model, ProjectionFields, Schema } from 'mongoose';
 import { MasterAccountSchemaDefinition } from '../../schemas';
-import { MasterAccountBasicDocument, MasterAccountDocument, MasterAccountLastServantInstanceIdDocument, MongooseDocument } from '../../types';
+import { MasterAccountBasicDocument, MasterAccountDocument, MasterAccountLastServantInstanceIdDocument, MasterAccountPlanGroupingDocument, MongooseDocument, ObjectIdOrString } from '../../types';
 import { MasterAccountValidators } from '../../validators';
 
 
@@ -11,6 +11,8 @@ import { MasterAccountValidators } from '../../validators';
 export type MasterAccountMongooseDocument = MongooseDocument<ObjectId, MasterAccountDocument>;
 
 export type MasterAccountBasicMongooseDocument = MongooseDocument<ObjectId, MasterAccountBasicDocument>;
+
+export type MasterAccountPlanGroupingMongooseDocument = MongooseDocument<ObjectId, MasterAccountPlanGroupingDocument>;
 
 export type MasterAccountLastServantInstanceIdMongooseDocument = MongooseDocument<ObjectId, MasterAccountLastServantInstanceIdDocument>;
 
@@ -25,6 +27,10 @@ const MasterAccountBasicProjection = {
     createdAt: 1,
     updatedAt: 1
 } as const satisfies ProjectionFields<MasterAccountBasicDocument>;
+
+const PlanGroupingProjection = {
+    planGrouping: 1
+} as const satisfies ProjectionFields<MasterAccountPlanGroupingDocument>;
 
 const LastServantInstanceIdProjection = {
     servants: {
@@ -47,8 +53,12 @@ const isFriendIdFormatValid = MasterAccountValidators.isFriendIdFormatValid;
  * Creates a query for retrieving the master accounts associated with the given
  * `userId`. Result will contain simplified version of the master account data.
  */
-function findByUserId(this: MasterAccountModel, userId: ObjectId) {
+function findByUserId(this: Model<MasterAccountDocument>, userId: ObjectIdOrString) {
     return this.find<MasterAccountBasicMongooseDocument>({ userId }, MasterAccountBasicProjection);
+}
+
+function findPlanGroupingById(this: Model<MasterAccountDocument>, accountId: ObjectIdOrString) {
+    return this.findById<MasterAccountPlanGroupingMongooseDocument>(accountId, PlanGroupingProjection);
 }
 
 /**
@@ -56,7 +66,7 @@ function findByUserId(this: MasterAccountModel, userId: ObjectId) {
  * method internally, with some custom validations. All updates to existing
  * documents in the collection should be done through this method if possible.
  */
-async function partialUpdate(this: MasterAccountModel, update: MasterAccountUpdate) {
+async function partialUpdate(this: Model<MasterAccountDocument>, update: MasterAccountUpdate) {
 
     const id = update._id;
 
@@ -102,7 +112,10 @@ const MasterAccountSchema = new Schema<MasterAccountDocument>(MasterAccountSchem
 const Statics = {
     isFriendIdFormatValid,
     findByUserId,
-    partialUpdate
+    findPlanGroupingById,
+    partialUpdate,
+    MasterAccountBasicProjection,
+    PlanGroupingProjection
 };
 
 // Add the static properties to the schema

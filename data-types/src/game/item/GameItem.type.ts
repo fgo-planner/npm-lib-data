@@ -1,5 +1,5 @@
-import { EntityWithTimestamps } from '../../EntityWithTimestamps.type';
-import { SerializableDate } from '../../SerializableDate.type';
+import { EntityWithTimestamps } from '../../entity/EntityWithTimestamps.type';
+import { SerializableDate } from '../../entity/SerializableDate.type';
 import { GameItemBackground } from './GameItemBackground.enum';
 import { GameItemUsage } from './GameItemUsage.enum';
 

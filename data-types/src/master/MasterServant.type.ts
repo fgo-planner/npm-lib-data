@@ -3,7 +3,7 @@ import { InstantiatedServantEnhancements } from '../common/servant/InstantiatedS
 import { InstantiatedServantNoblePhantasmLevel } from '../common/servant/InstantiatedServantNoblePhantasmLevel.type';
 import { InstantiatedServantSkillLevel } from '../common/servant/InstantiatedServantSkillLevel.type';
 import { InstantiatedServant } from '../common/servant/InstantiatedServant.type';
-import { SerializableDate } from '../SerializableDate.type';
+import { SerializableDate } from '../entity/SerializableDate.type';
 
 /**
  * An instance of a servant that is associated with a `MasterAccount`.
