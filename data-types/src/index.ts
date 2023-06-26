@@ -25,7 +25,6 @@ export * from './dto/PlanGroupingAggregatedData.type';
 export * from './dto/PlanServantAggregatedData.type';
 export * from './dto/UpdateMasterAccount.type';
 export * from './dto/UpdatePlan.type';
-export * from './dto/UpdatePlanGroup.type';
 export * from './dto/UpdatePlanGrouping.type';
 export * from './entity/Entity.type';
 export * from './entity/EntityWithTimestamps.type';
