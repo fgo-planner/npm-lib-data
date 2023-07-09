@@ -1,5 +1,6 @@
 import { CollectionUtils, Functions } from '@fgo-planner/common-core';
-import { Entity } from '@fgo-planner/data-types';
+import { Entity, SerializableDate } from '@fgo-planner/data-types';
+import { EntityTimestamps } from '@fgo-planner/data-types/lib/types/entity/EntityTimestamps.type';
 
 export function getId<ID>(entity: Entity<ID>): ID {
     return entity._id;
@@ -35,4 +36,19 @@ export function getOrderedEntities<ID, T extends Entity<ID>>(entities: Array<T> 
         }
     }
     return result;
+}
+
+/**
+ * Returns `true` if entity `b` is more recent than entity `a`.
+ */
+export function isMoreRecent(a: EntityTimestamps<SerializableDate>, b: EntityTimestamps<SerializableDate>): boolean {
+    let dateA = a.updatedAt || a.createdAt || '';
+    let dateB = b.updatedAt || b.createdAt || '';
+    if (dateA instanceof Date) {
+        dateA = dateA.toJSON();
+    }
+    if (dateB instanceof Date) {
+        dateB = dateB.toJSON();
+    }
+    return dateB > dateA;
 }

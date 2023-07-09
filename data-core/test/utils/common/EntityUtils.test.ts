@@ -230,3 +230,59 @@ describe('EntityUtils.getOrderedEntities', () => {
     });
 
 });
+
+describe('EntityUtils.isMoreRecent', () => {
+
+    it('should return false if neither entities have dates', () => {
+        const a = {};
+        const b = {};
+
+        const result = EntityUtils.isMoreRecent(a, b);
+
+        expect(result).toStrictEqual(false);
+    });
+
+    it('should return false if both entities have same dates', () => {
+        const a = {
+            createdAt: new Date(1688454080000),
+            updatedAt: new Date(1688876280000)
+        };
+        const b = {
+            createdAt: '2023-07-04T07:01:20.000Z',
+            updatedAt: '2023-07-09T04:18:00.000Z'
+        };
+
+        const result = EntityUtils.isMoreRecent(a, b);
+
+        expect(result).toStrictEqual(false);
+    });
+
+    it('should return false if a was created more recently than b was updated', () => {
+        const a = {
+            createdAt: new Date(1688876280000)
+        };
+        const b = {
+            createdAt: '2023-07-02T04:10:50.000Z',
+            updatedAt: '2023-07-04T07:01:20.000Z'
+        };
+
+        const result = EntityUtils.isMoreRecent(a, b);
+
+        expect(result).toStrictEqual(false);
+    });
+
+    it('should return true if b was created more recently than a was updated', () => {
+        const a = {
+            createdAt: new Date(1688123860000),
+            updatedAt: new Date(1688454080000)
+        };
+        const b = {
+            createdAt: '2023-07-09T04:18:00.000Z'
+        };
+
+        const result = EntityUtils.isMoreRecent(a, b);
+
+        expect(result).toStrictEqual(true);
+    });
+
+});
