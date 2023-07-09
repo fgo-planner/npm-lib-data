@@ -27,6 +27,6 @@ export type MasterAccount<ID = string, DATE extends SerializableDate = string> =
 
     soundtracks: MasterSoundtracks;
 
-    planGrouping: PlanGrouping;
+    planGrouping: PlanGrouping<ID>;
 
 };
