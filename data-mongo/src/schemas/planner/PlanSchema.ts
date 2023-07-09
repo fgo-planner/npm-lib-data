@@ -25,8 +25,7 @@ export const PlanSchemaDefinition: SchemaDefinition<PlanDocument> = {
         // TODO Add length limit
     },
     startDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     endDate: {
         type: Date
