@@ -1,4 +1,4 @@
-import { MasterAccountUpdate, MasterServantUtils } from '@fgo-planner/data-core';
+import { MasterServantUtils, UpdateMasterAccount } from '@fgo-planner/data-core';
 import { ObjectId } from 'bson';
 import mongoose, { Model, ProjectionFields, Schema } from 'mongoose';
 import { MasterAccountSchemaDefinition } from '../../schemas';
@@ -66,7 +66,7 @@ function findPlanGroupingById(this: Model<MasterAccountDocument>, accountId: Obj
  * method internally, with some custom validations. All updates to existing
  * documents in the collection should be done through this method if possible.
  */
-async function partialUpdate(this: Model<MasterAccountDocument>, update: MasterAccountUpdate) {
+async function partialUpdate(this: Model<MasterAccountDocument>, update: UpdateMasterAccount) {
 
     const id = update._id;
 

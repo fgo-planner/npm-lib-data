@@ -1,6 +1,7 @@
+import { SerializableDate } from '../entity/SerializableDate.type';
 import { PlanGroup } from './PlanGroup.type';
 
-export type PlanGrouping<ID = string, T = ID> = {
+export type PlanGrouping<ID = string, T = ID, DATE extends SerializableDate = string> = {
 
     /**
      * The plans that do not belong to any group.
@@ -10,6 +11,6 @@ export type PlanGrouping<ID = string, T = ID> = {
     /**
      * The plan group details.
      */
-    groups: Array<PlanGroup<ID, T>>;
+    groups: Array<PlanGroup<ID, T, DATE>>;
 
 };
