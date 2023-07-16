@@ -80,7 +80,7 @@ async function partialUpdate(this: Model<MasterAccountDocument>, update: UpdateM
             MasterServantUtils.getLastInstanceId(update.servants.servants),
             lastServantInstanceId
         );
-        const existing = await this.findById<MasterAccountLastServantInstanceIdMongooseDocument>(id, LastServantInstanceIdProjection);
+        const existing = await this.findById(id, LastServantInstanceIdProjection).lean();
         if (existing) {
             const previousLastServantInstanceId = existing.servants.lastServantInstanceId || 0;
             /**
@@ -94,11 +94,11 @@ async function partialUpdate(this: Model<MasterAccountDocument>, update: UpdateM
         update.servants.lastServantInstanceId = lastServantInstanceId;
     }
 
-    return this.findOneAndUpdate<MasterAccountMongooseDocument>(
+    return this.findOneAndUpdate(
         { _id: id },
         { $set: update },
         { runValidators: true, new: true }
-    );
+    ).lean<MasterAccountDocument>();
 }
 
 //#endregion

@@ -1,7 +1,6 @@
 import { GameServantAscensionMaterials, GameServantAttribute, GameServantClass, GameServantConstants, GameServantGachaType, GameServantGender, GameServantSkillMaterials } from '@fgo-planner/data-core';
 import { Schema, SchemaDefinition } from 'mongoose';
 import { GameServantWithMetadataDocument } from '../../../types';
-import { CommonTransformers } from '../../../transformers';
 import { ValidationStrings } from '../../../validators';
 import { GameServantCostumeSchema } from './GameServantCostumeSchema';
 import { GameServantEnhancementSchema } from './GameServantEnhancementSchema';
@@ -263,8 +262,7 @@ export const GameServantSchemaDefinition: SchemaDefinition<GameServantWithMetada
             type: GameServantCostumeSchema
         },
         required: true,
-        default: {},
-        transform: CommonTransformers.mapToObject as any
+        default: {}
     },
     metadata: {
         type: GameServantMetadataSchema,

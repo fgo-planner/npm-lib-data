@@ -1,6 +1,5 @@
 import { InstantiatedServantConstants } from '@fgo-planner/data-core';
 import { Schema } from 'mongoose';
-import { CommonTransformers } from '../../transformers';
 import { MasterServantsDocument } from '../../types';
 import { CommonValidators, MasterAccountValidators, ValidationStrings } from '../../validators';
 import { MasterServantSchema } from './MasterServantSchema';
@@ -65,8 +64,7 @@ export const MasterServantsSchema = new Schema<MasterServantsDocument>({
             }
         ],
         required: true,
-        default: {},
-        transform: CommonTransformers.mapToObject as any
+        default: {}
     }
 }, {
     _id: false,

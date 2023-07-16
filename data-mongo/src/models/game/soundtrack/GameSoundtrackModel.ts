@@ -3,7 +3,7 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 import { GameSoundtrackSchemaDefinition } from '../../../schemas';
 import { GameSoundtrackDocument } from '../../../types';
 
-export type GameSoundtrackDbDocument = GameSoundtrackDocument & Document<number, any, GameSoundtrack>;
+export type GameSoundtrackMongooseDocument = GameSoundtrackDocument & Document<number, any, GameSoundtrack>;
 
 const GameSoundtrackSchema = new Schema<GameSoundtrack>(GameSoundtrackSchemaDefinition, {
     timestamps: true,

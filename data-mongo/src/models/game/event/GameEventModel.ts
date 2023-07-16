@@ -6,7 +6,7 @@ import { GameEventDocument, MongooseDocument } from '../../../types';
 
 //#region Mongoose document types
 
-export type GameEventDbDocument = MongooseDocument<ObjectId, GameEventDocument>;
+export type GameEventMongooseDocument = MongooseDocument<ObjectId, GameEventDocument>;
 
 //#endregion
 
@@ -23,7 +23,7 @@ function findByYear(this: Model<GameEventDocument>, year: number) {
         $gte: startDate,
         $lt: endDate
     };
-    return this.find<GameEventDbDocument>({ startDate: dateQuery });
+    return this.find<GameEventMongooseDocument>({ startDate: dateQuery });
 }
 
 //#endregion

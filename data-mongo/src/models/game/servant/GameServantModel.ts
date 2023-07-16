@@ -50,11 +50,11 @@ function findExternalLinksById(this: Model<GameServantWithMetadataDocument>, id:
     return this.findById<GameServantExternalLinksMongooseDocument>(id, ExternalLinksProjection);
 }
 
-async function findSearchTags(this: Model<GameServantWithMetadataDocument>) {
+function findSearchTags(this: Model<GameServantWithMetadataDocument>) {
     return this.find<GameServantSearchTagsMongooseDocument>({}, SearchTagsProjection);
 }
 
-async function findFgoManagerNames(this: Model<GameServantWithMetadataDocument>) {
+function findFgoManagerNames(this: Model<GameServantWithMetadataDocument>) {
     return this.find<GameServantFgoManagerNameMongooseDocument>({}, FgoManagerNameProjection);
 }
 

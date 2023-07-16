@@ -6,7 +6,7 @@ import { GameItemDocument, MongooseDocument } from '../../../types';
 
 //#region Mongoose document types
 
-export type GameItemDbDocument = MongooseDocument<number, GameItemDocument>;
+export type GameItemMongooseDocument = MongooseDocument<number, GameItemDocument>;
 
 //#endregion
 
@@ -21,7 +21,7 @@ function findByUsage(this: Model<GameItemDocument>, usage: GameItemUsage | Array
     if (!Array.isArray(usage)) {
         usage = [usage];
     }
-    return this.find<GameItemDbDocument>({ uses: { $in: usage } });
+    return this.find<GameItemMongooseDocument>({ uses: { $in: usage } });
 }
 
 //#endregion

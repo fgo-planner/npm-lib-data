@@ -4,4 +4,4 @@ import { ObjectId } from 'bson';
 /**
  * MongoDB document version of the `PlanGrouping` type.
  */
-export type PlanGroupingDocument = PlanGrouping<ObjectId, Date>;
+export type PlanGroupingDocument = PlanGrouping<ObjectId, ObjectId, Date>;

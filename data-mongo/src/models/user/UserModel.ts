@@ -6,11 +6,11 @@ import { MongooseDocument, UserBasicDocument, UserDocument, UserPreferencesDocum
 
 //#region Mongoose document types
 
-export type UserDbDocument = MongooseDocument<ObjectId, UserDocument>;
+export type UserMongooseDocument = MongooseDocument<ObjectId, UserDocument>;
 
-export type UserBasicDbDocument = MongooseDocument<ObjectId, UserBasicDocument>;
+export type UserBasicMongooseDocument = MongooseDocument<ObjectId, UserBasicDocument>;
 
-export type UserPreferencesDbDocument = MongooseDocument<ObjectId, UserPreferencesDocument>;
+export type UserPreferencesMongooseDocument = MongooseDocument<ObjectId, UserPreferencesDocument>;
 
 //#endregion
 
@@ -32,7 +32,7 @@ const UserPreferencesProjection = {
 //#region Static function implementations
 
 function findBasicById(this: Model<UserDocument>, id: ObjectId) {
-    return this.findById<UserBasicDbDocument>(id, UserBasicProjection);
+    return this.findById<UserBasicMongooseDocument>(id, UserBasicProjection);
 }
 
 function setEnabledStatus(this: Model<UserDocument>, id: ObjectId, status: boolean) {
@@ -41,7 +41,7 @@ function setEnabledStatus(this: Model<UserDocument>, id: ObjectId, status: boole
             active: status
         }
     };
-    return this.updateOne<UserDbDocument>({ _id: id }, update, { new: true });
+    return this.updateOne<UserMongooseDocument>({ _id: id }, update, { new: true });
 }
 
 function setAdminStatus(this: Model<UserDocument>, id: ObjectId, isAdmin: boolean) {
@@ -51,11 +51,11 @@ function setAdminStatus(this: Model<UserDocument>, id: ObjectId, isAdmin: boolea
     } else {
         update.$unset = { admin: null };
     }
-    return this.updateOne<UserDbDocument>({ _id: id }, update, { new: true });
+    return this.updateOne<UserMongooseDocument>({ _id: id }, update, { new: true });
 }
 
 function getUserPreferences(this: Model<UserDocument>, id: ObjectId) {
-    return this.findById<UserPreferencesDbDocument>(id, UserPreferencesProjection);
+    return this.findById<UserPreferencesMongooseDocument>(id, UserPreferencesProjection);
 }
 
 //#endregion
